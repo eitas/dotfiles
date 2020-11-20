@@ -1,0 +1,18 @@
+[submodule ".vim/pack/eitas/start/SimpylFold"]
+	path = .vim/pack/eitas/start/SimpylFold
+	url = https://github.com/tmhedberg/SimpylFold.git
+[submodule ".vim/pack/eitas/start/taglist"]
+	path = .vim/pack/eitas/start/taglist
+	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule ".vim/pack/eitas/start/ctrlp.vim"]
+	path = .vim/pack/eitas/start/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule ".vim/pack/eitas/start/nerdtree"]
+	path = .vim/pack/eitas/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule ".vim/pack/eitas/start/vim-fugitive"]
+	path = .vim/pack/eitas/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/pack/eitas/start/surround"]
+	path = .vim/pack/eitas/start/surround
+	url = https://tpope.io/vim/surround.git

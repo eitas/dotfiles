@@ -1,0 +1,4 @@
+# taken from https://www.freecodecamp.org/news/dive-into-dotfiles-part-1-e4eb1003cff6/
+alias config='/usr/bin/git --git-dir=$HOME/.dotfileconfig --work-tree=$HOME' 
+alias gpom='git push origin master'
+alias home='cd ~'
