@@ -29,13 +29,20 @@ init() {
 }
 
 link() {    
-    echo "adding symlinks: " 2>&1 | tee -a $LOGFILE
-    for file in $PATH_TO_DOTFILES/.{bashrc,exports,extra,functions,bash_prompt,aliases,vimrc,tmux.conf}; do
-      # silently ignore errors as the files may already exist
-      echo "adding symlink for $file" 2>&1 | tee -a $LOGFILE
-      ln -sv "$PWD/$file" "$HOME" || true
-    done
-    unset file
+    dotfile_list="$PWD/dotfile_list.config"
+    while IFS= read -r dotfile_name
+    do
+      echo "adding / updating symlink for $dotfile_name" 2>&1 | tee -a $LOGFILE
+      ln -sf "$PWD/$dotfile_name" "$HOME"
+    done < "$dotfile_list"
+    echo "-----------"
+#    for file in $(basename $PATH_TO_DOTFILES/.{bashrc,exports,extra,functions,bash_prompt,aliases,vimrc,tmux.conf};) do
+#      # silently ignore errors as the files may already exist
+#      echo "adding symlink for $file" 2>&1 | tee -a $LOGFILE
+#      echo "ln -sf $PWD/$(basename $file) $HOME"
+#      ln -sv "$PWD/$file" "$HOME" || true
+#    done
+#    unset file
 }
 
 apt_installs() {
@@ -154,9 +161,9 @@ bootstrap_crontab() {
     # https://github.com/ajmalsiddiqui/dotfiles/blob/master/crontab.bootstrap.exclude.sh
 }
 
-init
+# init
 link
-apt_installs
+# apt_installs
 bootstrap_vim
 bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
