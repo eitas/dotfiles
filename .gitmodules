@@ -16,3 +16,12 @@
 [submodule ".vim/pack/eitas/start/surround"]
 	path = .vim/pack/eitas/start/surround
 	url = https://tpope.io/vim/surround.git
+[submodule "vimcolors/badwolf"]
+	path = vimcolors/badwolf
+	url = https://github.com/sjl/badwolf
+[submodule "vimcolors/vim-afterglow"]
+	path = vimcolors/vim-afterglow
+	url = https://github.com/danilo-augusto/vim-afterglow
+[submodule "vimcolors/Alduin"]
+	path = vimcolors/Alduin
+	url = https://github.com/AlessandroYorba/Alduin
