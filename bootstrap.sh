@@ -36,13 +36,6 @@ link() {
       ln -sf "$PWD/$dotfile_name" "$HOME"
     done < "$dotfile_list"
     echo "-----------"
-#    for file in $(basename $PATH_TO_DOTFILES/.{bashrc,exports,extra,functions,bash_prompt,aliases,vimrc,tmux.conf};) do
-#      # silently ignore errors as the files may already exist
-#      echo "adding symlink for $file" 2>&1 | tee -a $LOGFILE
-#      echo "ln -sf $PWD/$(basename $file) $HOME"
-#      ln -sv "$PWD/$file" "$HOME" || true
-#    done
-#    unset file
 }
 
 apt_installs() {
@@ -74,11 +67,13 @@ apt_installs() {
     # add official docker GPG key
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     # install the stable docker repository
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    # Note above doesn't work on Mint Tina, so hard-coding bionic in there
+    add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
     # refresh the apt cache
     apt update -y
     # install
-    apt install docker-ce docker-ce-cli containerd.io -y
+    apt install docker.io
     echo "Verifying docker installation using a hello world container..."   
     docker run hello-world
 
@@ -106,7 +101,7 @@ apt_installs() {
     # this assumes a python3 installation
     # need to keep an eye on this and perhaps
     # put some defensive code in.
-    pip3 install awscli
+    apt install awscli -y
     aws --version | tee -a $LOGFILE
  
     # nodejs
@@ -114,19 +109,22 @@ apt_installs() {
     echo "node install: " | tee -a $LOGFILE
     echo "-------------" | tee -a $LOGFILE
     # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
+    sudo apt install curl python-software-properties software-properties-common
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
     sudo apt install -y nodejs
     # checks
     node --version | tee -a $LOGFILE
-
-    # npm
-    echo "-------------" | tee -a $LOGFILE
-    echo "npm install: " | tee -a $LOGFILE
-    echo "-------------" | tee -a $LOGFILE
-    apt install npm -y
-    # checks
     npm --version | tee -a $LOGFILE
 
+    # npm
+#    echo "-------------" | tee -a $LOGFILE
+#    echo "npm install: " | tee -a $LOGFILE
+#    echo "-------------" | tee -a $LOGFILE
+#    apt install npm -y
+#    # checks
+#    npm --version | tee -a $LOGFILE
+#
     # install the AWS CDK
     echo "----------------" | tee -a $LOGFILE
     echo "aws cdk install: " | tee -a $LOGFILE
@@ -161,9 +159,9 @@ bootstrap_crontab() {
     # https://github.com/ajmalsiddiqui/dotfiles/blob/master/crontab.bootstrap.exclude.sh
 }
 
-# init
+init
 link
-# apt_installs
+apt_installs
 bootstrap_vim
 bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
