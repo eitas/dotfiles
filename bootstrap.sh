@@ -8,7 +8,7 @@
 
 # start a log file
 NOW=$(date +"%d-%m-%Y_%H_%M_%S")
-LOGFILE="dotfile_install_$NOW.log"
+LOGFILE="./logs/dotfile_install_$NOW.log"
 
 START_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Starting eitas dotfile install on $START_TIME" | tee $LOGFILE
@@ -43,11 +43,11 @@ apt_installs() {
     echo "------------------------" | tee -a $LOGFILE
     echo "updating package manager" | tee -a $LOGFILE
     echo "------------------------" | tee -a $LOGFILE
-    apt update -y
+    apt-get update -y
     echo "------------------" | tee -a $LOGFILE
     echo "upgrading packages" | tee -a $LOGFILE
     echo "------------------" | tee -a $LOGFILE
-    apt update -y
+    apt-get update -y
     echo "------------------------" | tee -a $LOGFILE
     echo "package updates complete" | tee -a $LOGFILE
     echo "------------------------" | tee -a $LOGFILE
@@ -56,43 +56,43 @@ apt_installs() {
     echo "--------------" | tee -a $LOGFILE
     echo "installing git" | tee -a $LOGFILE
     echo "--------------" | tee -a $LOGFILE
-    apt install git -y # answer yes to all prompts
+    apt-get install git -y 2>&1 | tee -a $LOGFILE # answer yes to all prompts
 
     # docker
     echo "-----------------" | tee -a $LOGFILE
     echo "installing docker" | tee -a $LOGFILE
     echo "-----------------" | tee -a $LOGFILE
     # allow apt to use a repository over HTTPS
-    apt install apt-transport-https ca-certificates curl software-properties-common -y
+    apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE 
     # add official docker GPG key
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
     # install the stable docker repository
     #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     # Note above doesn't work on Mint Tina, so hard-coding bionic in there
     add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
     # refresh the apt cache
-    apt update -y
+    apt-get update -y
     # install
-    apt install docker.io
+    apt-get install docker.io
     echo "Verifying docker installation using a hello world container..."   
     docker run hello-world
 
     # Docker Compose
-    apt install docker-compose -y
+    apt-get install docker-compose -y
 
     # Vim
     echo "------------" | tee -a $LOGFILE
     echo "vim install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
-    apt install vim -y
+    apt-get install vim -y 2>&1 | tee -a $LOGFILE
     # checks
-    vim --version 2>&1 | tee -a $LOGFILE
+    echo "vim version $( vim --version )" | tee -a $LOGFILE
 
     # tmux
     echo "------------" | tee -a $LOGFILE
     echo "tmux install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
-    apt install tmux -y
+    apt-get install tmux -y 2>&1 | tee -a $LOGFILE
 
     # aws cli
     echo "-----------------" | tee -a $LOGFILE
@@ -101,8 +101,8 @@ apt_installs() {
     # this assumes a python3 installation
     # need to keep an eye on this and perhaps
     # put some defensive code in.
-    apt install awscli -y
-    aws --version | tee -a $LOGFILE
+    apt-get install awscli -y 2>&1 | tee -a $LOGFILE
+    echo "aws version: $( aws --version )" | tee -a $LOGFILE
  
     # nodejs
     echo "-------------" | tee -a $LOGFILE
@@ -110,12 +110,12 @@ apt_installs() {
     echo "-------------" | tee -a $LOGFILE
     # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
     # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
-    sudo apt install curl python-software-properties software-properties-common
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-    sudo apt install -y nodejs
+    apt-get install curl python-software-properties software-properties-common 2>&1 | tee -a $LOGFILE
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
+    apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
     # checks
-    node --version | tee -a $LOGFILE
-    npm --version | tee -a $LOGFILE
+    echo "node version: $( node --version )" | tee -a $LOGFILE
+    echo "npm version: $( npm --version )" | tee -a $LOGFILE
 
     # npm
 #    echo "-------------" | tee -a $LOGFILE
@@ -129,7 +129,7 @@ apt_installs() {
     echo "----------------" | tee -a $LOGFILE
     echo "aws cdk install: " | tee -a $LOGFILE
     echo "----------------" | tee -a $LOGFILE
-    npm install -g aws-cdk -y
+    npm install -g aws-cdk -y 2>&1 | tee -a $LOGFILE
     # checks
     cdk --version | tee -a $LOGFILE
  
@@ -138,13 +138,14 @@ apt_installs() {
 
     
     # cleanup the cache
-    apt clean
-    apt autoremove
+    apt-get clean
+    apt-get autoremove
 }
 
 bootstrap_vim() {
     # TODO
     echo "Bootstrap Vim with plugins etc..." | tee -a $LOGFILE
+    "$( pwd )/vim_bootstrap.sh"
 }
 
 bootstrap_crontab() {
