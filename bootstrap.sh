@@ -9,6 +9,8 @@
 # start a log file
 NOW=$(date +"%d-%m-%Y_%H_%M_%S")
 LOGFILE="./logs/dotfile_install_$NOW.log"
+# export the log file so it can be used in subsequent scripts
+export LOGFILE
 
 START_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Starting eitas dotfile install on $START_TIME" | tee $LOGFILE
