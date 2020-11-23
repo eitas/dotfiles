@@ -20,6 +20,8 @@ set nocompatible
 let mapleader = " "
 
 " get copy and paste working between vim and other programs
+" This isn't working at the moment and I need to invest some time to get this
+" working and understood.  Surprisingly difficult!
 set clipboard^=unnamed,unnamedplus
 
 " recommended vim specific settings, adapted from the default vimrc installed
@@ -34,9 +36,11 @@ set incsearch
 set splitbelow
 set splitright
 
-" Setup Powerline for a status line
-set rtp+=/usr/local/lib/python3.6/dist-packages/powerline/bindings/vim/
+" with the use of the airline plugin, the visibility of the default statusline
+" is redundant
 set laststatus=2
+" setting the term colors is, I think redundant and so the below can be removed
+" vim is smart enough to figure out the color settings and capabilities itself
 set t_Co=256
 
 
@@ -97,9 +101,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " Shortcuts for NERDTree and TagList
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>tl :TlistToggle<cr>
-
-" Update ctags.  I tried to do this with git hooks, but it has been failing
-nnoremap <leader>ctag :!ctags -R -f ./.git/tags .<cr>
 
 " NERDTree specific stuff
 " from https://github.com/scrooloose/nerdtree/issues/433#issuecomment-92590696
@@ -163,7 +164,7 @@ set textwidth=120
 set expandtab " replace tabs with spaces
 " set autoindent
 set fileformat=unix
-" Colorscheme - note pre-requisite - need badwolf.vim file in .vim/color
+" Colorscheme - note pre-requisite - need badwolf.vim file in ~/.vim/color
 colorscheme badwolf
 
 " for the most part use utf-8, lets be explicit
@@ -203,8 +204,26 @@ set foldlevel=99
 iabbrev @@ max.thomas@moneydashboard.com 
 
 " Areas to explore and understand more
+" from the very interesting talk by Max Cantor
+" https://www.youtube.com/watch?v=XA2WjJbmmoM&t=411s
+" https://github.com/changemewtf/no_plugins/blob/master/no_plugins.vim
+
+" search down into subfolders
+" provides tab-completion for all file-related tasks
+set path+=**
+
+" Displayu all matching files when we tab complete
+set wildmenu
+
+" Create the tags file (which needs ctags and you may need to install that)
+command! MakeTags !ctags -R .
+
+" NOW WE CAN:
+" - Use ^] to jump to tag under cursor
+" - Use g^] for ambiguous tags
+" - Use ^t to jump back up the tag stack
+
 " wildmenu - being able to tab explore the file system to open files
 " path+=**
 " set wildmenu
-" surround - get TPopes surround plugin installed
 "

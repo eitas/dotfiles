@@ -25,3 +25,9 @@
 [submodule "vimplugins/vim-surround"]
 	path = vimplugins/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "vim-airline/vim-airline"]
+	path = vim-airline/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "vimplugins/vim-airline"]
+	path = vimplugins/vim-airline
+	url = https://github.com/vim-airline/vim-airline

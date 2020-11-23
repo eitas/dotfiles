@@ -15,12 +15,19 @@ ln -sf "$PWD/vimcolors/vim-afterglow/colors/afterglow.vim" "$HOME/.vim/colors/af
 echo "Installing plugins" | tee -a $LOGFILE
 mkdir -p ~/.vim/pack/eitas/start
 echo ">>>>>" | tee -a $LOGFILE
+echo "Updating all git submodules" | tee -a $LOGFILE
+git submodule foreach git pull origin master | tee -a $LOGFILE
+# now install the submodules
 echo "ctrlp" | tee -a $LOGFILE
-mkdir -p ~/.vim/pack/eitas/start/ctrlp/plugin
-cp "$PWD/vimplugins/ctrlp.vim/plugin/ctrlp.vim" "$HOME/.vim/pack/eitas/start/ctrlp/plugin/ctrlp.vim"
+cp -r "$PWD/vimplugins/ctrlp.vim" "$HOME/.vim/pack/eitas/start/"
 echo "surround" | tee -a $LOGFILE
-mkdir -p ~/.vim/pack/eitas/start/surround/plugin
-echo ">>>>>" | tee -a $LOGFILE
-cp "$PWD/vimplugins/vim-surround/plugin/surround.vim" "$HOME/.vim/pack/eitas/start/surround/plugin/surround.vim"
+cp -r "$PWD/vimplugins/vim-surround" "$HOME/.vim/pack/eitas/start/"
+echo "airline" | tee -a $LOGFILE
+cp -r "$PWD/vimplugins/vim-airline" "$HOME/.vim/pack/eitas/start/"
+echo "NERDTree" | tee -a $LOGFILE
+cp -r "$PWD/vimplugins/nerdtree" "$HOME/.vim/pack/eitas/start/"
 
+
+
+echo ">>>>>" | tee -a $LOGFILE
 echo "Completed vim bootstrap" | tee -a $LOGFILE
