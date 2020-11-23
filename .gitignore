@@ -3,3 +3,5 @@
 *.log
 # don't version vim swap files
 *.swp
+# ignore tags
+tags
