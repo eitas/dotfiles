@@ -135,6 +135,11 @@ apt_installs() {
     # checks
     cdk --version | tee -a $LOGFILE
  
+    echo "-------" | tee -a $LOGFILE
+    echo "ctags: " | tee -a $LOGFILE
+    echo "-------" | tee -a $LOGFILE
+    apt-get install exuberant-ctags 2>&1 | tee -a $LOGFILE
+
 
     # TODO AWS SAM
 
