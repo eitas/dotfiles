@@ -200,7 +200,6 @@ set foldmethod=indent
 set foldlevel=99
 
 " Abbreviations
-" replace double at with my email address
 iabbrev @@ max.thomas@moneydashboard.com 
 
 " Areas to explore and understand more
@@ -224,4 +223,4 @@ command! MakeTags !ctags -R .
 " - Use ^t to jump back up the tag stack
 
 " snippets
-nnoremap <leader>html :-1read $HOME/.vim/vimsnippets/snippet.html<CR>6j3wa
+" nnoremap <leader>html :-1read $HOME/.vim/vimsnippets/snippet.html<CR>6j3wa

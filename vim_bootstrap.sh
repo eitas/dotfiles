@@ -26,11 +26,16 @@ echo "airline" | tee -a $LOGFILE
 cp -r "$PWD/vimplugins/vim-airline" "$HOME/.vim/pack/eitas/start/"
 echo "NERDTree" | tee -a $LOGFILE
 cp -r "$PWD/vimplugins/nerdtree" "$HOME/.vim/pack/eitas/start/"
+echo "GitGutter" | tee -a $LOGFILE
+cp -r "$PWD/vimplugins/vim-gitgutter" "$HOME/.vim/pack/eitas/start/"
+echo "fugitive" | tee -a $LOGFILE
+cp -r "$PWD/vimplugins/vim-fugitive" "$HOME/.vim/pack/eitas/start/"
+
 
 echo ">>>>>" | tee -a $LOGFILE
 
 
-echo "Copying over vim snippets" | tee -a $LOGFILE
-cp -r "$PWD/vimsnippets" "$HOME/.vim/"
+# echo "Copying over vim snippets" | tee -a $LOGFILE
+# cp -r "$PWD/vimsnippets" "$HOME/.vim/"
 
 echo "Completed vim bootstrap" | tee -a $LOGFILE
