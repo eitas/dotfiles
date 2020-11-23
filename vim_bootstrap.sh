@@ -27,7 +27,10 @@ cp -r "$PWD/vimplugins/vim-airline" "$HOME/.vim/pack/eitas/start/"
 echo "NERDTree" | tee -a $LOGFILE
 cp -r "$PWD/vimplugins/nerdtree" "$HOME/.vim/pack/eitas/start/"
 
-
-
 echo ">>>>>" | tee -a $LOGFILE
+
+
+echo "Copying over vim snippets" | tee -a $LOGFILE
+cp -r "$PWD/vimsnippets" "$HOME/.vim/"
+
 echo "Completed vim bootstrap" | tee -a $LOGFILE

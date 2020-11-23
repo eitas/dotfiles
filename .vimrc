@@ -223,7 +223,5 @@ command! MakeTags !ctags -R .
 " - Use g^] for ambiguous tags
 " - Use ^t to jump back up the tag stack
 
-" wildmenu - being able to tab explore the file system to open files
-" path+=**
-" set wildmenu
-"
+" snippets
+nnoremap <leader>html :-1read $HOME/.vim/snippet.html<CR>
