@@ -20,3 +20,10 @@ stackoverflow answer to this is here:
 
 https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin
 
+Also https://www.vogella.com/tutorials/GitSubmodules/article.html
+
+So to get the submodules into the repo you either need to clone this repo with:
+$ git clone --recursive <this url>
+or if you already have the repo cloned you can get the submodules with
+$ git submodule update --init --recursive
+
