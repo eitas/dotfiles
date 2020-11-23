@@ -224,4 +224,4 @@ command! MakeTags !ctags -R .
 " - Use ^t to jump back up the tag stack
 
 " snippets
-nnoremap <leader>html :-1read $HOME/.vim/snippet.html<CR>
+nnoremap <leader>html :-1read $HOME/.vim/vimsnippets/snippet.html<CR>6j3wa
