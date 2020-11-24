@@ -117,17 +117,22 @@ call NERDTreeHighlightFile('json','red','none','red','#151515')
 " --------------------------------------------------------------------
 "  plugins
 " --------------------------------------------------------------------
+" A list of useful plugins
+"
 " tpope/vim-fugitive - git inside vim
 " tpope/vim-surround - ease work with '' () "" {} and other parenthesis
 " tpope/vim-commentary
 " ctrlp.vim - fuzzy file finder
 " vim-airline - status/tabline for each window.  This will display the mode,
-" version contro linfo, filename and read only flag, file type, file encoding
+" version control info, filename and read only flag, file type, file encoding
 " current position in file.  I definitely want this.
 " luochen1990/rainbow - show parenthesis in your code in differnt colours
 " making it much easier to read the code.
-" szw/vim-g - perform google searches from within Vim
-" sheerun/vim-polygot - language pack for Vim
+" 
+" Possible future plugins to look into
+" Working with markdown.
+" plasticboy/vim-markdown
+" iamcco/markdown-preview.nvim
 
 " set up rulers and other editor visual aids
 set ruler

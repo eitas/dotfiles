@@ -34,3 +34,6 @@
 [submodule "vimplugins/vim-gitgutter"]
 	path = vimplugins/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
+[submodule "vimplugins/hardmode"]
+	path = vimplugins/hardmode
+	url = https://github.com/wikitopian/hardmode
