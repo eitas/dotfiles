@@ -31,3 +31,6 @@
 [submodule "vimplugins/vim-airline"]
 	path = vimplugins/vim-airline
 	url = https://github.com/vim-airline/vim-airline
+[submodule "vimplugins/typescript-vim"]
+	path = vimplugins/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim
