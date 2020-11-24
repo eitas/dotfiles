@@ -200,7 +200,6 @@ set foldmethod=indent
 set foldlevel=99
 
 " Abbreviations
-" replace double at with my email address
 iabbrev @@ max.thomas@moneydashboard.com 
 
 " Areas to explore and understand more
@@ -223,7 +222,5 @@ command! MakeTags !ctags -R .
 " - Use g^] for ambiguous tags
 " - Use ^t to jump back up the tag stack
 
-" wildmenu - being able to tab explore the file system to open files
-" path+=**
-" set wildmenu
-"
+" snippets
+" nnoremap <leader>html :-1read $HOME/.vim/vimsnippets/snippet.html<CR>6j3wa
