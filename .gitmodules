@@ -37,3 +37,6 @@
 [submodule "vimplugins/hardmode"]
 	path = vimplugins/hardmode
 	url = https://github.com/wikitopian/hardmode
+[submodule "vimplugins/YouCompleteMe"]
+	path = vimplugins/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe

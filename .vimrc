@@ -230,4 +230,4 @@ if has("autocmd")
     " set this up to conform to PEP8
     autocmd FileType python setlocal ts=4 sts=4 sw=8 expandtab textwidth=120 
     autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab text
-
+endif
