@@ -43,12 +43,6 @@ set laststatus=2
 " vim is smart enough to figure out the color settings and capabilities itself
 set t_Co=256
 
-
-" Start recognising file types for syntax highlighting and behaviours
-filetype on
-filetype plugin on
-filetype indent on
-
 " turn on syntax highlighting
 syntax on
 
@@ -114,26 +108,31 @@ call NERDTreeHighlightFile('yaml','yellow','none','yellow','#151515')
 call NERDTreeHighlightFile('txt','white','none','white','#151515')
 call NERDTreeHighlightFile('json','red','none','red','#151515')
 
+" manage how tabs and spaces appear when using show invisibles (set list)
+set listchars=tab:▸\ ,eol:¬
+
 " --------------------------------------------------------------------
 "  plugins
 " --------------------------------------------------------------------
+" A list of useful plugins
+"
 " tpope/vim-fugitive - git inside vim
 " tpope/vim-surround - ease work with '' () "" {} and other parenthesis
 " tpope/vim-commentary
 " ctrlp.vim - fuzzy file finder
 " vim-airline - status/tabline for each window.  This will display the mode,
-" version contro linfo, filename and read only flag, file type, file encoding
+" version control info, filename and read only flag, file type, file encoding
 " current position in file.  I definitely want this.
 " luochen1990/rainbow - show parenthesis in your code in differnt colours
 " making it much easier to read the code.
-" szw/vim-g - perform google searches from within Vim
-" sheerun/vim-polygot - language pack for Vim
+" 
+" Possible future plugins to look into
+" Working with markdown.
+" plasticboy/vim-markdown
+" iamcco/markdown-preview.nvim
 
 " set up rulers and other editor visual aids
 set ruler
-
-"set incremental searching"
-set incsearch
 
 "highlight whole word when searching
 set hlsearch
@@ -150,18 +149,12 @@ set background=dark
 " Highlight trailing white space
 au BufRead, BufNewFile *.py, *.pyw, *.c, *.h match BadWhitespace /\s\+$/
 
-" syntax and appearance within the editor this is now aligned to PEP8 for
-" python development
-let python_highlight_all=1
+" configure line numbers and how backspace works
 set backspace=indent,eol,start
 set number " line numbers on
-set relativenumber " see relative numbers to allow me to jump around the file more easily
 set numberwidth=4 " set the gutter for the line numbers
-set tabstop=4 " sets the width of a tab character
-set softtabstop=4 " set the number of spaces removed when deleting a tabtab stop, otherwise you would only delete a single space.
-set shiftwidth=4 " set the tab indent when using indentation commands in normal mode to 2 characters, default was 8, which is too much
-set textwidth=120
-set expandtab " replace tabs with spaces
+" set relativenumber " moving away from relativenumber.  When using commandline and line number arguments it is easier
+" to see the absolute line numbers
 " set autoindent
 set fileformat=unix
 " Colorscheme - note pre-requisite - need badwolf.vim file in ~/.vim/color
@@ -199,9 +192,6 @@ nnoremap <C-H> <C-W><C-H>
 set foldmethod=indent
 set foldlevel=99
 
-" Abbreviations
-iabbrev @@ max.thomas@moneydashboard.com 
-
 " Areas to explore and understand more
 " from the very interesting talk by Max Cantor
 " https://www.youtube.com/watch?v=XA2WjJbmmoM&t=411s
@@ -224,3 +214,20 @@ command! MakeTags !ctags -R .
 
 " snippets
 " nnoremap <leader>html :-1read $HOME/.vim/vimsnippets/snippet.html<CR>6j3wa
+"
+
+
+" ------------------------------------------------------------------------
+"  autocmd with filetypes
+" -----------------------------------------------------------------------
+"
+if has("autocmd")
+    " Start recognising file types for syntax highlighting and behaviours
+    filetype on
+    filetype plugin on
+    filetype indent on
+
+    " set this up to conform to PEP8
+    autocmd FileType python setlocal ts=4 sts=4 sw=8 expandtab textwidth=120 
+    autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab text
+endif

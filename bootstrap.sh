@@ -100,6 +100,18 @@ apt_installs() {
     # checks
     echo "vim version $( vim --version )" | tee -a $LOGFILE
 
+    # Additional components for vim plugins
+    # YouCompleteMe https://github.com/ycm-core/YouCompleteMe
+    echo "------------------------" | tee -a $LOGFILE
+    echo "vim additional installs: " | tee -a $LOGFILE
+    echo "------------------------" | tee -a $LOGFILE
+    apt-get install build-essential | tee -a $LOGFILE
+    apt-get install cmake | tee -a $LOGFILE
+    # assumes python is already installed
+    apt-get install mono-complete
+    apt-get install golang
+    apt-get install default-jdk
+ 
     # tmux
     echo "------------" | tee -a $LOGFILE
     echo "tmux install: " | tee -a $LOGFILE
