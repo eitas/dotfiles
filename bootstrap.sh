@@ -54,6 +54,16 @@ apt_installs() {
     echo "package updates complete" | tee -a $LOGFILE
     echo "------------------------" | tee -a $LOGFILE
 
+    # chrome
+    echo "-----------------" | tee -a $LOGFILE
+    echo "installing chrome" | tee -a $LOGFILE
+    echo "-----------------" | tee -a $LOGFILE
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list 
+    apt-get update -y
+    apt-get install -y google-chrome-stable
+    
+
     # git
     echo "--------------" | tee -a $LOGFILE
     echo "installing git" | tee -a $LOGFILE

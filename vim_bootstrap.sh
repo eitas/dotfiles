@@ -30,7 +30,8 @@ echo "GitGutter" | tee -a $LOGFILE
 cp -r "$PWD/vimplugins/vim-gitgutter" "$HOME/.vim/pack/eitas/start/"
 echo "fugitive" | tee -a $LOGFILE
 cp -r "$PWD/vimplugins/vim-fugitive" "$HOME/.vim/pack/eitas/start/"
-
+echo "typescript" | tee -a $LOGFILE
+cp -r "$PWD/vimplugins/typescript-vim" "$HOME/.vim/pack/eitas/start/"
 
 echo ">>>>>" | tee -a $LOGFILE
 
