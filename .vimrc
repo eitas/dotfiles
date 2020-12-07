@@ -88,28 +88,13 @@ set t_BE=
 nnoremap <C-s> :w<CR>
 " <not working> inoremap <C-s> <esc>:w<CR>a
 
+" insert a new line without entering insert mode
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
+
 " Allow me to edit the vimrc file easily
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" Shortcuts for NERDTree and TagList
-nnoremap <leader>nt :NERDTreeToggle<cr>
-nnoremap <leader>tl :TlistToggle<cr>
-
-" NERDTree specific stuff
-" from https://github.com/scrooloose/nerdtree/issues/433#issuecomment-92590696
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-    exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg=' .a:guibg .' guifg='. a:guifg
-    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('py','green','none','green','#151515')
-call NERDTreeHighlightFile('yaml','yellow','none','yellow','#151515')
-call NERDTreeHighlightFile('txt','white','none','white','#151515')
-call NERDTreeHighlightFile('json','red','none','red','#151515')
-
-" manage how tabs and spaces appear when using show invisibles (set list)
-set listchars=tab:▸\ ,eol:¬
 
 " --------------------------------------------------------------------
 "  plugins
@@ -130,6 +115,37 @@ set listchars=tab:▸\ ,eol:¬
 " Working with markdown.
 " plasticboy/vim-markdown
 " iamcco/markdown-preview.nvim
+
+" ------------------------------------------------
+" NERDTree specific stuff
+" ------------------------------------------------
+" from https://github.com/scrooloose/nerdtree/issues/433#issuecomment-92590696
+
+" Shortcuts for NERDTree and TagList
+nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <leader>tl :TlistToggle<cr>
+
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+    exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg=' .a:guibg .' guifg='. a:guifg
+    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('py','green','none','green','#151515')
+call NERDTreeHighlightFile('yaml','yellow','none','yellow','#151515')
+call NERDTreeHighlightFile('txt','white','none','white','#151515')
+call NERDTreeHighlightFile('json','red','none','red','#151515')
+
+" manage how tabs and spaces appear when using show invisibles (set list)
+set listchars=tab:▸\ ,eol:¬
+
+" ------------------------------------------------
+" YouCompleteMe (YCM)
+" ------------------------------------------------
+nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+
+" ------------------------------------------------
+" End of plugin specific mappings
+" ------------------------------------------------
 
 " set up rulers and other editor visual aids
 set ruler
