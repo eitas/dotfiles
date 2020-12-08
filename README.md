@@ -33,6 +33,21 @@ $ git submodule update --init --recursive
 Doing this and then running ./vim_bootstrap.sh will copy the plugins to the vim 8 plugin manager location, in my case
 $HOME/.vim/pack/eitas/start/
 
+# Removing git submodules
+
+If you had added a git submodule that you no longer require then you need to remove it.  A link here:
+https://gist.github.com/myusuf3/7f645819ded92bda6677
+has a good step by step process, repeated here for completeness
+
+* delete the relevant section from the .gitmodules file
+* Stage the .gitmodules changes (git add .gitmodules)
+* delete the relevant section from .git/config
+* Run git rm --cached <path to submodule> (no trailing slash)
+* Runn rm -rf .git/modules/<path to submodule> (no trailing slash)
+* Commit git (git commit -m "removed submodule")
+* Delete the now untracked submodule file(s) (rm -rf <path to submodule>)
+
+
 # Plugin help installs
 
 By default the plugins do not have the documentation installed which I really need to help me understand the plugins
