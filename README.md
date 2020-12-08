@@ -43,7 +43,7 @@ has a good step by step process, repeated here for completeness
 * Stage the .gitmodules changes (git add .gitmodules)
 * delete the relevant section from .git/config
 * Run git rm --cached <path to submodule> (no trailing slash)
-* Runn rm -rf .git/modules/<path to submodule> (no trailing slash)
+* Run rm -rf .git/modules/<path to submodule> (no trailing slash)
 * Commit git (git commit -m "removed submodule")
 * Delete the now untracked submodule file(s) (rm -rf <path to submodule>)
 

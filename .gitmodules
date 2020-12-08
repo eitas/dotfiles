@@ -40,6 +40,3 @@
 [submodule "vimplugins/YouCompleteMe"]
 	path = vimplugins/YouCompleteMe
 	url = https://github.com/ycm-core/YouCompleteMe
-[submodule "vimplugins/fzf.vim"]
-	path = vimplugins/fzf.vim
-	url = git@github.com:junegunn/fzf.vim.git
