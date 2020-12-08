@@ -171,7 +171,7 @@ set number " line numbers on
 set numberwidth=4 " set the gutter for the line numbers
 " set relativenumber " moving away from relativenumber.  When using commandline and line number arguments it is easier
 " to see the absolute line numbers
-" set autoindent
+set autoindent
 set fileformat=unix
 " Colorscheme - note pre-requisite - need badwolf.vim file in ~/.vim/color
 colorscheme badwolf
@@ -242,8 +242,9 @@ if has("autocmd")
     filetype on
     filetype plugin on
     filetype indent on
+    set smartindent
 
     " set this up to conform to PEP8
-    autocmd FileType python setlocal ts=4 sts=4 sw=8 expandtab textwidth=120 
+    autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab textwidth=120 
     autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab text
 endif
