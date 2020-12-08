@@ -43,6 +43,3 @@
 [submodule "vimplugins/fzf.vim"]
 	path = vimplugins/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
-[submodule "vimplugins/fzf"]
-	path = vimplugins/fzf
-	url = git@github.com:junegunn/fzf.git
