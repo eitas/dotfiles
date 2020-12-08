@@ -21,17 +21,31 @@ environments (such as plugins etc...)
 Note that the plugins are git submodules.  So you need to add and update them separately to this repo.  A good
 stackoverflow answer to this is here:
 
-
 https://www.vogella.com/tutorials/GitSubmodules/article.html
 Also https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin
 
 So to get the submodules into the repo you either need to clone this repo with:
-$ git clone --recursive <this url>
+`$ git clone --recursive <this url>i`
 or if you already have the repo cloned you can get the submodules with
-$ git submodule update --init --recursive
+`$ git submodule update --init --recursive`
 
 Doing this and then running ./vim_bootstrap.sh will copy the plugins to the vim 8 plugin manager location, in my case
 $HOME/.vim/pack/eitas/start/
+
+# Adding git submodules for Vim
+
+If you want to add a git submodule you need to do so by moving into the vimplugins directory.  Then issue:
+`$ git submodule add https:\\<path to plugin>`
+Make sure to use the https path to the github repo, otherwise you will be using ssh keys and then will need your ssh key to authenticate with github (which in my case, at work, we do not use).
+
+Then update the vim_bootstrap.sh to add the deployment (i.e. the copy to the .vim plugin location) to the script and run:
+`$ sudo ./vim_bootstrap.sh`
+in order to deploy the plugin.
+
+if you accidentally use the ssh and do not want to add an ssh key then in order to change the URL to use HTTPS over SSH:
+* change the url entry under the submodule in the `.gitmodules` file.
+* change the url entry under the submodule in the `.git/config` file.
+* change the url in the configuration of the submodule itself.  So under `.git/modules/<submodule name>/config`, or `cd .git/modules/<submodule name>/` `git config remote.origin.url <new url>`
 
 # Removing git submodules
 
@@ -42,11 +56,10 @@ has a good step by step process, repeated here for completeness
 * delete the relevant section from the .gitmodules file
 * Stage the .gitmodules changes (git add .gitmodules)
 * delete the relevant section from .git/config
-* Run git rm --cached <path to submodule> (no trailing slash)
-* Run rm -rf .git/modules/<path to submodule> (no trailing slash)
-* Commit git (git commit -m "removed submodule")
-* Delete the now untracked submodule file(s) (rm -rf <path to submodule>)
-
+* Run `git rm --cached <path to submodule>` (no trailing slash)
+* Run `rm -rf .git/modules/<path to submodule>` (no trailing slash)
+* Commit git: `git commit -m "removed submodule"`
+* Delete the now untracked submodule file(s): `rm -rf <path to submodule>`
 
 # Plugin help installs
 
