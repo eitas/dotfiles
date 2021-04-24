@@ -63,7 +63,6 @@ apt_installs() {
     apt-get update -y
     apt-get install -y google-chrome-stable
     
-
     # git
     echo "--------------" | tee -a $LOGFILE
     echo "installing git" | tee -a $LOGFILE
@@ -111,6 +110,8 @@ apt_installs() {
     apt-get install mono-complete
     apt-get install golang
     apt-get install default-jdk
+    # fzf - fuzzy file finder
+    apt-get install fzf
  
     # tmux
     echo "------------" | tee -a $LOGFILE
