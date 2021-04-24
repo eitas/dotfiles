@@ -237,6 +237,7 @@ command! MakeTags !ctags -R .
 "  autocmd with filetypes
 " -----------------------------------------------------------------------
 "
+autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab textwidth=120
 if has("autocmd")
     " Start recognising file types for syntax highlighting and behaviours
     filetype on
@@ -246,5 +247,5 @@ if has("autocmd")
 
     " set this up to conform to PEP8
     autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab textwidth=120 
-    autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab text
+    autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab textwidth=120
 endif

@@ -64,6 +64,8 @@ stty -ixon
 export LC_ALL=en_GB.UTF-8
 # Set path to include mySQL
 export PATH=/usr/local/bin:/usr/local/mysql/bin:$PATH
+# Set path to include Poetry
+export PATH=$HOME/.poetry/bin:$PATH
 # setup vim as the default editor in my terminals
 export VISUAL=vim
 export EDITOR="$VISUAL"
