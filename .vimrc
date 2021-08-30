@@ -254,6 +254,7 @@ command! MakeTags !ctags -R .
 "  autocmd with filetypes
 " -----------------------------------------------------------------------
 "
+autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab textwidth=120
 if has("autocmd")
     " Start recognising file types for syntax highlighting and behaviours
     filetype on
