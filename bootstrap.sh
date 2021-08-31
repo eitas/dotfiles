@@ -8,6 +8,8 @@
 
 # start a log file
 NOW=$(date +"%d-%m-%Y_%H_%M_%S")
+# Make a logs directory whereever you are executing this from 
+mkdir -p ./logs
 LOGFILE="./logs/dotfile_install_$NOW.log"
 # export the log file so it can be used in subsequent scripts
 export LOGFILE
@@ -112,6 +114,12 @@ apt_installs() {
     apt-get install default-jdk
     # fzf - fuzzy file finder
     apt-get install fzf
+ 
+    # Neovim
+    echo "------------" | tee -a $LOGFILE
+    echo "neovim install: " | tee -a $LOGFILE
+    echo "------------" | tee -a $LOGFILE
+    apt-get install neovim -y 2>&1 | tee -a $LOGFILE
  
     # tmux
     echo "------------" | tee -a $LOGFILE
