@@ -46,6 +46,18 @@ set t_Co=256
 " turn on syntax highlighting
 syntax on
 
+" From https://www.youtube.com/channel/UC8ENHE5xdFSwx71u3fDH5Xw
+" make Y act like C and D where it acts on the remainder of the line rather
+" than the whole line!
+nnoremap Y y$
+" when joining lines don't let the cursor move about, just jump back to the
+" cursor position where you were
+nnoremap J mzJ`z
+" Add in undo breakpoints on punctuation.  Doing so allows you to undo
+" sensible parts without undoing entire lines or paragraphs
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+
 " I am rarely going to work in Octal numbers and therefore want VIM to
 " recognise any number, including those with leading zeros (e.g. 007) as decimal
 " by doing this I can use things like <C-a> and <C-x> to add and subtract
@@ -142,6 +154,11 @@ set listchars=tab:▸\ ,eol:¬
 " YouCompleteMe (YCM)
 " ------------------------------------------------
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+
+" ------------------------------------------------
+" YouCompleteMe (YCM)
+" ------------------------------------------------
+set rtp+=~/.fzf
 
 " ------------------------------------------------
 " End of plugin specific mappings
@@ -247,5 +264,6 @@ if has("autocmd")
 
     " set this up to conform to PEP8
     autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab textwidth=120 
-    autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab textwidth=120
+    autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab text
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab 
 endif

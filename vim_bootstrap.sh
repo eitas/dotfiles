@@ -1,6 +1,15 @@
 #!/bin/bash
 
 # setting up vim configuration
+
+if [ -z ${LOGFILE+x}  ]; then 
+	echo "LOGFILE is not set for vim_bootstrap.sh, setting it."
+	NOW=$(date +"%d-%m-%Y_%H_%M_%S")
+	LOGFILE="./logs/vim_bootstrap_install_$NOW.log"
+else
+	echo "LOGFILE is set to '$LOGFILE'";
+fi
+
 echo "Starting vim bootstrap" | tee -a $LOGFILE
 
 VIM_PLUGINS_DIR="$HOME/.vim/pack/eitas/start"
@@ -37,7 +46,8 @@ cp -r "$PWD/vimplugins/hardmode" "$HOME/.vim/pack/eitas/start/"
 echo "YouCompleteMe" | tee -a $LOGFILE
 cp -r "$PWD/vimplugins/YouCompleteMe" "$HOME/.vim/pack/eitas/start/"
 echo "fzf.vim" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/fzf.vim" "$HOME/.vim/pack/eitas/start/"
+FILE_LOCATION="$PWD/vimplugins/fzf\.vim" 
+cp -r $FILE_LOCATION "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 
 echo ">>>>>" | tee -a $LOGFILE
 

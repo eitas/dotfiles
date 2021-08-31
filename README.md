@@ -81,3 +81,18 @@ And then
 `:helptags ALL`
 
 installed the documentation
+
+# fzf support
+
+So fzf is a fuzzy file finder which I would like to use over using file tree structures such as NERDTree if I can.  
+https://github.com/junegunn/fzf
+
+using APT as a package manager gave me a rather old version of fzf and some issues when trying to get it to work with vim for some reason (almost undoubtedly user error).
+So I used the git method of install
+
+`git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
+`~/.fzf/install`
+
+The install is not silent, so for now I have not added this to the bootstrap but probably should.
+note to update fzf:
+`cd ~/.fzf && git pull && ./install`

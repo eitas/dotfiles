@@ -73,3 +73,5 @@ export EDITOR="$VISUAL"
 export GTK_IM_MODULE="ibus"
 export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
