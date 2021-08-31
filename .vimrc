@@ -154,13 +154,21 @@ set listchars=tab:▸\ ,eol:¬
 " YouCompleteMe (YCM)
 " ------------------------------------------------
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-
-" ------------------------------------------------
-" YouCompleteMe (YCM)
-" ------------------------------------------------
 set rtp+=~/.fzf
 
+
 " ------------------------------------------------
+" Conquer of Completion
+" ------------------------------------------------
+" adding in details for Tab completion.  See README here
+" https://github.com/neoclide/coc.nvim for more details
+inoremap <silent><expr> <TAB>
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+ 	\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" ----------------------------------------------
 " End of plugin specific mappings
 " ------------------------------------------------
 
@@ -191,7 +199,7 @@ set numberwidth=4 " set the gutter for the line numbers
 set autoindent
 set fileformat=unix
 " Colorscheme - note pre-requisite - need badwolf.vim file in ~/.vim/color
-colorscheme badwolf
+colorscheme gruvbox
 
 " for the most part use utf-8, lets be explicit
 set encoding=utf-8

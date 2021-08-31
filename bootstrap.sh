@@ -120,6 +120,9 @@ apt_installs() {
     echo "neovim install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
     apt-get install neovim -y 2>&1 | tee -a $LOGFILE
+    echo "Moving init.vim to ~/.config/nvim/init.vim" | tee -a $LOGFILE
+    mkdir -p ~/.config/nvim
+    cp $PWD\init.vim ~/.config/nvim/init.vim
  
     # tmux
     echo "------------" | tee -a $LOGFILE

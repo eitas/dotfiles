@@ -43,3 +43,9 @@
 [submodule "vimplugins/fzf.vim"]
 	path = vimplugins/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+[submodule "vimplugins/coc.nvim"]
+	path = vimplugins/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+[submodule "vimcolors/gruvbox"]
+	path = vimcolors/gruvbox
+	url = https://github.com/morhetz/gruvbox
