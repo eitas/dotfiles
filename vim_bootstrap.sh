@@ -30,28 +30,28 @@ echo "Installing plugins" | tee -a $LOGFILE
 mkdir -p ~/.vim/pack/eitas/start
 echo ">>>>>" | tee -a $LOGFILE
 echo "Updating all git submodules" | tee -a $LOGFILE
-git submodule foreach git pull origin master | tee -a $LOGFILE
+sudo git submodule foreach git pull origin master | tee -a $LOGFILE
 # now install the submodules
-echo "ctrlp" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/ctrlp.vim" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "surround" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/vim-surround" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "airline" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/vim-airline" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "NERDTree" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/nerdtree" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "GitGutter" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/vim-gitgutter" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "fugitive" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/vim-fugitive" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "typescript" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/typescript-vim" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "hardmode" | tee -a $LOGFILE
-cp -r "$PWD/vimplugins/hardmode" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "coc" | tee -a $LOGFILE
+echo "Installing Vim Plugins"
+echo "surround by tpope (https://github.com/tpope/vim-surround)" | tee -a $LOGFILE
+sudo cp -r "$PWD/vimplugins/vim-surround" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "airline (https://github.com/vim-airline/vim-airline)" | tee -a $LOGFILE
+sudo cp -r "$PWD/vimplugins/vim-airline" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "NERDTree (https://github.com/preservim/nerdtree)" | tee -a $LOGFILE
+sudo cp -r "$PWD/vimplugins/nerdtree" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "GitGutter (https://github.com/airblade/vim-gitgutter)" | tee -a $LOGFILE
+sudo cp -r "$PWD/vimplugins/vim-gitgutter" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "fugitive (https://github.com/tpope/vim-fugitive)" | tee -a $LOGFILE
+sudo cp -r "$PWD/vimplugins/vim-fugitive" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "typescript (https://github.com/leafgarland/typescript-vim)" | tee -a $LOGFILE
+sudo cp -r "$PWD/vimplugins/typescript-vim" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+#echo "hardmode" | tee -a $LOGFILE
+#sudo cp -r "$PWD/vimplugins/hardmode" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "coc (https://github.com/neoclide/coc.nvim)" | tee -a $LOGFILE
 CWD=$PWD
 cd $PWD/vimplugins/coc.nvim
-git checkout release
+sudo git checkout release
+sudo git pull
 cd $CWD
 cp -r "$PWD/vimplugins/coc.nvim" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 ##echo "YouCompleteMe" | tee -a $LOGFILE
@@ -62,6 +62,11 @@ cp -r $FILE_LOCATION "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 
 echo ">>>>>" | tee -a $LOGFILE
 
+echo "Neovim" | tee -a $LOGFILE
+echo "------" | tee -a $LOGFILE
+
+mkdir -p ~/.config/nvim
+cp $PWD/init.vim ~/.config/nvim
 
 # echo "Copying over vim snippets" | tee -a $LOGFILE
 # cp -r "$PWD/vimsnippets" "$HOME/.vim/"
