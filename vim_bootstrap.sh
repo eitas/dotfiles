@@ -34,20 +34,30 @@ sudo git submodule foreach git pull origin master | tee -a $LOGFILE
 # now install the submodules
 echo "Installing Vim Plugins"
 echo "surround by tpope (https://github.com/tpope/vim-surround)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/vim-surround
 sudo cp -r "$PWD/vimplugins/vim-surround" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 echo "airline (https://github.com/vim-airline/vim-airline)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/vim-airline
 sudo cp -r "$PWD/vimplugins/vim-airline" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 echo "NERDTree (https://github.com/preservim/nerdtree)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/nerdtree
 sudo cp -r "$PWD/vimplugins/nerdtree" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 echo "GitGutter (https://github.com/airblade/vim-gitgutter)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/vim-gitgutter
 sudo cp -r "$PWD/vimplugins/vim-gitgutter" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 echo "fugitive (https://github.com/tpope/vim-fugitive)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/vim-fugitive
 sudo cp -r "$PWD/vimplugins/vim-fugitive" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 echo "typescript (https://github.com/leafgarland/typescript-vim)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/typescript-vim
 sudo cp -r "$PWD/vimplugins/typescript-vim" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-#echo "hardmode" | tee -a $LOGFILE
+echo "ale (https://github.com/dense-analysis/ale)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/ale
+sudo cp -r "$PWD/vimplugins/ale" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+##echo "hardmode" | tee -a $LOGFILE
 #sudo cp -r "$PWD/vimplugins/hardmode" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 echo "coc (https://github.com/neoclide/coc.nvim)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/coc.nvim
 CWD=$PWD
 cd $PWD/vimplugins/coc.nvim
 sudo git checkout release
