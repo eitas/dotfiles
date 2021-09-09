@@ -238,6 +238,7 @@ nnoremap <C-H> <C-W><C-H>
 
 " enable folding
 set foldmethod=indent
+set nofoldenable
 set foldlevel=99
 
 " Areas to explore and understand more
@@ -249,7 +250,7 @@ set foldlevel=99
 " provides tab-completion for all file-related tasks
 set path+=**
 
-" Displayu all matching files when we tab complete
+" Display all matching files when we tab complete
 set wildmenu
 
 " Create the tags file (which needs ctags and you may need to install that)
@@ -264,19 +265,20 @@ command! MakeTags !ctags -R .
 " nnoremap <leader>html :-1read $HOME/.vim/vimsnippets/snippet.html<CR>6j3wa
 "
 
-
+" if a file is changed outside of vim, automatically reload it without asking
+set autoread
 " ------------------------------------------------------------------------
 "  autocmd with filetypes
 " -----------------------------------------------------------------------
 "
-autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab textwidth=120
 if has("autocmd")
     " Start recognising file types for syntax highlighting and behaviours
     filetype on
     filetype plugin on
     filetype indent on
     set smartindent
-
+    
+    autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab textwidth=120
     " set this up to conform to PEP8
     autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab textwidth=120 
     autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab text

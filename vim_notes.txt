@@ -1,0 +1,18 @@
+Vim notes
+
+03/09/2021
+----------
+Learn vim-fugitive
+Checkout ALE
+Learn vim-surround
+Improve use of NERDTree
+Learn about folding in detail
+Learn about Ctl I and Ctl O to move around code
+Get CtrlP or Fzf and understand that in more detail.
+
+What is vim-slim?
+
+
+Others vimrc files:
+https://github.com/garybernhardt/dotfiles/blob/main/.vimrc
+
