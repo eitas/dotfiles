@@ -86,7 +86,7 @@ apt_installs() {
     # refresh the apt cache
     apt-get update -y
     # install
-    apt-get install docker.io
+    apt-get install -y docker.io
     echo "Verifying docker installation using a hello world container..."   
     docker run hello-world
 
@@ -106,14 +106,14 @@ apt_installs() {
     echo "------------------------" | tee -a $LOGFILE
     echo "vim additional installs: " | tee -a $LOGFILE
     echo "------------------------" | tee -a $LOGFILE
-    apt-get install build-essential | tee -a $LOGFILE
-    apt-get install cmake | tee -a $LOGFILE
+    apt-get install -y build-essential | tee -a $LOGFILE
+    apt-get install -y cmake | tee -a $LOGFILE
     # assumes python is already installed
-    apt-get install mono-complete
-    apt-get install golang
-    apt-get install default-jdk
+    apt-get install -y mono-complete
+    apt-get install -y golang
+    apt-get install -y default-jdk
     # fzf - fuzzy file finder
-    apt-get install fzf
+    apt-get install -y fzf
  
     # Neovim
     echo "------------" | tee -a $LOGFILE
@@ -146,7 +146,7 @@ apt_installs() {
     echo "-------------" | tee -a $LOGFILE
     # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
     # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
-    apt-get install curl python-software-properties software-properties-common 2>&1 | tee -a $LOGFILE
+    apt-get install -y curl python-software-properties software-properties-common 2>&1 | tee -a $LOGFILE
     curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
     apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
     # checks
@@ -172,7 +172,7 @@ apt_installs() {
     echo "-------" | tee -a $LOGFILE
     echo "ctags: " | tee -a $LOGFILE
     echo "-------" | tee -a $LOGFILE
-    apt-get install exuberant-ctags 2>&1 | tee -a $LOGFILE
+    apt-get install -y exuberant-ctags 2>&1 | tee -a $LOGFILE
 
 
     # TODO AWS SAM
@@ -186,7 +186,7 @@ apt_installs() {
 bootstrap_vim() {
     # TODO
     echo "Bootstrap Vim with plugins etc..." | tee -a $LOGFILE
-    "$( pwd )/vim_bootstrap.sh"
+    "sudo $( pwd )/vim_bootstrap.sh"
 }
 
 bootstrap_crontab() {
