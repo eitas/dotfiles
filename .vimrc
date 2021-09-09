@@ -194,9 +194,16 @@ au BufRead, BufNewFile *.py, *.pyw, *.c, *.h match BadWhitespace /\s\+$/
 set backspace=indent,eol,start
 set number " line numbers on
 set numberwidth=4 " set the gutter for the line numbers
-" set relativenumber " moving away from relativenumber.  When using commandline and line number arguments it is easier
+set relativenumber " moving away from relativenumber.  When using commandline and line number arguments it is easier
 " to see the absolute line numbers
 set autoindent
+set nowrap
+set noswapfile
+set nobackup
+set noerrorbells
+set scrolloff=8
+set colorcolumn=80
+set cmdheight=2
 set fileformat=unix
 " Colorscheme - note pre-requisite - need badwolf.vim file in ~/.vim/color
 colorscheme gruvbox
