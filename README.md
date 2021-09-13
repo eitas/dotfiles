@@ -16,6 +16,19 @@ Within here I have my key dotfiles, a shell script to bootstrap my system (i.e. 
 cli etc...) and symlink to the dotfiles.  In addition I have separate boostraps, currently only vim, that setup key
 environments (such as plugins etc...)
 
+# Setting up a new machine
+
+I have moved to Ubuntu.  In order to get going on a new machine you need to clone this repo.  This requires logging into github
+and cloning the git repo, which requires the installation of git and the generation of an ssh key on the new machine
+
+https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+`$ ssh-keygen -t ed25519 -C "your_email@example.com"`
+`$ eval "$(ssh-agent -s)"`
+`$ cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard`
+
+The new key is in the clipboard, just add an SSH key into the github account.
+
 # Git Submodules for Vim Plugins
 
 Note that the plugins are git submodules.  So you need to add and update them separately to this repo.  A good

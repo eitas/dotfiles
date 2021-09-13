@@ -21,6 +21,7 @@ echo "Starting eitas dotfile install on $START_TIME" | tee $LOGFILE
 # check and exit if not
 if ! [ $(id -u) = 0 ]; then
     echo "Failure: Please run the dotfile installs as root" 2>&1 | tee -a $LOGFILE
+    echo "Please also preserve the home directory of the user so the symlinks to dotfiles are accurate \$sudo --preserve-env=HOME ./bootstrap.sh" 2>&1 | tee -a $LOGFILE
     exit 1
 fi
 
@@ -37,7 +38,7 @@ link() {
     while IFS= read -r dotfile_name
     do
       echo "adding / updating symlink for $dotfile_name" 2>&1 | tee -a $LOGFILE
-      ln -sf "$PWD/$dotfile_name" "$HOME"
+      ln -sf "$PWD/$dotfile_name" "$HOME" | tee -a $LOGFFILE
     done < "$dotfile_list"
     echo "-----------"
 }
@@ -188,14 +189,15 @@ apt_installs() {
 
     
     # cleanup the cache
-    apt-get clean
-    apt-get autoremove
+    apt-get clean -y
+    apt-get autoremove -y
 }
 
 bootstrap_vim() {
-    # TODO
+    echo "-------" | tee -a $LOGFILE
     echo "Bootstrap Vim with plugins etc..." | tee -a $LOGFILE
-    "sudo $( pwd )/vim_bootstrap.sh"
+    echo "-------" | tee -a $LOGFILE
+    $PWD/vim_bootstrap.sh
 }
 
 bootstrap_crontab() {
@@ -210,7 +212,17 @@ bootstrap_crontab() {
     # https://github.com/ajmalsiddiqui/dotfiles/blob/master/crontab.bootstrap.exclude.sh
 }
 
+cleanup() {
+    # cleanup the cache
+    echo "-------" | tee -a $LOGFILE
+    echo "Cleaning up package manager and redundant packages" | tee -a $LOGFILE
+    echo "-------" | tee -a $LOGFILE
+    apt-get clean -y
+    apt-get autoremove -y
+}
+
 init
+cleanup
 link
 browser_install
 apt_installs
