@@ -24,7 +24,7 @@ if ! [ $(id -u) = 0 ]; then
     exit 1
 fi
 
-# setup any required environment variables
+# setup any required environment variables including PATH_TO_DOTFILES
 source .exports
 
 init() {
@@ -42,6 +42,26 @@ link() {
     echo "-----------"
 }
 
+browser_install() {
+    echo "----------------------------" | tee -a $LOGFILE
+    echo "installing the Brave browser" | tee -a $LOGFILE
+    echo "----------------------------" | tee -a $LOGFILE
+    apt-get install apt-transport-https curl | tee -a $LOGFILE # I doubt curl won't be there, but just make sure
+    curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | tee -a $LOGFILE
+    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+    apt-get update
+    apt-get install -y brave-browser
+
+    # chrome
+    echo "-----------------" | tee -a $LOGFILE
+    echo "installing chrome" | tee -a $LOGFILE
+    echo "-----------------" | tee -a $LOGFILE
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list 
+    apt-get update -y
+    apt-get install -y google-chrome-stable
+ }    
+
 apt_installs() {
     # I am only working within a Linux debian based environment so will run installs from here
     echo "------------------------" | tee -a $LOGFILE
@@ -52,25 +72,8 @@ apt_installs() {
     echo "package updates complete" | tee -a $LOGFILE
     echo "------------------------" | tee -a $LOGFILE
 
-    # brave
-    echo "-----------------" | tee -a $LOGFILE
-    echo "installing chrome" | tee -a $LOGFILE
-    echo "-----------------" | tee -a $LOGFILE
-    sudo apt install -y apt-transport-https curl
-    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-    sudo apt update -y
-    sudo apt install -y brave-browser 
- 
-    # chrome
-    echo "-----------------" | tee -a $LOGFILE
-    echo "installing chrome" | tee -a $LOGFILE
-    echo "-----------------" | tee -a $LOGFILE
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list 
-    apt-get update -y
-    apt-get install -y google-chrome-stable
-    
+
+   
     # git
     echo "--------------" | tee -a $LOGFILE
     echo "installing git" | tee -a $LOGFILE
@@ -209,6 +212,7 @@ bootstrap_crontab() {
 
 init
 link
+browser_install
 apt_installs
 bootstrap_vim
 bootstrap_crontab
