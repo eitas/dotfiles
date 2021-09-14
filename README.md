@@ -31,7 +31,7 @@ The new key is in the clipboard, just add an SSH key into the github account.
 
 You are now able to clone the repository
 * `$ cd ~ && mkdir github && cd ~/.github`
-* `$ git clone git@github.com:eitas/dotfiles.git`
+* `$ git clone --recursive git@github.com:eitas/dotfiles.git`
 
 With that you can now generate the dotfiles and relevant tooling
 * `$ sudo --preserve-env=HOME ./bootstrap.sh`
