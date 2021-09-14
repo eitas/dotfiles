@@ -23,9 +23,9 @@ and cloning the git repo, which requires the installation of git and the generat
 
 https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
-`$ ssh-keygen -t ed25519 -C "your_email@example.com"`
-`$ eval "$(ssh-agent -s)"`
-`$ cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard`
+* `$ ssh-keygen -t ed25519 -C "your_email@example.com"`
+* `$ eval "$(ssh-agent -s)"`
+* `$ cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard`
 
 The new key is in the clipboard, just add an SSH key into the github account.
 
