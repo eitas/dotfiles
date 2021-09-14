@@ -29,6 +29,13 @@ https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-
 
 The new key is in the clipboard, just add an SSH key into the github account.
 
+You are now able to clone the repository
+* `$ cd ~ && mkdir github && cd ~/.github`
+* `$ git clone git@github.com:eitas/dotfiles.git`
+
+With that you can now generate the dotfiles and relevant tooling
+* `$ sudo --preserve-env=HOME ./bootstrap.sh`
+
 # Git Submodules for Vim Plugins
 
 Note that the plugins are git submodules.  So you need to add and update them separately to this repo.  A good
