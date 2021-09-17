@@ -23,18 +23,26 @@ and cloning the git repo, which requires the installation of git and the generat
 
 https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
+But first need a couple of apps:
+
+* `sudo apt install xclip` which allows you to copy the public key to the clipboard and then add it to github
+* `sudo apt install git` for obvious reasons you are going to need git
+
 * `$ ssh-keygen -t ed25519 -C "your_email@example.com"`
 * `$ eval "$(ssh-agent -s)"`
 * `$ cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard`
 
 The new key is in the clipboard, just add an SSH key into the github account.
 
-You are now able to clone the repository
-* `$ cd ~ && mkdir github && cd ~/.github`
-* `$ git clone --recursive git@github.com:eitas/dotfiles.git`
+With that done, clone this repo into a ~/github folder:
 
-With that you can now generate the dotfiles and relevant tooling
-* `$ sudo --preserve-env=HOME ./bootstrap.sh`
+* `$ cd ~ && mkdir github && cd github`
+* `$ git clone git@github.com:eitas/dotfiles.git`
+
+Now with the repo locally you can install all the tools needed and symlink
+to the dotfiles:
+
+* `$ sudo preserve_env=HOME ./bootstrap.sh`
 
 # Git Submodules for Vim Plugins
 
