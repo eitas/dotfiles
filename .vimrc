@@ -258,6 +258,12 @@ set path+=**
 " Display all matching files when we tab complete
 set wildmenu
 
+" Keep searches at the centre of the screen
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+
+
 " Create the tags file (which needs ctags and you may need to install that)
 command! MakeTags !ctags -R .
 
