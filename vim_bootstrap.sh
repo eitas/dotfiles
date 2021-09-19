@@ -60,15 +60,18 @@ echo "coc (https://github.com/neoclide/coc.nvim)" | tee -a $LOGFILE
 sudo rm -rf $HOME/.vim/pack/eitas/start/coc.nvim
 CWD=$PWD
 cd $PWD/vimplugins/coc.nvim
-sudo git checkout release
-sudo git pull
+#sudo git checkout release
+#sudo git pull
 cd $CWD
 cp -r "$PWD/vimplugins/coc.nvim" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 ##echo "YouCompleteMe" | tee -a $LOGFILE
 # cp -r "$PWD/vimplugins/YouCompleteMe" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
-echo "fzf.vim" | tee -a $LOGFILE
-FILE_LOCATION="$PWD/vimplugins/fzf\.vim" 
-cp -r $FILE_LOCATION "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "fzf (https://github.com/junegunn/fzf)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/fzf
+sudo cp -r "$PWD/vimplugins/fzf" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
+echo "fzf.vim (https://github.com/junegunn/fzf.vim)" | tee -a $LOGFILE
+sudo rm -rf $HOME/.vim/pack/eitas/start/fzf.vim
+sudo cp -r "$PWD/vimplugins/fzf.vim" "$HOME/.vim/pack/eitas/start/" | tee -a $LOGFILE
 
 echo ">>>>>" | tee -a $LOGFILE
 

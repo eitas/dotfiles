@@ -154,6 +154,10 @@ set listchars=tab:▸\ ,eol:¬
 " YouCompleteMe (YCM)
 " ------------------------------------------------
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+
+" ------------------------------------------------
+" FZF
+" ------------------------------------------------
 set rtp+=~/.fzf
 
 
