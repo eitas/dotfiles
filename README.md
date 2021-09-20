@@ -37,7 +37,7 @@ The new key is in the clipboard, just add an SSH key into the github account.
 With that done, clone this repo into a ~/github folder:
 
 * `$ cd ~ && mkdir github && cd github`
-* `$ git clone git@github.com:eitas/dotfiles.git`
+* `$ git clone --recursive git@github.com:eitas/dotfiles.git`
 
 Now with the repo locally you can install all the tools needed and symlink
 to the dotfiles:
