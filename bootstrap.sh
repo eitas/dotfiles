@@ -178,7 +178,7 @@ neovim_install() {
     CWD=$PWD
     cd $PATH_TO_DOTFILES
     rm -rf neovim
-    git clone https://github.com/neovim/neovim/wiki/Building-Neovim
+    git clone https://github.com/neovim/neovim
 	cd neovim && make -j4
     sudo make install
     cd $CWD
