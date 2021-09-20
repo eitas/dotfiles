@@ -174,7 +174,7 @@ neovim_install() {
     echo "installing from source" | tee -a $LOGFILE
     echo "telescope requires the nightly version of Neovim not the stable version.  This may have changed" | tee -a $LOGFILE
     # Install the pre-requisites
-    sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
+    sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
     CWD=$PWD
     cd $PATH_TO_DOTFILES
     rm -rf neovim
