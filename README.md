@@ -42,6 +42,7 @@ With that done, clone this repo into a ~/github folder:
 Now with the repo locally you can install all the tools needed and symlink
 to the dotfiles:
 
+* `cd dotfiles`
 * `$ sudo --preserve-env=HOME ./bootstrap.sh`
 
 # Git Submodules for Vim Plugins
