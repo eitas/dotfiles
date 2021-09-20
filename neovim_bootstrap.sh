@@ -80,8 +80,9 @@ echo ">>>>>" | tee -a $LOGFILE
 echo "Neovim" | tee -a $LOGFILE
 echo "------" | tee -a $LOGFILE
 
+echo "symlinking init.vim" | tee -a $LOGFILE
 mkdir -p ~/.config/nvim
-cp $PWD/init.vim ~/.config/nvim
+ln -sf "$PWD/init.vim" "$HOME/.config/nvim" | tee -a $LOGFFILE
 
 # echo "Copying over vim snippets" | tee -a $LOGFILE
 # cp -r "$PWD/vimsnippets" "$HOME/.vim/"

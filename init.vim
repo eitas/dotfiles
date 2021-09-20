@@ -1,8 +1,11 @@
-" Set the runtimepath for vim and all subfolders like colors etc...
-set runtimepath^=~/ runtimepath+=~/.vim
-" Set the path to the package manager to also be under .vim
-" This allows vim and neovim to share the same packages
-let &packpath = &runtimepath
-" now source the vimrc to load all the VIM settings for neovim
-source ~/.vimrc
+let mapleader = " "
+colorscheme gruvbox
+
+" --------------------------------------------------------------------
+" Key remappings
+" --------------------------------------------------------------------
+" use jk instead of having to <esc> to get back to normal mode (insert mode)
+inoremap jk <esc>
+" now disable the <esc> key (insert mode) to force use of jk
+inoremap <esc> <nop>
 
