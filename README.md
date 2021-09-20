@@ -43,7 +43,7 @@ Now with the repo locally you can install all the tools needed and symlink
 to the dotfiles:
 
 * `cd dotfiles`
-* `$ sudo --preserve-env=HOME ./bootstrap.sh`
+* `$ ./bootstrap.sh`
 
 # Git Submodules for Vim Plugins
 

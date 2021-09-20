@@ -32,6 +32,7 @@ set incsearch
 " Set the initial window size by number of lines and columns
 " set lines=100 columns=100
 
+" HERE FOR NEOVIM TRANSFER
 " tell vim how to manage splits when splitting windows
 set splitbelow
 set splitright
