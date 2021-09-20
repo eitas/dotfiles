@@ -4,3 +4,5 @@ alias gpom='git push origin master'
 alias home='cd ~'
 alias vim='nvim'
 alias vi='nvim'
+alias xsc="xclip -selection clipboard" # Primeagen alias
+# alias etc="$VIM $DOTFILES/.tmux.conf"

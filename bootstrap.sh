@@ -79,61 +79,9 @@ apt_installs() {
     echo "--------------" | tee -a $LOGFILE
     echo "installing git" | tee -a $LOGFILE
     echo "--------------" | tee -a $LOGFILE
-    apt-get install git -y 2>&1 | tee -a $LOGFILE # answer yes to all prompts
+    apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
 
-    # docker
-    echo "-----------------" | tee -a $LOGFILE
-    echo "installing docker" | tee -a $LOGFILE
-    echo "-----------------" | tee -a $LOGFILE
-    # allow apt to use a repository over HTTPS
-    apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE 
-    # add official docker GPG key
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
-    # install the stable docker repository
-    #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    # Note above doesn't work on Mint Tina, so hard-coding bionic in there
-    add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
-    # refresh the apt cache
-    apt-get update -y
-    # install
-    apt-get install -y docker.io
-    echo "Verifying docker installation using a hello world container..."   
-    docker run hello-world
 
-    # Docker Compose
-    apt-get install docker-compose -y
-
-    # Vim
-    echo "------------" | tee -a $LOGFILE
-    echo "vim install: " | tee -a $LOGFILE
-    echo "------------" | tee -a $LOGFILE
-    apt-get install vim -y 2>&1 | tee -a $LOGFILE
-    # checks
-    echo "vim version $( vim --version )" | tee -a $LOGFILE
-
-    # Additional components for vim plugins
-    # YouCompleteMe https://github.com/ycm-core/YouCompleteMe
-    echo "------------------------" | tee -a $LOGFILE
-    echo "vim additional installs: " | tee -a $LOGFILE
-    echo "------------------------" | tee -a $LOGFILE
-    apt-get install -y build-essential | tee -a $LOGFILE
-    apt-get install -y cmake | tee -a $LOGFILE
-    # assumes python is already installed
-    apt-get install -y mono-complete
-    apt-get install -y golang
-    apt-get install -y default-jdk
-    # fzf - fuzzy file finder
-    apt-get install -y fzf
- 
-    # Neovim
-    echo "------------" | tee -a $LOGFILE
-    echo "neovim install: " | tee -a $LOGFILE
-    echo "------------" | tee -a $LOGFILE
-    apt-get install neovim -y 2>&1 | tee -a $LOGFILE
-    echo "Moving init.vim to ~/.config/nvim/init.vim" | tee -a $LOGFILE
-    mkdir -p ~/.config/nvim
-    cp $PWD\init.vim ~/.config/nvim/init.vim
- 
     # tmux
     echo "------------" | tee -a $LOGFILE
     echo "tmux install: " | tee -a $LOGFILE
@@ -193,6 +141,59 @@ apt_installs() {
     apt-get autoremove -y
 }
 
+docker_install() {
+    # docker
+    echo "-----------------" | tee -a $LOGFILE
+    echo "installing docker" | tee -a $LOGFILE
+    echo "-----------------" | tee -a $LOGFILE
+    # allow apt to use a repository over HTTPS
+    apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE 
+    # add official docker GPG key
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
+    # install the stable docker repository
+    #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    # Note above doesn't work on Mint Tina, so hard-coding bionic in there
+    add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+    # refresh the apt cache
+    apt-get update -y
+    # install
+    apt-get install -y docker.io
+    echo "Verifying docker installation using a hello world container..."   
+    docker run hello-world
+
+    # Docker Compose
+    apt-get install docker-compose -y
+}
+
+neovim_install() {
+    # Neovim
+    # https://github.com/neovim/neovim/wiki/Building-Neovim
+    echo "------------" | tee -a $LOGFILE
+    echo "neovim install: " | tee -a $LOGFILE
+    echo "------------" | tee -a $LOGFILE
+    echo "installing from source" | tee -a $LOGFILE
+    echo "telescope requires the nightly version of Neovim not the stable version.  This may have changed" | tee -a $LOGFILE
+    # Install the pre-requisites
+    sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
+    CWD=$PWD
+    cd $PATH_TO_DOTFILES
+    rm -rf neovim
+    git clone https://github.com/neovim/neovim/wiki/Building-Neovim
+	cd neovim && make -j4
+    sudo make install
+    cd $CWD
+    # note to uninstall from source:
+    # sudo rm /usr/local/bin/nvim
+    # sudo rm -r /usr/local/share/nvim
+	
+
+    # TODO - I need to setup the init.vim in place of the vimrc
+    # it is time to fully embrace neovim and move away from vim
+    #echo "Moving init.vim to ~/.config/nvim/init.vim" | tee -a $LOGFILE
+    #mkdir -p ~/.config/nvim
+    #cp $PWD\init.vim ~/.config/nvim/init.vim
+}
+
 bootstrap_vim() {
     echo "-------" | tee -a $LOGFILE
     echo "Bootstrap Vim with plugins etc..." | tee -a $LOGFILE
@@ -226,6 +227,8 @@ cleanup
 link
 browser_install
 apt_installs
+docker_install
+neovim_install
 bootstrap_vim
 bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
