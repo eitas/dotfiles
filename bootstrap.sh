@@ -47,7 +47,7 @@ browser_install() {
     echo "----------------------------" | tee -a $LOGFILE
     echo "installing the Brave browser" | tee -a $LOGFILE
     echo "----------------------------" | tee -a $LOGFILE
-    apt-get install apt-transport-https curl | tee -a $LOGFILE # I doubt curl won't be there, but just make sure
+    apt-get install -y apt-transport-https curl | tee -a $LOGFILE # I doubt curl won't be there, but just make sure
     curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | tee -a $LOGFILE
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
     apt-get update
