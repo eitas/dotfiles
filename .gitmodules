@@ -55,3 +55,9 @@
 [submodule "vimplugins/fzf"]
 	path = vimplugins/fzf
 	url = https://github.com/junegunn/fzf
+[submodule "vimcolors/vim-colors-solarized"]
+	path = vimcolors/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
+[submodule "vimplugins/vim-rhubarb"]
+	path = vimplugins/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git

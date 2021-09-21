@@ -6,7 +6,7 @@
 # In this I am exploring the possibility of moving from YouCompleteMe to Conquer of Completion (coc) as a completion plugin.
 # 20-09-2021: Going to go all out with Neovim now and so updating lots of this bootstrap
 
-if [ -z ${LOGFILE+x}  ]; then 
+if [ -z ${LOGFILE+x}  ]; then
 	echo "LOGFILE is not set for neovim_bootstrap.sh, setting it."
 	NOW=$(date +"%d-%m-%Y_%H_%M_%S")
 	mkdir -p ./logs
@@ -24,9 +24,9 @@ echo "Installing color schemes" | tee -a $LOGFILE
 mkdir -p $VIM_COLORS_DIR
 ln -sf "$PWD/vimcolors/Alduin/colors/alduin.vim" "$VIM_COLORS_DIR/alduin.vim"
 ln -sf "$PWD/vimcolors/badwolf/colors/badwolf.vim" "$VIM_COLORS_DIR/badwolf.vim"
-ln -sf "$PWD/vimcolors/badwolf/colors/goodwolf.vim" "$VIM_COLORS_DIR/goodwolf.vim"
 ln -sf "$PWD/vimcolors/vim-afterglow/colors/afterglow.vim" "$VIM_COLORS_DIR/afterglow.vim"
 ln -sf "$PWD/vimcolors/gruvbox/colors/gruvbox.vim" "$VIM_COLORS_DIR/gruvbox.vim"
+ln -sf "$PWD/vimcolors/vim-colors-solarized/colors/solarized.vim" "$VIM_COLORS_DIR/solarized.vim"
 
 echo "Installing plugins" | tee -a $LOGFILE
 mkdir -p $VIM_PLUGINS_DIR
@@ -50,6 +50,9 @@ sudo cp -r "$PWD/vimplugins/vim-gitgutter" "$VIM_PLUGINS_DIR/" | tee -a $LOGFILE
 echo "fugitive (https://github.com/tpope/vim-fugitive)" | tee -a $LOGFILE
 sudo rm -rf $VIM_PLUGINS_DIR/vim-fugitive
 sudo cp -r "$PWD/vimplugins/vim-fugitive" "$VIM_PLUGINS_DIR/" | tee -a $LOGFILE
+echo "rhubarb (https://github.com/tpope/vim-rhubarb)" | tee -a $LOGFILE
+sudo rm -rf $VIM_PLUGINS_DIR/vim-rhubarb
+sudo cp -r "$PWD/vimplugins/vim-rhubarb" "$VIM_PLUGINS_DIR/" | tee -a $LOGFILE
 echo "typescript (https://github.com/leafgarland/typescript-vim)" | tee -a $LOGFILE
 sudo rm -rf $VIM_PLUGINS_DIR/typescript-vim
 sudo cp -r "$PWD/vimplugins/typescript-vim" "$VIM_PLUGINS_DIR/" | tee -a $LOGFILE
