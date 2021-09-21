@@ -73,6 +73,17 @@ browser_install() {
     sudo apt-get install -y google-chrome-stable
  }    
 
+powerline_install() {
+    # Powerline
+    echo "--------------------" | tee -a $LOGFILE
+    echo "installing Powerline" | tee -a $LOGFILE
+    echo "--------------------" | tee -a $LOGFILE
+    sudo apt-get install powerline -y 2>&1 | tee -a $LOGFILE 
+
+    mkdir -p $HOME/.config/powerline
+    cp -R /usr/share/powerline/config_files/* $HOME/.config/powerline/
+}
+
 apt_installs() {
     # I am only working within a Linux debian based environment so will run installs from here
     echo "------------------------" | tee -a $LOGFILE
@@ -90,12 +101,6 @@ apt_installs() {
     echo "installing git" | tee -a $LOGFILE
     echo "--------------" | tee -a $LOGFILE
     sudo apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
-
-    # Powerline
-    echo "--------------------" | tee -a $LOGFILE
-    echo "installing Powerline" | tee -a $LOGFILE
-    echo "--------------------" | tee -a $LOGFILE
-    sudo apt-get install powerline -y 2>&1 | tee -a $LOGFILE 
 
     # tmux
     echo "------------" | tee -a $LOGFILE
