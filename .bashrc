@@ -60,18 +60,16 @@ PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$
 bind -r '\C-s'
 stty -ixon
 
-# Set language and use UTF-8
-export LC_ALL=en_GB.UTF-8
-# Set path to include mySQL
-export PATH=/usr/local/bin:/usr/local/mysql/bin:$PATH
-# Set path to include Poetry
-export PATH=$HOME/.poetry/bin:$PATH
-# setup vim as the default editor in my terminals
-export VISUAL=vim
-export EDITOR="$VISUAL"
+# change the capslock key behaviour in Ubuntu
+xmodmap -e "keycode 66 = Shift_L"
 
-export GTK_IM_MODULE="ibus"
-export QT_IM_MODULE="ibus"
-export XMODIFIERS="@im=ibus"
+# Setup Powerline
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
+
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -91,6 +91,11 @@ apt_installs() {
     echo "--------------" | tee -a $LOGFILE
     sudo apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
 
+    # Powerline
+    echo "--------------------" | tee -a $LOGFILE
+    echo "installing Powerline" | tee -a $LOGFILE
+    echo "--------------------" | tee -a $LOGFILE
+    sudo apt-get install powerline -y 2>&1 | tee -a $LOGFILE 
 
     # tmux
     echo "------------" | tee -a $LOGFILE
