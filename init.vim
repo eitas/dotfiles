@@ -20,7 +20,6 @@ set cmdheight=2
 set fileformat=unix
 set encoding=utf-8
 set clipboard+=unnamedplus " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
-set wildmenu
 set path+=** " tab-completion for all file-related tasks
 
 " handle split navigations avoid C-W 
@@ -29,8 +28,21 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" --------------------------------------------------------------------
+" Ok, getting a bit more opinionated here
+" --------------------------------------------------------------------
 " highlight trailing white space
 au BufRead, BufNewFile *.py, *.c, *.h match BadWhitespace /\s\+$/
+
+" menu for files
+set wildmode=longest,list,full
+set wildmenu
+" Ignore the following file types
+set wildignore+=*.pyc
+set wildignore+=*.swp
+set wildignore+=*_build/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/.git/*
 
 " --------------------------------------------------------------------
 " Key bindings
@@ -67,6 +79,11 @@ augroup END
 " --------------------------------------------------------------------
 call plug#begin(stdpath('data') . '/plugged')
 
+" Language Server Protocol
+Plug 'neovim/nvim-lspconfig'
+" Treesitter - getting more language support
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 " Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -81,14 +98,30 @@ Plug 'preservim/nerdtree'
 " Git support
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+" Comments
+Plug 'tpope/vim-commentary'
+" Status line
 Plug 'vim-airline/vim-airline'
 " Code browsing
 Plug 'vim-scripts/taglist.vim'
 
-let g:airline_powerline_fonts = 1
-
 call plug#end()
 
+" With airline have the nice pointy arrows
+let g:airline_powerline_fonts = 1
+
+" Tree sitter languages
+" TSInstall bash
+" TSInstall cmake
+" TSInstall css
+" TSInstall dockerfile
+" TSInstall json
+" TSInstall lua
+" TSInstall python
+" TSInstall regex
+" TSInstall rust
+" TSInstall typescript
+" TSInstall yaml
 " --------------------------------------------------------------------
 " Research
 " --------------------------------------------------------------------
@@ -98,7 +131,14 @@ call plug#end()
 " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 " Handling folds within nvim
 " ???
-"
+" Alternative to NERDTree
+" https://github.com/kyazdani42/nvim-tree.lua
+" Direct interaction with Github CLI
+" https://github.com/pwntester/octo.nvim
+" Lua snippets
+" https://github.com/L3MON4D3/LuaSnip
+" Alternative status line
+" https://github.com/hoob3rt/lualine.nvim
 " --------------------------------------------------------------------
 " Useful links
 " --------------------------------------------------------------------

@@ -156,12 +156,26 @@ apt_installs() {
 
     # tree so I can get nice display of folders and contents
     # within the terminal
+    echo "----------------------------------------------" | tee -a $LOGFILE
+    echo "Tree: pretty visual of folders in the terminal" | tee -a $LOGFILE
+    echo "----------------------------------------------" | tee -a $LOGFILE
     sudo apt-get install -y tree
 
-    
+   
     # cleanup the cache
     sudo apt-get clean -y
     sudo apt-get autoremove -y
+}
+
+python_environment_setup() {
+    echo "-------------------------------" | tee -a $LOGFILE
+    echo "pyenv: multiple python versions" | tee -a $LOGFILE
+    echo "-------------------------------" | tee -a $LOGFILE
+    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev\
+    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev\
+    libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv    
 }
 
 docker_install() {
@@ -234,14 +248,22 @@ bootstrap_crontab() {
     # https://github.com/ajmalsiddiqui/dotfiles/blob/master/crontab.bootstrap.exclude.sh
 }
 
+language-server-protocol_install() {
+    echo "---------------------------------------------" | tee -a $LOGFILE
+    echo "Installing relevant language server protocols" | tee -a $LOGFILE
+    echo "---------------------------------------------" | tee -a $LOGFILE
+    npm i -g vscode-langservers-extracted 
+}
 
 init
 cleanup
 link
 browser_install
 apt_installs
+python_environment_setup
 docker_install
 neovim_install
+language-server-protocol_install
 bootstrap_neovim
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
