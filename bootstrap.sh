@@ -57,8 +57,8 @@ browser_install() {
     echo "----------------------------" | tee -a $LOGFILE
     echo "installing the Brave browser" | tee -a $LOGFILE
     echo "----------------------------" | tee -a $LOGFILE
-    sudo apt-get install -y apt-transport-https curl | tee -a $LOGFILE # I doubt curl won't be there, but just make sure
-    curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | tee -a $LOGFILE
+    sudo apt-get install -y apt-transport-https curl | tee -a $LOGFILE
+    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | tee -a $LOGFILE
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
     sudo apt-get update
     sudo apt-get install -y brave-browser
@@ -85,7 +85,7 @@ powerline_install() {
     cp -R /usr/share/powerline/config_files/* $HOME/.config/powerline/
 }
 
-apt_installs() {
+apt_install() {
     # I am only working within a Linux debian based environment so will run installs from here
     echo "------------------------" | tee -a $LOGFILE
     echo "updating package manager" | tee -a $LOGFILE
@@ -124,7 +124,7 @@ apt_installs() {
     # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
     # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
     sudo apt-get install -y curl python-software-properties software-properties-common 2>&1 | tee -a $LOGFILE
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
+    sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
     sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
     # checks
     echo "node version: $( node --version )" | tee -a $LOGFILE
@@ -186,7 +186,7 @@ docker_install() {
     # allow apt to use a repository over HTTPS
     sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE 
     # add official docker GPG key
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
     # install the stable docker repository
     #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     # Note above doesn't work on Mint Tina, so hard-coding bionic in there
@@ -233,7 +233,7 @@ bootstrap_neovim() {
     echo "-------" | tee -a $LOGFILE
     echo "Bootstrap Neovim with plugins etc..." | tee -a $LOGFILE
     echo "-------" | tee -a $LOGFILE
-    $PWD/nvim_bootstrap.sh
+    $PWD/neovim_bootstrap.sh
 }
 
 bootstrap_crontab() {
@@ -259,7 +259,8 @@ init
 cleanup
 link
 browser_install
-apt_installs
+apt_install
+powerline_install
 python_environment_setup
 docker_install
 neovim_install
