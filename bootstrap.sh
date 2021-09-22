@@ -81,7 +81,6 @@ powerline_install() {
     sudo apt-get install powerline -y 2>&1 | tee -a $LOGFILE 
     sudo apt-get install fonts-powerline -y 2>&1 | tee -a $LOGFILE 
 
-
     mkdir -p $HOME/.config/powerline
     cp -R /usr/share/powerline/config_files/* $HOME/.config/powerline/
 }
@@ -95,8 +94,6 @@ apt_installs() {
     echo "------------------------" | tee -a $LOGFILE
     echo "package updates complete" | tee -a $LOGFILE
     echo "------------------------" | tee -a $LOGFILE
-
-
    
     # git
     echo "--------------" | tee -a $LOGFILE
@@ -157,6 +154,10 @@ apt_installs() {
 
     # TODO AWS SAM
 
+    # tree so I can get nice display of folders and contents
+    # within the terminal
+    sudo apt-get install -y tree
+
     
     # cleanup the cache
     sudo apt-get clean -y
@@ -207,6 +208,7 @@ neovim_install() {
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     # need python3 support for a number of plugins
+    sudo apt-get install -y python3-pip
     pip3 install pynvim
     # note to uninstall neovim from source you need the following
     # sudo rm /usr/local/bin/nvim
