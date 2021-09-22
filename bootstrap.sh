@@ -79,6 +79,8 @@ powerline_install() {
     echo "installing Powerline" | tee -a $LOGFILE
     echo "--------------------" | tee -a $LOGFILE
     sudo apt-get install powerline -y 2>&1 | tee -a $LOGFILE 
+    sudo apt-get install fonts-powerline -y 2>&1 | tee -a $LOGFILE 
+
 
     mkdir -p $HOME/.config/powerline
     cp -R /usr/share/powerline/config_files/* $HOME/.config/powerline/
@@ -192,7 +194,7 @@ neovim_install() {
     echo "neovim install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
     echo "installing from source" | tee -a $LOGFILE
-    # Install the pre-requisites
+    # Install the pre-requisites for neovim
     sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
     CWD=$PWD
     cd $PATH_TO_DOTFILES
@@ -201,7 +203,12 @@ neovim_install() {
     git checkout stable
     cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/neovim install
     cd $CWD
-    # note to uninstall from source:
+    # vim-plug to allow me to get neovim plugins working from within init.vim
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    # need python3 support for a number of plugins
+    pip3 install pynvim
+    # note to uninstall neovim from source you need the following
     # sudo rm /usr/local/bin/nvim
     # sudo rm -r /usr/local/share/nvim
 }
@@ -233,7 +240,7 @@ browser_install
 apt_installs
 docker_install
 neovim_install
-#bootstrap_neovim
+bootstrap_neovim
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Ending eitas dotfile install on $END_TIME" | tee -a $LOGFILE

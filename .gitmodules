@@ -61,3 +61,15 @@
 [submodule "vimplugins/vim-rhubarb"]
 	path = vimplugins/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
+[submodule "vimplugins/telescope-fzf-native.nvim"]
+	path = vimplugins/telescope-fzf-native.nvim
+	url = https://github.com/nvim-telescope/telescope-fzf-native.nvim.git
+[submodule "vimplugins/plenary.nvim"]
+	path = vimplugins/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "vimplugins/telescope.nvim"]
+	path = vimplugins/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim.git
+[submodule "vimplugins/ripgrep"]
+	path = vimplugins/ripgrep
+	url = https://github.com/BurntSushi/ripgrep.git

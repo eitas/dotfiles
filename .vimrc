@@ -294,9 +294,9 @@ if has("autocmd")
     filetype indent on
     set smartindent
     
-    autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab textwidth=120
+    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab textwidth=120
     " set this up to conform to PEP8
-    autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab textwidth=120 
-    autocmd FileType css setlocal ts=2 sts=4 sw=2 expandtab text
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab 
+    autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab textwidth=120 
+    autocmd FileType css setlocal tabstop=2 softtabstop=4 shiftwidth=2 expandtab text
+    autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
 endif
