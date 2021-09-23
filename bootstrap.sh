@@ -224,6 +224,12 @@ neovim_install() {
     # need python3 support for a number of plugins
     sudo apt-get install -y python3-pip
     pip3 install pynvim
+    # Need ripgrep for Telescope
+    sudo apt-get install -y ripgrep
+    # Need fd-find for Telescope
+    sudo apt-get install -y fd-find
+    mkdir $HOME/.local/bin
+    ln -s /usr/bin/fdfind $HOME/.local/bin/fd
     # note to uninstall neovim from source you need the following
     # sudo rm /usr/local/bin/nvim
     # sudo rm -r /usr/local/share/nvim
