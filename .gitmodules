@@ -49,9 +49,6 @@
 [submodule "vimcolors/gruvbox"]
 	path = vimcolors/gruvbox
 	url = https://github.com/morhetz/gruvbox
-[submodule "vimplugins/ale"]
-	path = vimplugins/ale
-	url = https://github.com/dense-analysis/ale
 [submodule "vimplugins/fzf"]
 	path = vimplugins/fzf
 	url = https://github.com/junegunn/fzf
