@@ -230,10 +230,17 @@ neovim_install() {
 }
 
 bootstrap_neovim() {
-    echo "-------" | tee -a $LOGFILE
+    echo "------------------------------------" | tee -a $LOGFILE
     echo "Bootstrap Neovim with plugins etc..." | tee -a $LOGFILE
-    echo "-------" | tee -a $LOGFILE
+    echo "------------------------------------" | tee -a $LOGFILE
     $PWD/neovim_bootstrap.sh
+}
+
+slack_install() {
+    echo "-------------" | tee -a $LOGFILE
+    echo "Slack install" | tee -a $LOGFILE
+    echo "-------------" | tee -a $LOGFILE
+    sudo snap install slack --classic
 }
 
 bootstrap_crontab() {
@@ -264,8 +271,9 @@ powerline_install
 python_environment_setup
 docker_install
 neovim_install
-language-server-protocol_install
 bootstrap_neovim
+slack_install
+language-server-protocol_install
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Ending eitas dotfile install on $END_TIME" | tee -a $LOGFILE
