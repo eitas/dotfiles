@@ -98,12 +98,22 @@ Plug 'preservim/nerdtree'
 " Git support
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 " Comments
 Plug 'tpope/vim-commentary'
+" Surround
+Plug 'tpope/vim-surround'
 " Status line
 Plug 'vim-airline/vim-airline'
 " Code browsing
 Plug 'vim-scripts/taglist.vim'
+
+" Other plugins to consider
+" SimpylFold
+" coc.nvim - though I think Telescope will cover this
+" fzf - again I think telescope will cover this
+" typescript-vim but I wonder if there is a LSP for this now
+
 
 call plug#end()
 

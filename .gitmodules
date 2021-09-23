@@ -7,66 +7,12 @@
 [submodule "vimcolors/Alduin"]
 	path = vimcolors/Alduin
 	url = https://github.com/AlessandroYorba/Alduin
-[submodule "vimplugins/SimpylFold"]
-	path = vimplugins/SimpylFold
-	url = https://github.com/tmhedberg/SimpylFold
-[submodule "vimplugins/taglist.vim"]
-	path = vimplugins/taglist.vim
-	url = https://github.com/vim-scripts/taglist.vim
-[submodule "vimplugins/ctrlp.vim"]
-	path = vimplugins/ctrlp.vim
-	url = https://github.com/ctrlpvim/ctrlp.vim
-[submodule "vimplugins/nerdtree"]
-	path = vimplugins/nerdtree
-	url = https://github.com/preservim/nerdtree
-[submodule "vimplugins/vim-fugitive"]
-	path = vimplugins/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
-[submodule "vimplugins/vim-surround"]
-	path = vimplugins/vim-surround
-	url = https://github.com/tpope/vim-surround
-[submodule "vimplugins/vim-airline"]
-	path = vimplugins/vim-airline
-	url = https://github.com/vim-airline/vim-airline
-[submodule "vimplugins/typescript-vim"]
-	path = vimplugins/typescript-vim
-	url = https://github.com/leafgarland/typescript-vim
-[submodule "vimplugins/vim-gitgutter"]
-	path = vimplugins/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter
-[submodule "vimplugins/hardmode"]
-	path = vimplugins/hardmode
-	url = https://github.com/wikitopian/hardmode
 [submodule "vimplugins/YouCompleteMe"]
 	path = vimplugins/YouCompleteMe
 	url = https://github.com/ycm-core/YouCompleteMe
-[submodule "vimplugins/fzf.vim"]
-	path = vimplugins/fzf.vim
-	url = https://github.com/junegunn/fzf.vim
-[submodule "vimplugins/coc.nvim"]
-	path = vimplugins/coc.nvim
-	url = https://github.com/neoclide/coc.nvim
 [submodule "vimcolors/gruvbox"]
 	path = vimcolors/gruvbox
 	url = https://github.com/morhetz/gruvbox
-[submodule "vimplugins/fzf"]
-	path = vimplugins/fzf
-	url = https://github.com/junegunn/fzf
 [submodule "vimcolors/vim-colors-solarized"]
 	path = vimcolors/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized
-[submodule "vimplugins/vim-rhubarb"]
-	path = vimplugins/vim-rhubarb
-	url = https://github.com/tpope/vim-rhubarb.git
-[submodule "vimplugins/telescope-fzf-native.nvim"]
-	path = vimplugins/telescope-fzf-native.nvim
-	url = https://github.com/nvim-telescope/telescope-fzf-native.nvim.git
-[submodule "vimplugins/plenary.nvim"]
-	path = vimplugins/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim
-[submodule "vimplugins/telescope.nvim"]
-	path = vimplugins/telescope.nvim
-	url = https://github.com/nvim-telescope/telescope.nvim.git
-[submodule "vimplugins/ripgrep"]
-	path = vimplugins/ripgrep
-	url = https://github.com/BurntSushi/ripgrep.git
