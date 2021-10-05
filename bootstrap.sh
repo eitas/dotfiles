@@ -219,7 +219,7 @@ neovim_install() {
     cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/neovim install
     cd $CWD
     # vim-plug to allow me to get neovim plugins working from within init.vim
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    sudo sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     # need python3 support for a number of plugins
     sudo apt-get install -y python3-pip
@@ -246,7 +246,7 @@ slack_install() {
     echo "-------------" | tee -a $LOGFILE
     echo "Slack install" | tee -a $LOGFILE
     echo "-------------" | tee -a $LOGFILE
-    sudo snap install slack --classic
+    #sudo snap install slack --classic
 }
 
 bootstrap_crontab() {
@@ -265,7 +265,28 @@ language-server-protocol_install() {
     echo "---------------------------------------------" | tee -a $LOGFILE
     echo "Installing relevant language server protocols" | tee -a $LOGFILE
     echo "---------------------------------------------" | tee -a $LOGFILE
-    npm i -g vscode-langservers-extracted 
+    sudo npm i -g vscode-langservers-extracted 
+}
+
+final_checklist() {
+    echo "---------------------------------------" | tee -a $LOGFILE
+    echo "BOOTSTRAPPING COMPLETE: FINAL CHECKLIST" | tee -a $LOGFILE
+    echo "---------------------------------------" | tee -a $LOGFILE
+    echo "Open new terminal and check Powerline is working." | tee -a $LOGFILE
+    echo "Check the symlinks in the home directory point to the dotfiles repo" | tee -a $LOGFILE
+    echo "Check Brave Brower is installed." | tee -a $LOGFILE
+    echo "Check Chrome is installed, although not used as standard still useful to have around." | tee -a $LOGFILE
+    echo "Check git is installed, which it must be to get this far!" | tee -a $LOGFILE
+    echo "Check tmux is installed" | tee -a $LOGFILE
+    echo "Check aws cli is installed" | tee -a $LOGFILE
+    echo "Check node and npm is installed" | tee -a $LOGFILE
+    echo "Check aws cdk is installed" | tee -a $LOGFILE
+    echo "Check ctags is installed REDUNDANT" | tee -a $LOGFILE
+    echo "Check Tree is installed" | tee -a $LOGFILE
+    echo "Check pyenv is installed" | tee -a $LOGFILE
+    echo "Check Docker is installed" | tee -a $LOGFILE
+    echo "Check Neovim has proper plugins setup." | tee -a $LOGFILE
+    echo "- Sometimes the setup of vim-plug has not worked and it is ugly, search it on brave" | tee -a $LOGFILE
 }
 
 init
@@ -280,6 +301,7 @@ neovim_install
 bootstrap_neovim
 slack_install
 language-server-protocol_install
+final_checklist
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Ending eitas dotfile install on $END_TIME" | tee -a $LOGFILE
