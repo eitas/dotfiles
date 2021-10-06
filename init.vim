@@ -45,21 +45,9 @@ set wildignore+=**/node_modules/*
 set wildignore+=**/.git/*
 
 " --------------------------------------------------------------------
-" Key bindings
+" General Key bindings
 " --------------------------------------------------------------------
-" INSERT Bindings
-" use jk instead of having to <esc> to get back to normal mode (insert mode)
-inoremap jk <esc>
-" now disable the <esc> key (insert mode) to force use of jk
-inoremap <esc> <nop>
-
-" NORMAL bindings
-" Allow me to edit the init.vim file easily
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-set tabstop=2 shiftwidth=2 expandtab textwidth=120
-
+" GENERAL Bindings
 " Have F3 open help for the word under cursor
 map <F3> "zyiw:exe "h ".@z.""<CR>
 
@@ -68,11 +56,30 @@ nmap n nzz
 nmap N Nzz
 nmap * *zz
 
+" It is annoying when the search term remains highlighted
 augroup vimrc-incsearch-highlight
   autocmd!
   autocmd CmdlineEnter /,\? :set hlsearch
   autocmd CmdlineLeave /,\? :set nohlsearch
 augroup END
+
+" INSERT Bindings
+" ---------------
+" use jk instead of having to <esc> to get back to normal mode (insert mode)
+inoremap jk <esc>
+" now disable the <esc> key (insert mode) to force use of jk
+inoremap <esc> <nop>
+
+" NORMAL bindings
+" ---------------
+" Allow me to edit the init.vim file easily
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" --------------------------------------------------------------------
+" File formatting
+" --------------------------------------------------------------------
+set tabstop=2 shiftwidth=2 expandtab textwidth=120 " general formating
 
 " --------------------------------------------------------------------
 " Plugins
@@ -88,7 +95,7 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Adding snippet capability
 Plug 'SirVer/ultisnips'
 " Linting
@@ -114,9 +121,25 @@ Plug 'vim-scripts/taglist.vim'
 " fzf - again I think telescope will cover this
 " typescript-vim but I wonder if there is a LSP for this now
 
-
 call plug#end()
 
+" --------------------------------------------------------------------
+" Plugin keybindings
+" --------------------------------------------------------------------
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+
+
+" --------------------------------------------------------------------
+" Plugin configuration
+" --------------------------------------------------------------------
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    prompt_prefix = "> "    
+  }
+}
+require('telescope').load_extension('fzf')
+EOF
 " With airline have the nice pointy arrows
 let g:airline_powerline_fonts = 1
 

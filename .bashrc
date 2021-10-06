@@ -57,8 +57,10 @@ PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$
 # https://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
 # Ctrl-S hangs vim and I want to be able to use that for saving files so switch
 # it off
-bind -r '\C-s'
-stty -ixon
+# 2021-10-03 This is causing an error on boot so should investigate this 
+# again and determine its requirements
+#bind -r '\C-s'
+#stty -ixon
 
 # change the capslock key behaviour in Ubuntu
 xmodmap -e "keycode 66 = Shift_L"

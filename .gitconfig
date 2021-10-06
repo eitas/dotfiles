@@ -1,3 +1,16 @@
 [user]
 	email = 4568748+eitas@users.noreply.github.com
-	name = Max Thomas
+  name = Max Thomas
+[fetch]
+  prune = true
+[rebase]
+  # when rebasing autosquash relevant commits to clean up automatically
+  autosquash = true
+[web]
+  # Open in the users default browser
+  browser = xdg-open
+
+
+# for later consideration
+# a [core].excludesfile would allow me to have a global gitignore which could be useful
+# 
