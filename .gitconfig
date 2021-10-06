@@ -9,6 +9,8 @@
 [web]
   # Open in the users default browser
   browser = xdg-open
+[core]
+  editor = nvim
 
 
 # for later consideration
