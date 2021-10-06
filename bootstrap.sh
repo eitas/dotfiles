@@ -123,7 +123,7 @@ apt_install() {
     echo "-------------" | tee -a $LOGFILE
     # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
     # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
-    sudo apt-get install -y curl python-software-properties software-properties-common 2>&1 | tee -a $LOGFILE
+    sudo apt-get install -y curl software-properties-common 2>&1 | tee -a $LOGFILE
     sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
     sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
     # checks
@@ -218,6 +218,8 @@ neovim_install() {
     git checkout stable
     cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/neovim install
     cd $CWD
+    # fzf is required for telescope and may not be available by default so install it.
+    sudo apt-get install fzf
     # vim-plug to allow me to get neovim plugins working from within init.vim
     sudo sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -307,3 +309,13 @@ END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Ending eitas dotfile install on $END_TIME" | tee -a $LOGFILE
 exit 0
 
+# Troubleshooting
+# 06/10/2021 - I had an error where Telescope could not find fzf and this 
+# repeated I believe this was because fzf was not available on my Linux Mint 
+# 20.2 installation so a sudo apt-get install fzf installed it, but neovim 
+# seemed to be stuck without the fzf extension for telescope.  Running
+# PlugInstall didn't seem to fix this so I was a bit stuck
+# in the end it seems the make for telescope-fzf-native needed to be run again
+# so $ cd ~/.local/share/nvim/plugged/telescope-fzf-native.nvim
+# $ make
+# this seemed to fix the issue
