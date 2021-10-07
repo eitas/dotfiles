@@ -270,6 +270,21 @@ language-server-protocol_install() {
     sudo npm i -g vscode-langservers-extracted 
 }
 
+set_sudo_default_editor(){
+    echo "----------------------------------------------------" | tee -a $LOGFILE
+    echo "Setting the default editor to nvim for the root user" | tee -a $LOGFILE
+    echo "----------------------------------------------------" | tee -a $LOGFILE
+    echo "By default this is normally nano" | tee -a $LOGFILE
+    echo "But I want to change it to neovim" | tee -a $LOGFILE
+    echo "Neovim is not available as an alternative by default so need to 'install' that" | tee -a $LOGFILE
+    # give it a priority of 60 so it is auto selected
+    sudo update-alternatives --install "$(which editor)" editor "$(which nvim)" 60 
+    # ensure that the update-alternatives for the editor is auto so that it picks the highest priority editor
+    # which should be neovim
+    sudo update-alternatives --auto editor
+    echo "Now performing sudoedit on root owned files should open them in neovim" | tee -a $LOGFILE
+}
+
 final_checklist() {
     echo "---------------------------------------" | tee -a $LOGFILE
     echo "BOOTSTRAPPING COMPLETE: FINAL CHECKLIST" | tee -a $LOGFILE
@@ -289,6 +304,7 @@ final_checklist() {
     echo "Check Docker is installed" | tee -a $LOGFILE
     echo "Check Neovim has proper plugins setup." | tee -a $LOGFILE
     echo "- Sometimes the setup of vim-plug has not worked and it is ugly, search it on brave" | tee -a $LOGFILE
+    echo "Check that sudoedit uses Neovim" | tee -a $LOGFILE
 }
 
 init
