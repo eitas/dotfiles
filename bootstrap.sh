@@ -33,6 +33,19 @@ init() {
     mkdir -p "$PATH_TO_DOTFILES"
 }
 
+check_if_app_installed() {
+    echo "checking if $1 is installed"
+    INSTALL_CHECK=$($1 --version 2> /dev/null)
+    if [ -z "$INSTALL_CHECK" ]
+    then
+      echo "$1 is not installed.. installing.."
+      return 0
+    else
+      echo "$1 is already installed.. skipping.."
+      return 1
+    fi
+}
+
 cleanup() {
     # cleanup the cache
     echo "-------" | tee -a $LOGFILE
@@ -57,20 +70,23 @@ browser_install() {
     echo "----------------------------" | tee -a $LOGFILE
     echo "installing the Brave browser" | tee -a $LOGFILE
     echo "----------------------------" | tee -a $LOGFILE
-    sudo apt-get install -y apt-transport-https curl | tee -a $LOGFILE
-    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | tee -a $LOGFILE
-    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-    sudo apt-get update
-    sudo apt-get install -y brave-browser
+    if check_if_app_installed brave-browser;
+    then 
+      sudo apt-get install -y apt-transport-https curl | tee -a $LOGFILE
+      sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | tee -a $LOGFILE
+      echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+      sudo apt-get update
+      sudo apt-get install -y brave-browser
 
-    # chrome
-    echo "-----------------" | tee -a $LOGFILE
-    echo "installing chrome" | tee -a $LOGFILE
-    echo "-----------------" | tee -a $LOGFILE
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list 
-    sudo apt-get update -y
-    sudo apt-get install -y google-chrome-stable
+      # chrome
+      echo "-----------------" | tee -a $LOGFILE
+      echo "installing chrome" | tee -a $LOGFILE
+      echo "-----------------" | tee -a $LOGFILE
+      wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list 
+      sudo apt-get update -y
+      sudo apt-get install -y google-chrome-stable
+    fi
  }    
 
 powerline_install() {
@@ -99,13 +115,19 @@ apt_install() {
     echo "--------------" | tee -a $LOGFILE
     echo "installing git" | tee -a $LOGFILE
     echo "--------------" | tee -a $LOGFILE
-    sudo apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
+    if check_if_app_installed git;
+    then 
+      sudo apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
+    fi
 
     # tmux
     echo "------------" | tee -a $LOGFILE
     echo "tmux install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
-    sudo apt-get install tmux -y 2>&1 | tee -a $LOGFILE
+    if check_if_app_installed git;
+    then 
+      sudo apt-get install tmux -y 2>&1 | tee -a $LOGFILE
+    fi
 
     # aws cli
     echo "-----------------" | tee -a $LOGFILE
@@ -114,42 +136,46 @@ apt_install() {
     # this assumes a python3 installation
     # need to keep an eye on this and perhaps
     # put some defensive code in.
-    sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
-    echo "aws version: $( aws --version )" | tee -a $LOGFILE
- 
+    if check_if_app_installed git;
+    then 
+      sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
+      echo "aws version: $( aws --version )" | tee -a $LOGFILE
+    fi
+   
     # nodejs
     echo "-------------" | tee -a $LOGFILE
     echo "node install: " | tee -a $LOGFILE
     echo "-------------" | tee -a $LOGFILE
     # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
     # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
-    sudo apt-get install -y curl software-properties-common 2>&1 | tee -a $LOGFILE
-    sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
-    sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
-    # checks
-    echo "node version: $( node --version )" | tee -a $LOGFILE
-    echo "npm version: $( npm --version )" | tee -a $LOGFILE
+    if check_if_app_installed node;
+    then 
+      sudo apt-get install -y curl software-properties-common 2>&1 | tee -a $LOGFILE
+      sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
+      sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
+      # checks
+      echo "node version: $( node --version )" | tee -a $LOGFILE
+      echo "npm version: $( npm --version )" | tee -a $LOGFILE
+    fi
 
-    # npm
-#    echo "-------------" | tee -a $LOGFILE
-#    echo "npm install: " | tee -a $LOGFILE
-#    echo "-------------" | tee -a $LOGFILE
-#    apt install npm -y
-#    # checks
-#    npm --version | tee -a $LOGFILE
-#
     # install the AWS CDK
     echo "----------------" | tee -a $LOGFILE
     echo "aws cdk install: " | tee -a $LOGFILE
     echo "----------------" | tee -a $LOGFILE
-    sudo npm install -g aws-cdk -y 2>&1 | tee -a $LOGFILE
-    # checks
-    cdk --version | tee -a $LOGFILE
+    if check_if_app_installed cdk;
+    then 
+      sudo npm install -g aws-cdk -y 2>&1 | tee -a $LOGFILE
+      # checks
+      cdk --version | tee -a $LOGFILE
+    fi
  
     echo "-------" | tee -a $LOGFILE
     echo "ctags: " | tee -a $LOGFILE
     echo "-------" | tee -a $LOGFILE
-    sudo apt-get install -y exuberant-ctags 2>&1 | tee -a $LOGFILE
+    if check_if_app_installed ctags;
+    then 
+      sudo apt-get install -y exuberant-ctags 2>&1 | tee -a $LOGFILE
+    fi
 
 
     # TODO AWS SAM
@@ -171,11 +197,14 @@ python_environment_setup() {
     echo "-------------------------------" | tee -a $LOGFILE
     echo "pyenv: multiple python versions" | tee -a $LOGFILE
     echo "-------------------------------" | tee -a $LOGFILE
-    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev\
-    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev\
-    libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+    if check_if_app_installed pyenv;
+    then 
+      sudo apt-get install -y make build-essential libssl-dev zlib1g-dev\
+      libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev\
+      libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv    
+      git clone https://github.com/pyenv/pyenv.git ~/.pyenv    
+    fi
 }
 
 docker_install() {
@@ -183,23 +212,26 @@ docker_install() {
     echo "-----------------" | tee -a $LOGFILE
     echo "installing docker" | tee -a $LOGFILE
     echo "-----------------" | tee -a $LOGFILE
-    # allow apt to use a repository over HTTPS
-    sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE 
-    # add official docker GPG key
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
-    # install the stable docker repository
-    #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    # Note above doesn't work on Mint Tina, so hard-coding bionic in there
-    add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
-    # refresh the apt cache
-    sudo apt-get update -y
-    # install
-    sudo apt-get install -y docker.io
-    echo "Verifying docker installation using a hello world container..."   
-    docker run hello-world
+    if check_if_app_installed docker;
+    then 
+      # allow apt to use a repository over HTTPS
+      sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE 
+      # add official docker GPG key
+      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
+      # install the stable docker repository
+      #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      # Note above doesn't work on Mint Tina, so hard-coding bionic in there
+      add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+      # refresh the apt cache
+      sudo apt-get update -y
+      # install
+      sudo apt-get install -y docker.io
+      echo "Verifying docker installation using a hello world container..."   
+      docker run hello-world
 
-    # Docker Compose
-    sudo apt-get install docker-compose -y
+      # Docker Compose
+      sudo apt-get install docker-compose -y
+    fi
 }
 
 neovim_install() {
@@ -209,39 +241,45 @@ neovim_install() {
     echo "neovim install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
     echo "installing from source" | tee -a $LOGFILE
-    # Install the pre-requisites for neovim
-    sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
-    CWD=$PWD
-    cd $PATH_TO_DOTFILES
-    rm -rf neovim
-    git clone https://github.com/neovim/neovim.git
-    git checkout stable
-    cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/neovim install
-    cd $CWD
-    # fzf is required for telescope and may not be available by default so install it.
-    sudo apt-get install fzf
-    # vim-plug to allow me to get neovim plugins working from within init.vim
-    sudo sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    # need python3 support for a number of plugins
-    sudo apt-get install -y python3-pip
-    pip3 install pynvim
-    # Need ripgrep for Telescope
-    sudo apt-get install -y ripgrep
-    # Need fd-find for Telescope
-    sudo apt-get install -y fd-find
-    mkdir $HOME/.local/bin
-    ln -s /usr/bin/fdfind $HOME/.local/bin/fd
-    # note to uninstall neovim from source you need the following
-    # sudo rm /usr/local/bin/nvim
-    # sudo rm -r /usr/local/share/nvim
+    if check_if_app_installed nvim;
+    then 
+      # Install the pre-requisites for neovim
+      sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
+      CWD=$PWD
+      cd $PATH_TO_DOTFILES
+      rm -rf neovim
+      git clone https://github.com/neovim/neovim.git
+      git checkout stable
+      cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/neovim install
+      cd $CWD
+      # fzf is required for telescope and may not be available by default so install it.
+      sudo apt-get install fzf
+      # vim-plug to allow me to get neovim plugins working from within init.vim
+      sudo sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+      # need python3 support for a number of plugins
+      sudo apt-get install -y python3-pip
+      pip3 install pynvim
+      # Need ripgrep for Telescope
+      sudo apt-get install -y ripgrep
+      # Need fd-find for Telescope
+      sudo apt-get install -y fd-find
+      mkdir $HOME/.local/bin
+      ln -s /usr/bin/fdfind $HOME/.local/bin/fd
+      # note to uninstall neovim from source you need the following
+      # sudo rm /usr/local/bin/nvim
+      # sudo rm -r /usr/local/share/nvim
+    fi
 }
 
 bootstrap_neovim() {
     echo "------------------------------------" | tee -a $LOGFILE
     echo "Bootstrap Neovim with plugins etc..." | tee -a $LOGFILE
     echo "------------------------------------" | tee -a $LOGFILE
-    $PWD/neovim_bootstrap.sh
+    if check_if_app_installed nvim;
+    then 
+      $PWD/neovim_bootstrap.sh
+    fi
 }
 
 slack_install() {
@@ -319,6 +357,7 @@ neovim_install
 bootstrap_neovim
 slack_install
 language-server-protocol_install
+set_sudo_default_editor
 final_checklist
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
