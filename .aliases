@@ -7,4 +7,5 @@ alias vi='nvim'
 alias xsc="xclip -selection clipboard" # Primeagen alias
 alias mytmux="tmux-sessionizer"
 alias mytmuxdetach="tmux-detacher"
+alias backup_my_machine="backup-linux-home"
 # alias etc="$VIM $DOTFILES/.tmux.conf"
