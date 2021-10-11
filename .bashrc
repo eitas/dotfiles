@@ -13,6 +13,10 @@ unset file
 
 default_username='max'
 
+# ------------------------------------------------------------------------------
+# The below is now superceded by powerline, but useful to keep around
+# ------------------------------------------------------------------------------
+
 # Setup to use full set of colours
 # Note /dev/null is a black hole bucket where we redirect standard output
 # we then (2>&1) redirect errors to the screen
@@ -54,6 +58,10 @@ fi
 # Now setup the prompt.  The text used for the prompt is held in the environment variable PS1
 PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$(usernamehost)\[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
 
+# ------------------------------------------------------------------------------
+# The above is now superceded by powerline, but useful to keep around
+# ------------------------------------------------------------------------------
+
 # https://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
 # Ctrl-S hangs vim and I want to be able to use that for saving files so switch
 # it off
@@ -80,3 +88,20 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
  eval "$(pyenv init -)"
 fi
+
+# ------------------------------------------------------------------------------
+# tmux.  I always want to run in tmux now, so lets start a tmux session
+# when starting a terminal shell.  Thanks to thoughtbot for the input
+# https://thoughtbot.com/upcase/videos/tmux-advanced-workflow
+# ------------------------------------------------------------------------------
+not_inside_tmux() { 
+  [ -z "$TMUX" ] 
+}
+
+ensure_tmux_is_running() {
+  if not_inside_tmux; then
+    mytmux "home"
+  fi
+}
+
+ensure_tmux_is_running
