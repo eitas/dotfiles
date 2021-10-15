@@ -187,6 +187,12 @@ apt_install() {
     echo "----------------------------------------------" | tee -a $LOGFILE
     sudo apt-get install -y tree
 
+    # unzip so I can unzip zip files like terraform
+    echo "-----------------------" | tee -a $LOGFILE
+    echo "Unzip: unzip zip files!" | tee -a $LOGFILE
+    echo "-----------------------" | tee -a $LOGFILE
+    sudo apt-get install -y unzip
+
    
     # cleanup the cache
     sudo apt-get clean -y
@@ -323,6 +329,14 @@ set_sudo_default_editor(){
     echo "Now performing sudoedit on root owned files should open them in neovim" | tee -a $LOGFILE
 }
 
+terraform_install() {
+    echo "--------------------" | tee -a $LOGFILE
+    echo "Installing Terraform" | tee -a $LOGFILE
+    echo "--------------------" | tee -a $LOGFILE
+    sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip | tee -a $LOGFILE
+    sudo unzip /tmp/terraform.zip -d /usr/local/bin
+}
+
 final_checklist() {
     echo "---------------------------------------" | tee -a $LOGFILE
     echo "BOOTSTRAPPING COMPLETE: FINAL CHECKLIST" | tee -a $LOGFILE
@@ -358,6 +372,7 @@ bootstrap_neovim
 slack_install
 language-server-protocol_install
 set_sudo_default_editor
+terraform_install
 final_checklist
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
