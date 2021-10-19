@@ -211,6 +211,14 @@ python_environment_setup() {
 
       git clone https://github.com/pyenv/pyenv.git ~/.pyenv    
     fi
+
+    echo "------------" | tee -a $LOGFILE
+    echo "Poetry setup" | tee -a $LOGFILE
+    echo "------------" | tee -a $LOGFILE
+    if check_if_app_installed poetry;
+    then
+      sudo curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
+    fi
 }
 
 docker_install() {
