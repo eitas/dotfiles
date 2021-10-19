@@ -13,7 +13,6 @@ mkdir -p ./logs
 LOGFILE="./logs/dotfile_install_$NOW.log"
 # export the log file so it can be used in subsequent scripts
 export LOGFILE
-
 START_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Starting eitas dotfile install on $START_TIME" | tee $LOGFILE
 
@@ -120,6 +119,12 @@ apt_install() {
       sudo apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
     fi
 
+    # unzip so I can unzip zip files like terraform
+    echo "-----------------------" | tee -a $LOGFILE
+    echo "Unzip: unzip zip files!" | tee -a $LOGFILE
+    echo "-----------------------" | tee -a $LOGFILE
+    sudo apt-get install -y unzip
+
     # tmux
     echo "------------" | tee -a $LOGFILE
     echo "tmux install: " | tee -a $LOGFILE
@@ -133,12 +138,13 @@ apt_install() {
     echo "-----------------" | tee -a $LOGFILE
     echo "aws cli install: " | tee -a $LOGFILE
     echo "-----------------" | tee -a $LOGFILE
-    # this assumes a python3 installation
-    # need to keep an eye on this and perhaps
-    # put some defensive code in.
-    if check_if_app_installed git;
+    # I need the aws cli v2 so cannot get it from apt
+    if check_if_app_installed awscli;
     then 
-      sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
+      #sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
+      sudo curl -So /tmp/awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+      sudo unzip -o /tmp/awscliv2.zip -d /tmp
+      sudo /tmp/aws/install
       echo "aws version: $( aws --version )" | tee -a $LOGFILE
     fi
    
@@ -186,12 +192,6 @@ apt_install() {
     echo "Tree: pretty visual of folders in the terminal" | tee -a $LOGFILE
     echo "----------------------------------------------" | tee -a $LOGFILE
     sudo apt-get install -y tree
-
-    # unzip so I can unzip zip files like terraform
-    echo "-----------------------" | tee -a $LOGFILE
-    echo "Unzip: unzip zip files!" | tee -a $LOGFILE
-    echo "-----------------------" | tee -a $LOGFILE
-    sudo apt-get install -y unzip
 
    
     # cleanup the cache
@@ -334,7 +334,7 @@ terraform_install() {
     echo "Installing Terraform" | tee -a $LOGFILE
     echo "--------------------" | tee -a $LOGFILE
     sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip | tee -a $LOGFILE
-    sudo unzip /tmp/terraform.zip -d /usr/local/bin
+    sudo unzip -o /tmp/terraform.zip -d /usr/local/bin
 }
 
 final_checklist() {
