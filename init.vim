@@ -164,6 +164,11 @@ let g:airline_powerline_fonts = 1
 " TSInstall typescript
 " TSInstall yaml
 
+" LSP languages
+lua << EOF
+require'lspconfig'.pyright.setup{}
+EOF
+
 " --------------------------------------------------------------------
 " Autocmds
 " --------------------------------------------------------------------

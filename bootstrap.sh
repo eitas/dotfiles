@@ -292,6 +292,8 @@ neovim_install() {
       sudo apt-get install -y fd-find
       mkdir $HOME/.local/bin
       ln -s /usr/bin/fdfind $HOME/.local/bin/fd
+      # Language servers for nvim-lspconfig
+      sudo npm i -g pyright
       # note to uninstall neovim from source you need the following
       # sudo rm /usr/local/bin/nvim
       # sudo rm -r /usr/local/share/nvim
