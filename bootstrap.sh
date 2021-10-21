@@ -294,6 +294,7 @@ neovim_install() {
       ln -s /usr/bin/fdfind $HOME/.local/bin/fd
       # Language servers for nvim-lspconfig
       sudo npm i -g pyright
+      sudo npm i -g typescript-language-server
       # note to uninstall neovim from source you need the following
       # sudo rm /usr/local/bin/nvim
       # sudo rm -r /usr/local/share/nvim
