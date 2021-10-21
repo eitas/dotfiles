@@ -219,6 +219,18 @@ python_environment_setup() {
     then
       sudo curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
     fi
+
+    echo "----------------------" | tee -a $LOGFILE
+    echo "Black setup for Python" | tee -a $LOGFILE
+    echo "----------------------" | tee -a $LOGFILE
+    if check_if_app_installed black;
+    then
+      #Do not install from apt, the version causes issues as there are instability bugs with it
+      #when used with vim
+      #sudo apt-get install -y black
+      pip install black
+      sudo apt-get install -y python3-venv
+    fi
 }
 
 docker_install() {
