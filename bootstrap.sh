@@ -257,6 +257,9 @@ docker_install() {
 
       # Docker Compose
       sudo apt-get install docker-compose -y
+
+      # need to change permissions on some files so that setup to run docker without using sudo works
+      sudo chmod 666 /var/run/docker.sock
     fi
 }
 
