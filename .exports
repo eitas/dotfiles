@@ -16,5 +16,6 @@ export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
 
 # Work related stuff
-export WORK_HOME="$HOME/Documents/Cloudsoft"
-
+export WORK_HOME="$HOME/Documents/01_Cloudsoft/01_Code"
+# personal related codebases
+export PERSONAL_HOME="$HOME/Documents/03_Home/01_Code"

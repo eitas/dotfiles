@@ -110,6 +110,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-commentary'
 " Surround
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 " Status line
 Plug 'vim-airline/vim-airline'
 " Code browsing

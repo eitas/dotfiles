@@ -98,10 +98,24 @@ not_inside_tmux() {
   [ -z "$TMUX" ] 
 }
 
+check_home_tmux() {
+  if ! tmux has-session -t "home" 2> /dev/null; then
+    echo "home is not running"
+  else
+    echo "home is running"
+  fi
+}
+
 ensure_tmux_is_running() {
   if not_inside_tmux; then
-    mytmux "home"
-  fi
+    if tmux has-session -t "home"; then
+      echo "tmux has a session home running"
+      mytmux
+    else
+      mytmux "home"
+      exit 0
+    fi
+  fi 
 }
 
 ensure_tmux_is_running
