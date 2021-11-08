@@ -1,4 +1,3 @@
-make a change
 # dotfiles introduction
 
 previously I had used a method to have a raw repo of my dotfiles stored within a bare repository which was then held in

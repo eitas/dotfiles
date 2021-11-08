@@ -115,6 +115,11 @@ Plug 'tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 " Code browsing
 Plug 'vim-scripts/taglist.vim'
+" Python Black see https://black.readthedocs.io/en/stable/integrations/editors.html#vim
+" 2021-10-21 Getting an issue with no attribute 'find_pyproject_toml'
+" So still not working on the stable branch
+Plug 'psf/black', { 'branch': 'stable' }
+" Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
 
 " Other plugins to consider
 " SimpylFold
@@ -127,8 +132,11 @@ call plug#end()
 " --------------------------------------------------------------------
 " Plugin keybindings
 " --------------------------------------------------------------------
-nnoremap <leader>ff <cmd>Telescope find_files<CR>
-
+nnoremap <leader>ff <cmd>lua require'telescope.builtin'.find_files{}<CR>
+nnoremap <leader>fg <cmd>lua require'telescope.builtin'.git_files{}<CR>
+nnoremap <leader>fb <cmd>lua require'telescope.builtin'.buffers{}<CR>
+" Need to study the next one before enabling.  Need to get LSPs setup
+nnoremap <leader>gr <cmd>lua require'telescope.builtin'.lsp_references{}<CR>
 
 " --------------------------------------------------------------------
 " Plugin configuration
@@ -156,6 +164,17 @@ let g:airline_powerline_fonts = 1
 " TSInstall rust
 " TSInstall typescript
 " TSInstall yaml
+
+" LSP languages
+lua << EOF
+require'lspconfig'.pyright.setup{}
+EOF
+
+" --------------------------------------------------------------------
+" Autocmds
+" --------------------------------------------------------------------
+autocmd BufWritePost *.py execute ':Black'
+
 " --------------------------------------------------------------------
 " Research
 " --------------------------------------------------------------------

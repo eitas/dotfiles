@@ -13,7 +13,6 @@ mkdir -p ./logs
 LOGFILE="./logs/dotfile_install_$NOW.log"
 # export the log file so it can be used in subsequent scripts
 export LOGFILE
-
 START_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
 echo "Starting eitas dotfile install on $START_TIME" | tee $LOGFILE
 
@@ -120,6 +119,12 @@ apt_install() {
       sudo apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
     fi
 
+    # unzip so I can unzip zip files like terraform
+    echo "-----------------------" | tee -a $LOGFILE
+    echo "Unzip: unzip zip files!" | tee -a $LOGFILE
+    echo "-----------------------" | tee -a $LOGFILE
+    sudo apt-get install -y unzip
+
     # tmux
     echo "------------" | tee -a $LOGFILE
     echo "tmux install: " | tee -a $LOGFILE
@@ -133,12 +138,13 @@ apt_install() {
     echo "-----------------" | tee -a $LOGFILE
     echo "aws cli install: " | tee -a $LOGFILE
     echo "-----------------" | tee -a $LOGFILE
-    # this assumes a python3 installation
-    # need to keep an eye on this and perhaps
-    # put some defensive code in.
-    if check_if_app_installed git;
+    # I need the aws cli v2 so cannot get it from apt
+    if check_if_app_installed awscli;
     then 
-      sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
+      #sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
+      sudo curl -So /tmp/awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+      sudo unzip -o /tmp/awscliv2.zip -d /tmp
+      sudo /tmp/aws/install
       echo "aws version: $( aws --version )" | tee -a $LOGFILE
     fi
    
@@ -205,6 +211,26 @@ python_environment_setup() {
 
       git clone https://github.com/pyenv/pyenv.git ~/.pyenv    
     fi
+
+    echo "------------" | tee -a $LOGFILE
+    echo "Poetry setup" | tee -a $LOGFILE
+    echo "------------" | tee -a $LOGFILE
+    if check_if_app_installed poetry;
+    then
+      sudo curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
+    fi
+
+    echo "----------------------" | tee -a $LOGFILE
+    echo "Black setup for Python" | tee -a $LOGFILE
+    echo "----------------------" | tee -a $LOGFILE
+    if check_if_app_installed black;
+    then
+      #Do not install from apt, the version causes issues as there are instability bugs with it
+      #when used with vim
+      #sudo apt-get install -y black
+      pip install black
+      sudo apt-get install -y python3-venv
+    fi
 }
 
 docker_install() {
@@ -231,6 +257,9 @@ docker_install() {
 
       # Docker Compose
       sudo apt-get install docker-compose -y
+
+      # need to change permissions on some files so that setup to run docker without using sudo works
+      sudo chmod 666 /var/run/docker.sock
     fi
 }
 
@@ -266,6 +295,9 @@ neovim_install() {
       sudo apt-get install -y fd-find
       mkdir $HOME/.local/bin
       ln -s /usr/bin/fdfind $HOME/.local/bin/fd
+      # Language servers for nvim-lspconfig
+      sudo npm i -g pyright
+      sudo npm i -g typescript-language-server
       # note to uninstall neovim from source you need the following
       # sudo rm /usr/local/bin/nvim
       # sudo rm -r /usr/local/share/nvim
@@ -323,6 +355,14 @@ set_sudo_default_editor(){
     echo "Now performing sudoedit on root owned files should open them in neovim" | tee -a $LOGFILE
 }
 
+terraform_install() {
+    echo "--------------------" | tee -a $LOGFILE
+    echo "Installing Terraform" | tee -a $LOGFILE
+    echo "--------------------" | tee -a $LOGFILE
+    sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip | tee -a $LOGFILE
+    sudo unzip -o /tmp/terraform.zip -d /usr/local/bin
+}
+
 final_checklist() {
     echo "---------------------------------------" | tee -a $LOGFILE
     echo "BOOTSTRAPPING COMPLETE: FINAL CHECKLIST" | tee -a $LOGFILE
@@ -358,6 +398,7 @@ bootstrap_neovim
 slack_install
 language-server-protocol_install
 set_sudo_default_editor
+terraform_install
 final_checklist
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
