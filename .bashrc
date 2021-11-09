@@ -119,3 +119,5 @@ ensure_tmux_is_running() {
 }
 
 ensure_tmux_is_running
+
+complete -C /usr/local/bin/terraform terraform
