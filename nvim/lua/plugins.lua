@@ -4,13 +4,13 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 -- Language Server Protocol
 Plug 'neovim/nvim-lspconfig'
 -- Treesitter - getting more language support
-Plug('nvim-treesitter/nvim-treesitter', {['do']: ':TSUpdate'})
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 -- Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plugi('nvim-telescope/telescope-fzf-native.nvim', {['do']: 'make' })
+vim.cmd("Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }")
 -- Adding snippet capability
 Plug 'SirVer/ultisnips'
 -- Linting
@@ -33,7 +33,7 @@ Plug 'vim-scripts/taglist.vim'
 -- Python Black see https://black.readthedocs.io/en/stable/integrations/editors.html#vim
 -- 2021-10-21 Getting an issue with no attribute 'find_pyproject_toml'
 -- So still not working on the stable branch
-Plug('psf/black', { 'branch': 'stable' })
+Plug('psf/black', { ['branch'] = 'stable' })
 -- Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
 
 -- Other plugins to consider

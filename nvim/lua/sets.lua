@@ -34,3 +34,7 @@ vim.opt.textwidth = 120
 -- new setting on 13/11/2021 lets see what we get
 -- This is similar to Jess Archer and that looked quite nice
 vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
+
+vim.g['airline_powerline_fonts'] = 1
+-- let g:airline_powerline_fonts = 1
+

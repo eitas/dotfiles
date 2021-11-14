@@ -1,10 +1,9 @@
-require('conf.telescope').setup({
+require('telescope').setup({
   defaults = {
     prompt_prefix = "> "    
   }
 })
-require('conf.telescope').load_extension('fzf')
-
+require('telescope').load_extension('fzf')
 
 -- nnoremap <leader>ff <cmd>lua require'telescope.builtin'.find_files{}<CR>
 -- nnoremap <leader>fg <cmd>lua require'telescope.builtin'.git_files{}<CR>

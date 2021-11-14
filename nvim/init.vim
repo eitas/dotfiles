@@ -156,7 +156,7 @@ map <F3> "zyiw:exe "h ".@z.""<CR>
 "require('telescope').load_extension('fzf')
 " EOF
 " With airline have the nice pointy arrows
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 
 " Tree sitter languages
 " TSInstall bash
@@ -172,9 +172,9 @@ let g:airline_powerline_fonts = 1
 " TSInstall yaml
 
 " LSP languages
-lua << EOF
-require'lspconfig'.pyright.setup{}
-EOF
+" lua << EOF
+" require'lspconfig'.pyright.setup{}
+" EOF
 
 " --------------------------------------------------------------------
 " Autocmds
