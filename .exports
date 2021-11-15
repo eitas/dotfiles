@@ -7,6 +7,8 @@ export LC_ALL=en_GB.UTF-8
 export PATH=/usr/local/bin:/usr/local/mysql/bin:$PATH
 # Set path to include Poetry
 export PATH=$HOME/.poetry/bin:$PATH
+# Set path to include golang, used in Terraform testing
+export PATH=/usr/local/go/bin:$PATH
 # setup vim as the default editor in my terminals
 export VISUAL=vim
 export EDITOR="$VISUAL"
