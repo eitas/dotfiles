@@ -3,6 +3,16 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 -- Language Server Protocol
 Plug 'neovim/nvim-lspconfig'
+-- nvim-cmp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+-- luasnip
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+
 -- Treesitter - getting more language support
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -12,7 +22,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 vim.cmd("Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }")
 -- Adding snippet capability
-Plug 'SirVer/ultisnips'
+-- Plug 'SirVer/ultisnips'
 -- Linting
 Plug 'dense-analysis/ale'
 -- Nerdtree - File viewer / manager

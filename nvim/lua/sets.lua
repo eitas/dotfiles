@@ -38,3 +38,4 @@ vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
 vim.g['airline_powerline_fonts'] = 1
 -- let g:airline_powerline_fonts = 1
 
+vim.opt.completeopt = {'menu','menuone','noselect'}
