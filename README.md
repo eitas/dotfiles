@@ -45,4 +45,26 @@ to the dotfiles:
 * `cd dotfiles`
 * `$ ./bootstrap.sh`
 
+# Fonts
 
+So setting up fonts is fun, but actually took me an hour or so to figure out!
+
+Create a fonts directory:
+```bash
+mkdir ~/.fonts
+```
+
+Go to [Nerd fonts](https://github.com/ryanoasis/nerd-fonts)
+Within that repo go to patched-fonts, you'll see a whole bunch of fonts
+In each of those directories will be folders for Regular, Italic, Bold etc...
+Inside those directories will be a complete directory.  and phew, finally in
+there will be an otf or ttf file which you can download and copy to the ~/.fonts directory
+
+In Mint you can then go to system settings font selection and choose your regular font.
+Seems Vim just picked this up for me and symbols appeared in NERDTree
+
+You can check out the fonts and see samples here:
+https://www.programmingfonts.org/
+
+Also visit [Nerdfonts.com](https://www.nerdfonts.com/font-downloads) to get
+a view of fonts and download them directly there.

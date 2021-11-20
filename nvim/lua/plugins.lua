@@ -12,7 +12,6 @@ Plug 'hrsh7th/nvim-cmp'
 -- luasnip
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
-
 -- Treesitter - getting more language support
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -27,6 +26,8 @@ vim.cmd("Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }")
 Plug 'dense-analysis/ale'
 -- Nerdtree - File viewer / manager
 Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 -- Git support
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
