@@ -284,7 +284,7 @@ neovim_install() {
       # fzf is required for telescope and may not be available by default so install it.
       sudo apt-get install fzf
       # vim-plug to allow me to get neovim plugins working from within init.vim
-      sudo sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+      sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
       # need python3 support for a number of plugins
       sudo apt-get install -y python3-pip
