@@ -129,7 +129,7 @@ apt_install() {
     echo "------------" | tee -a $LOGFILE
     echo "tmux install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
-    if check_if_app_installed git;
+    if check_if_app_installed tmux;
     then 
       sudo apt-get install tmux -y 2>&1 | tee -a $LOGFILE
     fi
