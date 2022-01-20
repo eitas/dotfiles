@@ -8,15 +8,20 @@
       end,
     },
     mapping = {
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i','c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i','c' }),
+      -- quite liked TJs mappings, so moving away from the defaults
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i','c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i','c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i','c' }),
-      ['<C-y>'] = cmp.config.disable, --specify `cmp.config.disable` if you want to remove the default <C-y> mapping
+      ['<C-y>'] = cmp.mapping(
+        cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true
+        }, { 'i','c' }
+      ),
       ['<C-e>'] = cmp.mapping({
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
       }),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },

@@ -16,3 +16,6 @@
 [submodule "vimcolors/vim-colors-solarized"]
 	path = vimcolors/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized
+[submodule ".tfenv"]
+	path = .tfenv
+	url = https://github.com/tfutils/tfenv.git

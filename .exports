@@ -9,6 +9,12 @@ export PATH=/usr/local/bin:/usr/local/mysql/bin:$PATH
 export PATH=$HOME/.poetry/bin:$PATH
 # Set path to include golang, used in Terraform testing
 export PATH=/usr/local/go/bin:$PATH
+# Set path to include shell utilities such as tmux-sessionizer
+export PATH=$HOME/.local/bin:$PATH
+# Add fonts 
+export PATH=$HOME/.fonts:$PATH
+# Add terraform env (https://github.com/tfutils/tfenv)
+export PATH=$HOME/.tfenv/bin:$PATH
 # setup vim as the default editor in my terminals
 export VISUAL=vim
 export EDITOR="$VISUAL"
