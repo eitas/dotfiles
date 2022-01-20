@@ -193,6 +193,12 @@ apt_install() {
     echo "----------------------------------------------" | tee -a $LOGFILE
     sudo apt-get install -y tree
 
+    # Flameshot for screenshots
+    echo "-------------------------------------------------" | tee -a $LOGFILE
+    echo "Flameshot: Capture screenshots, apply blur etc..." | tee -a $LOGFILE
+    echo "-------------------------------------------------" | tee -a $LOGFILE
+    sudo apt-get install -y flameshot
+
    
     # cleanup the cache
     sudo apt-get clean -y
@@ -270,8 +276,8 @@ neovim_install() {
     echo "neovim install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
     echo "installing from source" | tee -a $LOGFILE
-    if check_if_app_installed nvim;
-    then 
+#if check_if_app_installed nvim;
+#    then 
       # Install the pre-requisites for neovim
       sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
       CWD=$PWD
@@ -298,7 +304,7 @@ neovim_install() {
       # note to uninstall neovim from source you need the following
       # sudo rm /usr/local/bin/nvim
       # sudo rm -r /usr/local/share/nvim
-    fi
+#    fi
 }
 
 bootstrap_neovim() {
