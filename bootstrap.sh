@@ -316,6 +316,20 @@ slack_install() {
     echo "Slack install" | tee -a $LOGFILE
     echo "-------------" | tee -a $LOGFILE
     #sudo snap install slack --classic
+    #snap was disabled in Mint 20, so you need to enable snap
+    # (https://itsfoss.com/enable-snap-support-linux-mint/)
+    #or you need to do it manually (and officially)
+    # https://slack.com/intl/en-gb/downloads/linux
+    # There is a small link to the DEB package there
+    # this is the best way for now, but it'd be interesting
+    # to find a way to do this via the command line.
+    #
+    # Actually if you go to download the DEB package you cannot get a link
+    # But from the destination page you can go to the "Try Again" link:
+    # https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb
+    # which would download the deb package and then you I am sure can run it
+    # though how to maintain the latest version would be tricky so for now
+    # leaving this as a manual task
 }
 
 bootstrap_crontab() {
@@ -364,6 +378,11 @@ terraform_install() {
     sudo unzip -o /tmp/terraform.zip -d /usr/local/bin
 }
 
+home_folder_permissions(){
+    echo "Home folder permissions may be set as root, ensure they are set to the user" | tee -a $LOGFILE
+    sudo chown -R -v $USER:$USER $HOME
+}
+
 final_checklist() {
     echo "---------------------------------------" | tee -a $LOGFILE
     echo "BOOTSTRAPPING COMPLETE: FINAL CHECKLIST" | tee -a $LOGFILE
@@ -400,6 +419,7 @@ slack_install
 language-server-protocol_install
 set_sudo_default_editor
 terraform_install
+home_folder_permissions
 final_checklist
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")
