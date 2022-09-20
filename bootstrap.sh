@@ -350,6 +350,7 @@ language-server-protocol_install() {
     sudo npm i -g pyright
     sudo npm i -g typescript-language-server
     sudo npm i -g bash-language-server
+
 }
 
 set_sudo_default_editor(){
@@ -371,8 +372,11 @@ terraform_install() {
     echo "--------------------" | tee -a $LOGFILE
     echo "Installing Terraform" | tee -a $LOGFILE
     echo "--------------------" | tee -a $LOGFILE
-    sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip | tee -a $LOGFILE
+    sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.2.9/terraform_1.2.9_linux_amd64.zip | tee -a $LOGFILE
     sudo unzip -o /tmp/terraform.zip -d /usr/local/bin
+    
+    sudo curl -So /tmp/terraform-ls.zip https://releases.hashicorp.com/terraform-ls/0.29.2/terraform-ls_0.29.2_linux_amd64.zip | tee -a $LOGFILE
+    sudo unzip -o /tmp/terraform-ls.zip -d /usr/local/bin
 }
 
 home_folder_permissions(){
@@ -400,6 +404,8 @@ final_checklist() {
     echo "Check Neovim has proper plugins setup." | tee -a $LOGFILE
     echo "- Sometimes the setup of vim-plug has not worked and it is ugly, search it on brave" | tee -a $LOGFILE
     echo "Check that sudoedit uses Neovim" | tee -a $LOGFILE
+    echo "Check that flameshot has been installed and you can take screenshots" | tee -a $LOGFILE
+    echo "Check that Terraform and related terraform-ls has been installed (possibly update the versions)" | tee -a $LOGFILE
 }
 
 init

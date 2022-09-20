@@ -37,5 +37,6 @@ vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
 
 vim.g['airline_powerline_fonts'] = 1
 -- let g:airline_powerline_fonts = 1
+vim.g['terraform_fmt_on_save'] = 1
 
 vim.opt.completeopt = {'menu','menuone','noselect'}

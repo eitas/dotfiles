@@ -47,6 +47,10 @@ Plug 'vim-scripts/taglist.vim'
 Plug('psf/black', { ['branch'] = 'stable' })
 -- Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
 
+-- Terraform, allows for terraform fmt to format terraform
+Plug 'hashivim/vim-terraform'
+
+
 -- Other plugins to consider
 -- SimpylFold
 -- coc.nvim - though I think Telescope will cover this
