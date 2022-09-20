@@ -5,6 +5,7 @@ require('sets')
 require('keybindings')
 require('autocmds')
 require'lspconfig'.pyright.setup{}
+require'lspconfig'.bashls.setup{}
 require('conf.telescope')
 require('conf.nerdtree')
 require('conf.nvim-cmp')

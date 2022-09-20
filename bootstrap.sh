@@ -157,7 +157,7 @@ apt_install() {
     if check_if_app_installed node;
     then 
       sudo apt-get install -y curl software-properties-common 2>&1 | tee -a $LOGFILE
-      sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
+      sudo curl -sL https://deb.nodesource.com/setup_18.x | sudo bash - 2>&1 | tee -a $LOGFILE
       sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
       # checks
       echo "node version: $( node --version )" | tee -a $LOGFILE
@@ -175,15 +175,6 @@ apt_install() {
       cdk --version | tee -a $LOGFILE
     fi
  
-    echo "-------" | tee -a $LOGFILE
-    echo "ctags: " | tee -a $LOGFILE
-    echo "-------" | tee -a $LOGFILE
-    if check_if_app_installed ctags;
-    then 
-      sudo apt-get install -y exuberant-ctags 2>&1 | tee -a $LOGFILE
-    fi
-
-
     # TODO AWS SAM
 
     # tree so I can get nice display of folders and contents
@@ -192,6 +183,12 @@ apt_install() {
     echo "Tree: pretty visual of folders in the terminal" | tee -a $LOGFILE
     echo "----------------------------------------------" | tee -a $LOGFILE
     sudo apt-get install -y tree
+
+    # flameshot so I can capture screenshots
+    echo "-----------------------------" | tee -a $LOGFILE
+    echo "Flameshot: Capture screeshots" | tee -a $LOGFILE
+    echo "-----------------------------" | tee -a $LOGFILE
+    sudo apt-get install -y flameshot
 
    
     # cleanup the cache
