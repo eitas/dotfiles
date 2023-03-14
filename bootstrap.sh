@@ -157,7 +157,7 @@ apt_install() {
     if check_if_app_installed node;
     then 
       sudo apt-get install -y curl software-properties-common 2>&1 | tee -a $LOGFILE
-      sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - 2>&1 | tee -a $LOGFILE
+      sudo curl -sL https://deb.nodesource.com/setup_18.x | sudo bash - 2>&1 | tee -a $LOGFILE
       sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
       # checks
       echo "node version: $( node --version )" | tee -a $LOGFILE
@@ -175,15 +175,6 @@ apt_install() {
       cdk --version | tee -a $LOGFILE
     fi
  
-    echo "-------" | tee -a $LOGFILE
-    echo "ctags: " | tee -a $LOGFILE
-    echo "-------" | tee -a $LOGFILE
-    if check_if_app_installed ctags;
-    then 
-      sudo apt-get install -y exuberant-ctags 2>&1 | tee -a $LOGFILE
-    fi
-
-
     # TODO AWS SAM
 
     # tree so I can get nice display of folders and contents
@@ -322,6 +313,20 @@ slack_install() {
     echo "Slack install" | tee -a $LOGFILE
     echo "-------------" | tee -a $LOGFILE
     #sudo snap install slack --classic
+    #snap was disabled in Mint 20, so you need to enable snap
+    # (https://itsfoss.com/enable-snap-support-linux-mint/)
+    #or you need to do it manually (and officially)
+    # https://slack.com/intl/en-gb/downloads/linux
+    # There is a small link to the DEB package there
+    # this is the best way for now, but it'd be interesting
+    # to find a way to do this via the command line.
+    #
+    # Actually if you go to download the DEB package you cannot get a link
+    # But from the destination page you can go to the "Try Again" link:
+    # https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb
+    # which would download the deb package and then you I am sure can run it
+    # though how to maintain the latest version would be tricky so for now
+    # leaving this as a manual task
 }
 
 bootstrap_crontab() {
@@ -345,6 +350,7 @@ language-server-protocol_install() {
     sudo npm i -g pyright
     sudo npm i -g typescript-language-server
     sudo npm i -g bash-language-server
+
 }
 
 set_sudo_default_editor(){
@@ -366,8 +372,25 @@ terraform_install() {
     echo "--------------------" | tee -a $LOGFILE
     echo "Installing Terraform" | tee -a $LOGFILE
     echo "--------------------" | tee -a $LOGFILE
-    sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip | tee -a $LOGFILE
+    sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.2.9/terraform_1.2.9_linux_amd64.zip | tee -a $LOGFILE
     sudo unzip -o /tmp/terraform.zip -d /usr/local/bin
+    
+    sudo curl -So /tmp/terraform-ls.zip https://releases.hashicorp.com/terraform-ls/0.29.2/terraform-ls_0.29.2_linux_amd64.zip | tee -a $LOGFILE
+    sudo unzip -o /tmp/terraform-ls.zip -d /usr/local/bin
+}
+
+remmina_install() {
+    echo "--------------------------" | tee -a $LOGFILE
+    echo "Installing Remmina for RDP" | tee -a $LOGFILE
+    echo "--------------------------" | tee -a $LOGFILE
+    sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
+    sudo apt update
+    sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret
+}
+
+home_folder_permissions(){
+    echo "Home folder permissions may be set as root, ensure they are set to the user" | tee -a $LOGFILE
+    sudo chown -R -v $USER:$USER $HOME
 }
 
 final_checklist() {
@@ -390,6 +413,9 @@ final_checklist() {
     echo "Check Neovim has proper plugins setup." | tee -a $LOGFILE
     echo "- Sometimes the setup of vim-plug has not worked and it is ugly, search it on brave" | tee -a $LOGFILE
     echo "Check that sudoedit uses Neovim" | tee -a $LOGFILE
+    echo "Check that flameshot has been installed and you can take screenshots" | tee -a $LOGFILE
+    echo "Check that Terraform and related terraform-ls has been installed (possibly update the versions)" | tee -a $LOGFILE
+    echo "Check that Remmina has been installed so you can RDP onto machines" | tee -a $LOGFILE
 }
 
 init
@@ -406,6 +432,8 @@ slack_install
 language-server-protocol_install
 set_sudo_default_editor
 terraform_install
+remmina_install
+home_folder_permissions
 final_checklist
 #bootstrap_crontab
 END_TIME=$(date +"%d-%m-%Y_%H_%M_%S")

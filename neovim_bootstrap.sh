@@ -88,6 +88,13 @@ ln -sf "$PWD/nvim/ftplugin/json.vim" "$FTPLUGIN_DIR" | tee -a $LOGFFILE
 
 
 # --------------------------------------------------------------------------------
+# LSP Language Servers
+# --------------------------------------------------------------------------------
+echo "Setting up Langage servers for LSP" | tee -a $LOGFILE
+sudo npm i -g pyright | tee -a $LOGFILE
+sudo npm i -g bash-language-server | tee -a $LOGFILE
+
+# --------------------------------------------------------------------------------
 # Indent
 # --------------------------------------------------------------------------------
 echo "Setting up indent location to configure vim indentations" | tee -a $LOGFILE

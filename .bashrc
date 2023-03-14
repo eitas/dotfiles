@@ -118,6 +118,8 @@ ensure_tmux_is_running() {
   fi 
 }
 
-ensure_tmux_is_running
+# ensure_tmux_is_running
 
 complete -C /usr/local/bin/terraform terraform
+
+complete -C /home/max/github/dotfiles/.tfenv/versions/1.2.8/terraform terraform

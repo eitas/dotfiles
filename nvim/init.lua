@@ -3,8 +3,10 @@ require('basic')
 require('plugins')
 require('sets')
 require('keybindings')
-require('autocmds')
 require'lspconfig'.pyright.setup{}
+require'lspconfig'.bashls.setup{}
+require'lspconfig'.terraformls.setup{}
+require('autocmds')
 require('conf.telescope')
 require('conf.nerdtree')
 require('conf.nvim-cmp')

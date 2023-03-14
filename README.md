@@ -45,6 +45,21 @@ to the dotfiles:
 * `cd dotfiles`
 * `$ ./bootstrap.sh`
 
+Once you have bootstrapped the system you should setup Neovim
+* `$ ./neovim_bootstrap.sh`
+
+At present you need to open vim, ignore the errors and issue :PlugInstall
+to get the plugins and then restart vim (neovim).  This is annoying and 
+there must be a better way, need to research
+
+
+if you are using Linux Mint (21 at time of writing) then update the Ctrl-Alt-Del
+if you wish by searching "Keyboard" from Cinnamon's menu, then goto the 
+shortcuts tab > System > Lock screen and update the key binding there.
+
+TODO: Getting aws sso login working.
+
+
 # Fonts
 
 So setting up fonts is fun, but actually took me an hour or so to figure out!
