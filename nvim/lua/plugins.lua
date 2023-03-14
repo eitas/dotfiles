@@ -23,7 +23,8 @@ vim.cmd("Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }")
 -- Adding snippet capability
 -- Plug 'SirVer/ultisnips'
 -- Linting
-Plug 'dense-analysis/ale'
+-- GETTING SEGMENTATION FAULTS FROM ALE.  
+-- Plug 'dense-analysis/ale'
 -- Nerdtree - File viewer / manager
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
@@ -46,6 +47,8 @@ Plug 'vim-scripts/taglist.vim'
 -- So still not working on the stable branch
 Plug('psf/black', { ['branch'] = 'stable' })
 -- Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
+
+Plug 'williamboman/mason.nvim'
 
 -- Other plugins to consider
 -- SimpylFold
