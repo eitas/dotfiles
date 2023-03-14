@@ -1,8 +1,13 @@
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
+-- My plugins!
+Plug '~/Documents/02_Home/04_Vim_Plugins/vim-trello'
+
 -- Language Server Protocol
 Plug 'neovim/nvim-lspconfig'
+-- nedev.nvim -- allows development of plugins
+Plug 'folke/neodev.nvim'
 -- nvim-cmp
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -49,7 +54,6 @@ Plug('psf/black', { ['branch'] = 'stable' })
 
 -- Terraform, allows for terraform fmt to format terraform
 Plug 'hashivim/vim-terraform'
-
 
 -- Other plugins to consider
 -- SimpylFold

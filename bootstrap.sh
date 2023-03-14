@@ -379,6 +379,15 @@ terraform_install() {
     sudo unzip -o /tmp/terraform-ls.zip -d /usr/local/bin
 }
 
+remmina_install() {
+    echo "--------------------------" | tee -a $LOGFILE
+    echo "Installing Remmina for RDP" | tee -a $LOGFILE
+    echo "--------------------------" | tee -a $LOGFILE
+    sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
+    sudo apt update
+    sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret
+}
+
 home_folder_permissions(){
     echo "Home folder permissions may be set as root, ensure they are set to the user" | tee -a $LOGFILE
     sudo chown -R -v $USER:$USER $HOME
@@ -406,6 +415,7 @@ final_checklist() {
     echo "Check that sudoedit uses Neovim" | tee -a $LOGFILE
     echo "Check that flameshot has been installed and you can take screenshots" | tee -a $LOGFILE
     echo "Check that Terraform and related terraform-ls has been installed (possibly update the versions)" | tee -a $LOGFILE
+    echo "Check that Remmina has been installed so you can RDP onto machines" | tee -a $LOGFILE
 }
 
 init
@@ -422,6 +432,7 @@ slack_install
 language-server-protocol_install
 set_sudo_default_editor
 terraform_install
+remmina_install
 home_folder_permissions
 final_checklist
 #bootstrap_crontab
