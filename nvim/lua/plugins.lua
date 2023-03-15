@@ -21,7 +21,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 -- Treesitter - getting more language support
-Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+Plug ('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 -- Telescope
 Plug 'nvim-lua/popup.nvim'
