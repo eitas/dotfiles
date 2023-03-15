@@ -2,9 +2,12 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
 -- My plugins!
-Plug '~/Documents/02_Home/04_Vim_Plugins/vim-trello'
+Plug '~/github/dotfiles/nvim/lua/vim-trello'
 
 -- Language Server Protocol
+-- Mason is pretty good for complementing lspconfig (if I can get it to work properly!)
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 -- nedev.nvim -- allows development of plugins
 Plug 'folke/neodev.nvim'
@@ -53,12 +56,8 @@ Plug 'vim-scripts/taglist.vim'
 Plug('psf/black', { ['branch'] = 'stable' })
 -- Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
 
-<<<<<<< HEAD
-Plug 'williamboman/mason.nvim'
-=======
 -- Terraform, allows for terraform fmt to format terraform
 Plug 'hashivim/vim-terraform'
->>>>>>> b81c77743d553ac5730ff4976409db1aa555c75c
 
 -- Other plugins to consider
 -- SimpylFold
@@ -67,3 +66,5 @@ Plug 'hashivim/vim-terraform'
 -- typescript-vim but I wonder if there is a LSP for this now
 
 vim.call('plug#end')
+
+
