@@ -49,7 +49,7 @@ Plug 'tpope/vim-repeat'
 -- Status line
 Plug 'vim-airline/vim-airline'
 -- Code browsing
-Plug 'vim-scripts/taglist.vim'
+--Plug 'vim-scripts/taglist.vim'
 -- Python Black see https://black.readthedocs.io/en/stable/integrations/editors.html#vim
 -- 2021-10-21 Getting an issue with no attribute 'find_pyproject_toml'
 -- So still not working on the stable branch

@@ -37,10 +37,10 @@ check_if_app_installed() {
     INSTALL_CHECK=$($1 --version 2> /dev/null)
     if [ -z "$INSTALL_CHECK" ]
     then
-      echo "$1 is not installed.. installing.."
+      echo "$1 is not installed.. installing.." | tee -a $LOGFILE
       return 0
     else
-      echo "$1 is already installed.. skipping.."
+      echo "$1 is already installed.. skipping.." | tee -a $LOGFILE
       return 1
     fi
 }
@@ -214,7 +214,9 @@ python_environment_setup() {
     echo "------------" | tee -a $LOGFILE
     if check_if_app_installed poetry;
     then
-      sudo curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
+      sudo curl -sSL https://install.python-poetry.org | python3 -
+      #get-poetry has been deprecated
+      #sudo curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
     fi
 
     echo "----------------------" | tee -a $LOGFILE
@@ -399,23 +401,24 @@ final_checklist() {
     echo "---------------------------------------" | tee -a $LOGFILE
     echo "Open new terminal and check Powerline is working." | tee -a $LOGFILE
     echo "Check the symlinks in the home directory point to the dotfiles repo" | tee -a $LOGFILE
-    echo "Check Brave Brower is installed." | tee -a $LOGFILE
-    echo "Check Chrome is installed, although not used as standard still useful to have around." | tee -a $LOGFILE
-    echo "Check git is installed, which it must be to get this far!" | tee -a $LOGFILE
-    echo "Check tmux is installed" | tee -a $LOGFILE
-    echo "Check aws cli is installed" | tee -a $LOGFILE
-    echo "Check node and npm is installed" | tee -a $LOGFILE
-    echo "Check aws cdk is installed" | tee -a $LOGFILE
-    echo "Check ctags is installed REDUNDANT" | tee -a $LOGFILE
-    echo "Check Tree is installed" | tee -a $LOGFILE
-    echo "Check pyenv is installed" | tee -a $LOGFILE
-    echo "Check Docker is installed" | tee -a $LOGFILE
+    echo "Check Brave Brower is installed (brave-browser --version)" | tee -a $LOGFILE
+    echo "Check Chrome is installed (google-chrome --version), although not used as standard still useful to have around." | tee -a $LOGFILE
+    echo "Check git is installed (git --version), which it must be to get this far!" | tee -a $LOGFILE
+    echo "Check tmux is installed (tmux -V)" | tee -a $LOGFILE
+    echo "Check aws cli is installed (aws --version)" | tee -a $LOGFILE
+    echo "Check node is installed (node --version)" | tee -a $LOGFILE
+    echo "Check node and npm is installed (npm --version)" | tee -a $LOGFILE
+    echo "Check aws cdk is installed (cdk --version)" | tee -a $LOGFILE
+    echo "Check Tree is installed (tree --version)" | tee -a $LOGFILE
+    echo "Check pyenv is installed (pyenv --version)" | tee -a $LOGFILE
+    echo "Check Docker is installed (docker --version)" | tee -a $LOGFILE
     echo "Check Neovim has proper plugins setup." | tee -a $LOGFILE
     echo "- Sometimes the setup of vim-plug has not worked and it is ugly, search it on brave" | tee -a $LOGFILE
     echo "Check that sudoedit uses Neovim" | tee -a $LOGFILE
     echo "Check that flameshot has been installed and you can take screenshots" | tee -a $LOGFILE
     echo "Check that Terraform and related terraform-ls has been installed (possibly update the versions)" | tee -a $LOGFILE
-    echo "Check that Remmina has been installed so you can RDP onto machines" | tee -a $LOGFILE
+    echo "Note you may need to configure the terraform version with tfenv.  Start with tfenv install" | tee -a $LOGFILE
+    echo "Check that Remmina has been installed so you can RDP onto machines. though for AWS you should use SSM session manager" | tee -a $LOGFILE
 }
 
 init
