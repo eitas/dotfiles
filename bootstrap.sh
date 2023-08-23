@@ -277,8 +277,9 @@ neovim_install() {
       cd $PATH_TO_DOTFILES
       rm -rf neovim
       git clone https://github.com/neovim/neovim.git
+      cd neovim
       git checkout stable
-      cd neovim && make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/neovim install
+      make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/neovim install
       cd $CWD
       # fzf is required for telescope and may not be available by default so install it.
       sudo apt-get install fzf
@@ -385,7 +386,7 @@ remmina_install() {
     echo "--------------------------" | tee -a $LOGFILE
     echo "Installing Remmina for RDP" | tee -a $LOGFILE
     echo "--------------------------" | tee -a $LOGFILE
-    sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
+    sudo apt-add-repository --yes ppa:remmina-ppa-team/remmina-next
     sudo apt update
     sudo apt install remmina remmina-plugin-rdp remmina-plugin-secret
 }

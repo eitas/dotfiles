@@ -4,7 +4,6 @@ require 'nvim-treesitter.configs'.setup {
     "c", 
     "lua", 
     "vim", 
-    "help", 
     "query", 
     "bash", 
     "dockerfile",
@@ -14,6 +13,7 @@ require 'nvim-treesitter.configs'.setup {
     "json",
     "python",
     "yaml",
+    "terraform",
     "typescript",
   },
 
