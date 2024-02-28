@@ -3,14 +3,15 @@ require('basic')
 require('plugins')
 require('sets')
 require('keybindings')
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.terraformls.setup{}
+require('conf.mason')
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup{}
+lspconfig.bashls.setup{}
+lspconfig.terraformls.setup{}
 require('autocmds')
+require('conf.nvim-cmp')
 require('conf.telescope')
 require('conf.nerdtree')
-require('conf.mason')
-require('conf.nvim-cmp')
 require('conf.treesitter')
 
 vim.o.termguicolors = true
