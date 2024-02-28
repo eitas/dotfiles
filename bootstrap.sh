@@ -4,7 +4,7 @@
 # Bootstrap for install on new machines and maintaining structure on existing machines
 #
 #
-
+MYHOSTNAME="max-thomas"
 
 # start a log file
 NOW=$(date +"%d-%m-%Y_%H_%M_%S")
@@ -30,6 +30,11 @@ source .exports
 init() {
     echo "Making github folder in $PATH_TO_DOTFILES if it does not already exist" 2>&1 | tee -a $LOGFILE
     mkdir -p "$PATH_TO_DOTFILES"
+}
+
+sethostname() {
+  echo "Setting hostname to $MYHOSTNAME" 2>&1 | tee -a $LOGFILE
+  hostnamectl set-hostname $MYHOSTNAME
 }
 
 check_if_app_installed() {
@@ -204,7 +209,7 @@ python_environment_setup() {
     then 
       sudo apt-get install -y make build-essential libssl-dev zlib1g-dev\
       libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev\
-      libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+      libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl
 
       git clone https://github.com/pyenv/pyenv.git ~/.pyenv    
     fi
