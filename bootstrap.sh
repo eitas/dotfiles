@@ -144,7 +144,7 @@ apt_install() {
     echo "aws cli install: " | tee -a $LOGFILE
     echo "-----------------" | tee -a $LOGFILE
     # I need the aws cli v2 so cannot get it from apt
-    if check_if_app_installed awscli;
+    if check_if_app_installed aws;
     then 
       #sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
       sudo curl -So /tmp/awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -153,6 +153,22 @@ apt_install() {
       echo "aws version: $( aws --version )" | tee -a $LOGFILE
     fi
    
+    # aws cli
+    echo "-----------------" | tee -a $LOGFILE
+    echo "aws SAM cli install: " | tee -a $LOGFILE
+    echo "-----------------" | tee -a $LOGFILE
+    # I need the aws cli v2 so cannot get it from apt
+    if check_if_app_installed sam;
+    then 
+      #sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
+      sudo curl -So /tmp/awssamcli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip 
+      sudo unzip -o /tmp/awssamcli.zip -d /tmp/aws-sam
+      sudo /tmp/aws-sam/install
+      sudo rm -rf /tmp/aws-sam
+      sudo rm -rf /tmp/awssamcli.zip
+      echo "aws sam version: $(sam --version )" | tee -a $LOGFILE
+    fi
+ 
     # nodejs
     echo "-------------" | tee -a $LOGFILE
     echo "node install: " | tee -a $LOGFILE
@@ -180,8 +196,6 @@ apt_install() {
       cdk --version | tee -a $LOGFILE
     fi
  
-    # TODO AWS SAM
-
     # tree so I can get nice display of folders and contents
     # within the terminal
     echo "----------------------------------------------" | tee -a $LOGFILE
@@ -195,7 +209,22 @@ apt_install() {
     echo "-------------------------------------------------" | tee -a $LOGFILE
     sudo apt-get install -y flameshot
 
-   
+    # install Luarocks
+    # This allows lua development and plugins for neovim to work with
+    # lua socket etc...
+    echo "----------------" | tee -a $LOGFILE
+    echo "Luarocks install: " | tee -a $LOGFILE
+    echo "----------------" | tee -a $LOGFILE
+    if check_if_app_installed luarocks;
+    then 
+      sudo apt-get install -y luarocks 2>&1 | tee -a $LOGFILE
+      sudo luarocks install luasocket 2>&1 | tee -a $LOGFILE
+      sudo luarocks install luasec 2>&1 | tee -a $LOGFILE
+      sudo luarocks install dkjson 2>&1 | tee -a $LOGFILE
+      # checks
+      luarocks --version | tee -a $LOGFILE
+    fi
+    
     # cleanup the cache
     sudo apt-get clean -y
     sudo apt-get autoremove -y
@@ -412,12 +441,14 @@ final_checklist() {
     echo "Check git is installed (git --version), which it must be to get this far!" | tee -a $LOGFILE
     echo "Check tmux is installed (tmux -V)" | tee -a $LOGFILE
     echo "Check aws cli is installed (aws --version)" | tee -a $LOGFILE
+    echo "Check aws sam is installed (sam --version)" | tee -a $LOGFILE
     echo "Check node is installed (node --version)" | tee -a $LOGFILE
     echo "Check node and npm is installed (npm --version)" | tee -a $LOGFILE
     echo "Check aws cdk is installed (cdk --version)" | tee -a $LOGFILE
     echo "Check Tree is installed (tree --version)" | tee -a $LOGFILE
     echo "Check pyenv is installed (pyenv --version)" | tee -a $LOGFILE
     echo "Check Docker is installed (docker --version)" | tee -a $LOGFILE
+    echo "Check Luarocks is installed (luarocks --version)" | tee -a $LOGFILE
     echo "Check Neovim has proper plugins setup." | tee -a $LOGFILE
     echo "- Sometimes the setup of vim-plug has not worked and it is ugly, search it on brave" | tee -a $LOGFILE
     echo "Check that sudoedit uses Neovim" | tee -a $LOGFILE
