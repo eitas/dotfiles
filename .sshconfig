@@ -1,0 +1,15 @@
+# Allow ssh use for multiple providers
+# Note that this is opinionated on your ssh key names
+# using github and gitlab as suffixes allows different
+# identity files in the same ssh directory
+# GITHUB
+Host github.com
+  HostName github.com
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/id_ed25519_github
+
+# GITLAB
+Host gitlab.com
+  HostName gitlab.com
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/id_ed25519_gitlab

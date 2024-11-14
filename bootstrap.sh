@@ -105,6 +105,16 @@ powerline_install() {
     cp -R /usr/share/powerline/config_files/* $HOME/.config/powerline/
 }
 
+ssh_configuration() {
+    # SSH configuration so that I can use both github and gitlab
+    # This is opinionated
+    echo "--------------------" | tee -a $LOGFILE
+    echo "configuring ssh" | tee -a $LOGFILE
+    echo "--------------------" | tee -a $LOGFILE
+    mkdir -p $HOME/.ssh
+    cp -R .sshconfig $HOME/.ssh/config
+}
+
 apt_install() {
     # I am only working within a Linux debian based environment so will run installs from here
     echo "------------------------" | tee -a $LOGFILE
