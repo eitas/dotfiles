@@ -16,3 +16,8 @@
 # for later consideration
 # a [core].excludesfile would allow me to have a global gitignore which could be useful
 # 
+[color]
+	ui = true
+	status = true
+[color "status"]
+	changed = 39

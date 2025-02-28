@@ -58,6 +58,22 @@ for file_and_path in $LUA_FILES; do
   ln -sf $file_and_path "$LUA_DIR/$FILE" | tee -a $LOGFFILE
 done
 
+# --------------------------------------------------------------------------------
+# I want to be able to copy local plugin development to the XDG_CONFIG_HOME
+# So it loads automatically with vim
+# --------------------------------------------------------------------------------
+LOCAL_PLUGIN_CONFIGURATION_DIR="$HOME/.config/nvim/plugin"
+mkdir -p $LOCAL_PLUGIN_CONFIGURATION_DIR
+LOCAL_PLUGINS="$PWD/../*nvim"
+for plugin in $LOCAL_PLUGINS; do
+  echo "Copying $plugin to $LOCAL_PLUGIN_CONFIGURATION_DIR"
+  rsync -a $plugin "$LOCAL_PLUGIN_CONFIGURATION_DIR" --exclude .git --exclude .gitignore | tee -a $LOGFFILE
+done
+
+# --------------------------------------------------------------------------------
+# Once we have our plugins we want to also have specific conf files which 
+# setup the plugins for my specific setup
+# --------------------------------------------------------------------------------
 LUA_PLUGIN_CONFIGURATION_DIR="$HOME/.config/nvim/lua/conf"
 mkdir -p $LUA_PLUGIN_CONFIGURATION_DIR
 LUA_PLUGIN_CONFIGURATION_FILES="$PWD/nvim/lua/conf/*.lua"
@@ -70,22 +86,6 @@ done
 
 # echo "Copying over vim snippets" | tee -a $LOGFILE
 # cp -r "$PWD/vimsnippets" "$HOME/.vim/"
-
-# --------------------------------------------------------------------------------
-# Plugins
-# --------------------------------------------------------------------------------
-echo "Setting up plugins location for neovim" | tee -a $LOGFILE
-PLUGIN_DIR="$HOME/.config/nvim/plugin"
-mkdir -p $PLUGIN_DIR
-
-# --------------------------------------------------------------------------------
-# Plugins
-# --------------------------------------------------------------------------------
-echo "Setting up file type plugins to configure vim by file types" | tee -a $LOGFILE
-FTPLUGIN_DIR="$HOME/.config/nvim/ftplugin"
-mkdir -p $FTPLUGIN_DIR
-ln -sf "$PWD/nvim/ftplugin/json.vim" "$FTPLUGIN_DIR" | tee -a $LOGFFILE
-
 
 # --------------------------------------------------------------------------------
 # LSP Language Servers

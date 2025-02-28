@@ -1,8 +1,7 @@
 local Plug = vim.fn['plug#']
 
+
 vim.call('plug#begin', '~/.config/nvim/plugged')
--- My plugins!
-Plug '~/github/dotfiles/nvim/lua/vim-trello'
 
 -- Language Server Protocol
 -- Mason is pretty good for complementing lspconfig (if I can get it to work properly!)
