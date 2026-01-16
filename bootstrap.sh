@@ -8,7 +8,7 @@ MYHOSTNAME="max-thomas"
 
 # start a log file
 NOW=$(date +"%d-%m-%Y_%H_%M_%S")
-# Make a logs directory whereever you are executing this from 
+# Make a logs directory whereever you are executing this from
 mkdir -p ./logs
 LOGFILE="./logs/dotfile_install_$NOW.log"
 # export the log file so it can be used in subsequent scripts
@@ -60,7 +60,7 @@ cleanup() {
 }
 
 
-link() {    
+link() {
     dotfile_list="$PWD/dotfile_list.config"
     while IFS= read -r dotfile_name
     do
@@ -75,7 +75,7 @@ browser_install() {
     echo "installing the Brave browser" | tee -a $LOGFILE
     echo "----------------------------" | tee -a $LOGFILE
     if check_if_app_installed brave-browser;
-    then 
+    then
       sudo apt-get install -y apt-transport-https curl | tee -a $LOGFILE
       sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | tee -a $LOGFILE
       echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
@@ -87,19 +87,19 @@ browser_install() {
       echo "installing chrome" | tee -a $LOGFILE
       echo "-----------------" | tee -a $LOGFILE
       wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-      echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list 
+      echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
       sudo apt-get update -y
       sudo apt-get install -y google-chrome-stable
     fi
- }    
+ }
 
 powerline_install() {
     # Powerline
     echo "--------------------" | tee -a $LOGFILE
     echo "installing Powerline" | tee -a $LOGFILE
     echo "--------------------" | tee -a $LOGFILE
-    sudo apt-get install powerline -y 2>&1 | tee -a $LOGFILE 
-    sudo apt-get install fonts-powerline -y 2>&1 | tee -a $LOGFILE 
+    sudo apt-get install powerline -y 2>&1 | tee -a $LOGFILE
+    sudo apt-get install fonts-powerline -y 2>&1 | tee -a $LOGFILE
 
     mkdir -p $HOME/.config/powerline
     cp -R /usr/share/powerline/config_files/* $HOME/.config/powerline/
@@ -124,13 +124,13 @@ apt_install() {
     echo "------------------------" | tee -a $LOGFILE
     echo "package updates complete" | tee -a $LOGFILE
     echo "------------------------" | tee -a $LOGFILE
-   
+
     # git
     echo "--------------" | tee -a $LOGFILE
     echo "installing git" | tee -a $LOGFILE
     echo "--------------" | tee -a $LOGFILE
     if check_if_app_installed git;
-    then 
+    then
       sudo apt-get install git -y 2>&1 | tee -a $LOGFILE # you already have git, but just make sure
     fi
 
@@ -145,7 +145,7 @@ apt_install() {
     echo "tmux install: " | tee -a $LOGFILE
     echo "------------" | tee -a $LOGFILE
     if check_if_app_installed tmux;
-    then 
+    then
       sudo apt-get install tmux -y 2>&1 | tee -a $LOGFILE
     fi
 
@@ -155,30 +155,30 @@ apt_install() {
     echo "-----------------" | tee -a $LOGFILE
     # I need the aws cli v2 so cannot get it from apt
     if check_if_app_installed aws;
-    then 
+    then
       #sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
       sudo curl -So /tmp/awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
       sudo unzip -o /tmp/awscliv2.zip -d /tmp
       sudo /tmp/aws/install
       echo "aws version: $( aws --version )" | tee -a $LOGFILE
     fi
-   
+
     # aws cli
     echo "-----------------" | tee -a $LOGFILE
     echo "aws SAM cli install: " | tee -a $LOGFILE
     echo "-----------------" | tee -a $LOGFILE
     # I need the aws cli v2 so cannot get it from apt
     if check_if_app_installed sam;
-    then 
+    then
       #sudo apt-get install awscli -y 2>&1 | tee -a $LOGFILE
-      sudo curl -So /tmp/awssamcli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip 
+      sudo curl -So /tmp/awssamcli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
       sudo unzip -o /tmp/awssamcli.zip -d /tmp/aws-sam
       sudo /tmp/aws-sam/install
       sudo rm -rf /tmp/aws-sam
       sudo rm -rf /tmp/awssamcli.zip
       echo "aws sam version: $(sam --version )" | tee -a $LOGFILE
     fi
- 
+
     # nodejs
     echo "-------------" | tee -a $LOGFILE
     echo "node install: " | tee -a $LOGFILE
@@ -186,9 +186,9 @@ apt_install() {
     # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
     # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
     if check_if_app_installed node;
-    then 
+    then
       sudo apt-get install -y curl software-properties-common 2>&1 | tee -a $LOGFILE
-      sudo curl -sL https://deb.nodesource.com/setup_18.x | sudo bash - 2>&1 | tee -a $LOGFILE
+      sudo curl -sL https://deb.nodesource.com/setup_25.x | sudo bash - 2>&1 | tee -a $LOGFILE
       sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
       # checks
       echo "node version: $( node --version )" | tee -a $LOGFILE
@@ -200,12 +200,12 @@ apt_install() {
     echo "aws cdk install: " | tee -a $LOGFILE
     echo "----------------" | tee -a $LOGFILE
     if check_if_app_installed cdk;
-    then 
+    then
       sudo npm install -g aws-cdk -y 2>&1 | tee -a $LOGFILE
       # checks
       cdk --version | tee -a $LOGFILE
     fi
- 
+
     # tree so I can get nice display of folders and contents
     # within the terminal
     echo "----------------------------------------------" | tee -a $LOGFILE
@@ -226,7 +226,7 @@ apt_install() {
     echo "Luarocks install: " | tee -a $LOGFILE
     echo "----------------" | tee -a $LOGFILE
     if check_if_app_installed luarocks;
-    then 
+    then
       sudo apt-get install -y luarocks 2>&1 | tee -a $LOGFILE
       sudo luarocks install luasocket 2>&1 | tee -a $LOGFILE
       sudo luarocks install luasec 2>&1 | tee -a $LOGFILE
@@ -234,7 +234,7 @@ apt_install() {
       # checks
       luarocks --version | tee -a $LOGFILE
     fi
-    
+
     # cleanup the cache
     sudo apt-get clean -y
     sudo apt-get autoremove -y
@@ -245,12 +245,12 @@ python_environment_setup() {
     echo "pyenv: multiple python versions" | tee -a $LOGFILE
     echo "-------------------------------" | tee -a $LOGFILE
     if check_if_app_installed pyenv;
-    then 
+    then
       sudo apt-get install -y make build-essential libssl-dev zlib1g-dev\
       libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev\
       libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl
 
-      git clone https://github.com/pyenv/pyenv.git ~/.pyenv    
+      git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     fi
 
     echo "------------" | tee -a $LOGFILE
@@ -260,7 +260,7 @@ python_environment_setup() {
     then
       sudo curl -sSL https://install.python-poetry.org | python3 -
       #get-poetry has been deprecated
-      #sudo curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
+      #sudo curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
     fi
 
     echo "----------------------" | tee -a $LOGFILE
@@ -282,11 +282,11 @@ docker_install() {
     echo "installing docker" | tee -a $LOGFILE
     echo "-----------------" | tee -a $LOGFILE
     if check_if_app_installed docker;
-    then 
+    then
       # allow apt to use a repository over HTTPS
-      sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE 
+      sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y 2>&1 | tee -a $LOGFILE
       # add official docker GPG key
-      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE 
+      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 2>&1 | tee -a $LOGFILE
       # install the stable docker repository
       #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
       # Note above doesn't work on Mint Tina, so hard-coding bionic in there
@@ -295,7 +295,7 @@ docker_install() {
       sudo apt-get update -y
       # install
       sudo apt-get install -y docker.io
-      echo "Verifying docker installation using a hello world container..."   
+      echo "Verifying docker installation using a hello world container..."
       docker run hello-world
 
       # Docker Compose
@@ -314,7 +314,7 @@ neovim_install() {
     echo "------------" | tee -a $LOGFILE
     echo "installing from source" | tee -a $LOGFILE
 #if check_if_app_installed nvim;
-#    then 
+#    then
       # Install the pre-requisites for neovim
       sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
       CWD=$PWD
@@ -350,7 +350,7 @@ bootstrap_neovim() {
     echo "Bootstrap Neovim with plugins etc..." | tee -a $LOGFILE
     echo "------------------------------------" | tee -a $LOGFILE
     if check_if_app_installed nvim;
-    then 
+    then
       $PWD/neovim_bootstrap.sh
     fi
 }
@@ -379,10 +379,10 @@ slack_install() {
 bootstrap_crontab() {
     # TODO
     echo "Setting up crontabs" | tee -a $LOGFILE
-    # this does nothing at present but the 
+    # this does nothing at present but the
     # thought of using a crontab to automatically
     # push dotfiles changes to master is useful
-    # though I need to adjust the script and consider the 
+    # though I need to adjust the script and consider the
     # commits, webhooks checks etc...
     # see here for the example
     # https://github.com/ajmalsiddiqui/dotfiles/blob/master/crontab.bootstrap.exclude.sh
@@ -392,7 +392,7 @@ language-server-protocol_install() {
     echo "---------------------------------------------" | tee -a $LOGFILE
     echo "Installing relevant language server protocols" | tee -a $LOGFILE
     echo "---------------------------------------------" | tee -a $LOGFILE
-    sudo npm i -g vscode-langservers-extracted 
+    sudo npm i -g vscode-langservers-extracted
     # Language servers for nvim-lspconfig
     sudo npm i -g pyright
     sudo npm i -g typescript-language-server
@@ -408,7 +408,7 @@ set_sudo_default_editor(){
     echo "But I want to change it to neovim" | tee -a $LOGFILE
     echo "Neovim is not available as an alternative by default so need to 'install' that" | tee -a $LOGFILE
     # give it a priority of 60 so it is auto selected
-    sudo update-alternatives --install "$(which editor)" editor "$(which nvim)" 60 
+    sudo update-alternatives --install "$(which editor)" editor "$(which nvim)" 60
     # ensure that the update-alternatives for the editor is auto so that it picks the highest priority editor
     # which should be neovim
     sudo update-alternatives --auto editor
@@ -421,7 +421,7 @@ terraform_install() {
     echo "--------------------" | tee -a $LOGFILE
     sudo curl -So /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.2.9/terraform_1.2.9_linux_amd64.zip | tee -a $LOGFILE
     sudo unzip -o /tmp/terraform.zip -d /usr/local/bin
-    
+
     sudo curl -So /tmp/terraform-ls.zip https://releases.hashicorp.com/terraform-ls/0.29.2/terraform-ls_0.29.2_linux_amd64.zip | tee -a $LOGFILE
     sudo unzip -o /tmp/terraform-ls.zip -d /usr/local/bin
 }
@@ -491,9 +491,9 @@ echo "Ending eitas dotfile install on $END_TIME" | tee -a $LOGFILE
 exit 0
 
 # Troubleshooting
-# 06/10/2021 - I had an error where Telescope could not find fzf and this 
-# repeated I believe this was because fzf was not available on my Linux Mint 
-# 20.2 installation so a sudo apt-get install fzf installed it, but neovim 
+# 06/10/2021 - I had an error where Telescope could not find fzf and this
+# repeated I believe this was because fzf was not available on my Linux Mint
+# 20.2 installation so a sudo apt-get install fzf installed it, but neovim
 # seemed to be stuck without the fzf extension for telescope.  Running
 # PlugInstall didn't seem to fix this so I was a bit stuck
 # in the end it seems the make for telescope-fzf-native needed to be run again
