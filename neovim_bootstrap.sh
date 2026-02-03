@@ -44,6 +44,30 @@ mkdir -p $NVIM_DIR
 # ln -sf "$PWD/nvim/init.vim" "$NVIM_DIR/init.vim" | tee -a $LOGFFILE
 ln -sf "$PWD/nvim/init.lua" "$NVIM_DIR/init.lua" | tee -a $LOGFFILE
 
+# --------------------------------------------------------------------------------
+# configure python environment to support Neovim plugins
+# --------------------------------------------------------------------------------
+NVIM_VENV="$HOME/.config/nvim/venv"
+if [ ! -d "$NVIM_VENV" ]; then
+  python3 -m venv "$NVIM_VENV"
+fi
+
+# activate venv and install pynvim
+source "$NVIM_VENV/bin/activate"
+pip install --upgrade pip pynvim
+deactivate
+
+# Now configure Neovim to use this venv
+NVIM_INIT="$HOME/.config/nvim/init.lua"
+if ! grep -q "python3_host_prog" "$NVIM_INIT"; then
+  echo "vim.g.python3_host_prog='$NVIM_VENV/bin/python'" >> "$NVIM_INIT"
+fi
+
+# update remove plugins
+nvim --headless +UpdateRemotePlugins +qa
+
+echo "Neovim Python provider set up at $NVIM_VENV"
+
 # check this out https://github.com/nanotee/nvim-lua-guide
 # --------------------------------------------------------------------------------
 # Lua modules
@@ -71,7 +95,7 @@ for plugin in $LOCAL_PLUGINS; do
 done
 
 # --------------------------------------------------------------------------------
-# Once we have our plugins we want to also have specific conf files which 
+# Once we have our plugins we want to also have specific conf files which
 # setup the plugins for my specific setup
 # --------------------------------------------------------------------------------
 LUA_PLUGIN_CONFIGURATION_DIR="$HOME/.config/nvim/lua/conf"
