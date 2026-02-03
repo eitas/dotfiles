@@ -1,27 +1,26 @@
 local Plug = vim.fn['plug#']
-
-
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
 -- Language Server Protocol
 -- Mason is pretty good for complementing lspconfig (if I can get it to work properly!)
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'
--- nedev.nvim -- allows development of plugins
+--Plug 'williamboman/mason.nvim'
+--Plug 'williamboman/mason-lspconfig.nvim'
+--Plug 'neovim/nvim-lspconfig'
 Plug 'folke/neodev.nvim'
--- nvim-cmp
+
+-- Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
--- luasnip
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+
 -- Treesitter - getting more language support
 Plug ('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+
 -- Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -30,8 +29,9 @@ vim.cmd("Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }")
 -- Adding snippet capability
 -- Plug 'SirVer/ultisnips'
 -- Linting
--- GETTING SEGMENTATION FAULTS FROM ALE.  
+-- GETTING SEGMENTATION FAULTS FROM ALE.
 -- Plug 'dense-analysis/ale'
+
 -- Nerdtree - File viewer / manager
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
