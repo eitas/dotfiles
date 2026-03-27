@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/.local/share/kiro-cli/shell/bashrc.pre.bash" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/bashrc.pre.bash"
+
 # Taken from Paul Irish dotfiles on github!
 #
 # Also referenced:
@@ -65,7 +69,7 @@ PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$
 # https://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
 # Ctrl-S hangs vim and I want to be able to use that for saving files so switch
 # it off
-# 2021-10-03 This is causing an error on boot so should investigate this 
+# 2021-10-03 This is causing an error on boot so should investigate this
 # again and determine its requirements
 #bind -r '\C-s'
 #stty -ixon
@@ -94,8 +98,8 @@ fi
 # when starting a terminal shell.  Thanks to thoughtbot for the input
 # https://thoughtbot.com/upcase/videos/tmux-advanced-workflow
 # ------------------------------------------------------------------------------
-not_inside_tmux() { 
-  [ -z "$TMUX" ] 
+not_inside_tmux() {
+  [ -z "$TMUX" ]
 }
 
 check_home_tmux() {
@@ -115,7 +119,7 @@ ensure_tmux_is_running() {
       mytmux "home"
       exit 0
     fi
-  fi 
+  fi
 }
 
 # ensure_tmux_is_running
@@ -123,3 +127,12 @@ ensure_tmux_is_running() {
 complete -C /usr/local/bin/terraform terraform
 
 complete -C /home/max/github/dotfiles/.tfenv/versions/1.2.8/terraform terraform
+
+# Some settings
+export EDITOR=/home/max/neovim/bin/nvim
+export VISUAL=/home/max/neovim/bin/nvim
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/.local/share/kiro-cli/shell/bashrc.post.bash" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/bashrc.post.bash"
+
+

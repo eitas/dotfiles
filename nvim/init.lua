@@ -16,6 +16,7 @@ require('conf.nerdtree')
 --require('conf.trello')
 
 require('autocmds')
+print("Neovim config loaded!")
 vim.o.termguicolors = true
 vim.cmd.colorscheme("gruvbox")
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
