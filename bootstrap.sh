@@ -183,17 +183,18 @@ apt_install() {
     echo "-------------" | tee -a $LOGFILE
     echo "node install: " | tee -a $LOGFILE
     echo "-------------" | tee -a $LOGFILE
-    # https://stackoverflow.com/questions/47371904/e-unable-to-locate-package-npm
-    # https://tecadmin.net/install-latest-nodejs-npm-on-linux-mint/
-    if check_if_app_installed node;
-    then
+    NODE_REQUIRED=22
+    NODE_CURRENT=$(node --version 2>/dev/null | sed 's/v//' | cut -d. -f1)
+    if [ -z "$NODE_CURRENT" ] || [ "$NODE_CURRENT" -lt "$NODE_REQUIRED" ]; then
+      echo "Node not installed or version $NODE_CURRENT < $NODE_REQUIRED — installing Node $NODE_REQUIRED" | tee -a $LOGFILE
       sudo apt-get install -y curl software-properties-common 2>&1 | tee -a $LOGFILE
-      sudo curl -sL https://deb.nodesource.com/setup_25.x | sudo bash - 2>&1 | tee -a $LOGFILE
+      curl -fsSL https://deb.nodesource.com/setup_${NODE_REQUIRED}.x | sudo -E bash - 2>&1 | tee -a $LOGFILE
       sudo apt-get install -y nodejs 2>&1 | tee -a $LOGFILE
-      # checks
-      echo "node version: $( node --version )" | tee -a $LOGFILE
-      echo "npm version: $( npm --version )" | tee -a $LOGFILE
+    else
+      echo "Node v$NODE_CURRENT already meets minimum v$NODE_REQUIRED — skipping" | tee -a $LOGFILE
     fi
+    echo "node version: $( node --version )" | tee -a $LOGFILE
+    echo "npm version: $( npm --version )" | tee -a $LOGFILE
 
     # install the AWS CDK
     echo "----------------" | tee -a $LOGFILE
@@ -426,6 +427,24 @@ terraform_install() {
     sudo unzip -o /tmp/terraform-ls.zip -d /usr/local/bin
 }
 
+vscode_install() {
+    echo "-------------------" | tee -a $LOGFILE
+    echo "installing VS Code" | tee -a $LOGFILE
+    echo "-------------------" | tee -a $LOGFILE
+    if check_if_app_installed code;
+    then
+      sudo apt-get install -y wget gpg apt-transport-https | tee -a $LOGFILE
+      wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /tmp/packages.microsoft.gpg
+      sudo install -D -o root -g root -m 644 /tmp/packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+      echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+      rm -f /tmp/packages.microsoft.gpg
+      sudo apt-get update -y
+      sudo apt-get install -y code | tee -a $LOGFILE
+    fi
+    # Install the Neovim extension (idempotent — skips if already installed)
+    code --install-extension asvetliakov.vscode-neovim 2>&1 | tee -a $LOGFILE
+}
+
 remmina_install() {
     echo "--------------------------" | tee -a $LOGFILE
     echo "Installing Remmina for RDP" | tee -a $LOGFILE
@@ -466,6 +485,7 @@ final_checklist() {
     echo "Check that Terraform and related terraform-ls has been installed (possibly update the versions)" | tee -a $LOGFILE
     echo "Note you may need to configure the terraform version with tfenv.  Start with tfenv install" | tee -a $LOGFILE
     echo "Check that Remmina has been installed so you can RDP onto machines. though for AWS you should use SSM session manager" | tee -a $LOGFILE
+    echo "Check VS Code is installed (code --version) and the Neovim extension is active" | tee -a $LOGFILE
 }
 
 init
@@ -483,6 +503,7 @@ language-server-protocol_install
 set_sudo_default_editor
 terraform_install
 remmina_install
+vscode_install
 home_folder_permissions
 final_checklist
 #bootstrap_crontab

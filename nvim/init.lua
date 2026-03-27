@@ -1,25 +1,28 @@
 vim.g.mapleader = ' '
-vim.opt.runtimepath:append(',~/.config/nvim/plugin')
---require('basic')
+
+local is_vscode = vim.g.vscode ~= nil
+
 require('globals')
 require('sets')
 require('keybindings')
 
-require('plugins')
+if is_vscode then
+  require('vscode_keybindings')
+else
+  vim.opt.runtimepath:append(',~/.config/nvim/plugin')
 
-require('lspconfig_setup')
-require('treesitter')
-require('conf.telescope')
---require('conf.nvim-cmp')
-require('conf.nerdtree')
---require('conf.mason')
---require('conf.trello')
+  require('plugins')
+  require('lspconfig_setup')
+  require('treesitter')
+  require('conf.telescope')
+  require('conf.nerdtree')
 
-require('autocmds')
-print("Neovim config loaded!")
-vim.o.termguicolors = true
-vim.cmd.colorscheme("gruvbox")
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  require('autocmds')
+  print("Neovim config loaded!")
+  vim.o.termguicolors = true
+  vim.cmd.colorscheme("gruvbox")
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
-vim.g.python3_host_prog='/home/max/.config/nvim/venv/bin/python'
+  vim.g.python3_host_prog='/home/max/.config/nvim/venv/bin/python'
+end

@@ -1,0 +1,11 @@
+{
+  "vscode-neovim.neovimExecutablePaths.linux": "/home/max/neovim/bin/nvim",
+  "vscode-neovim.neovimInitVimPaths.linux": "/home/max/.config/nvim/init.lua",
+  "vscode-neovim.useCtrlKeysForInsertMode": true,
+  "vscode-neovim.useCtrlKeysForNormalMode": true,
+  "vscode-neovim.compositeKeys": {
+    "jk": {
+      "command": "vscode-neovim.escape"
+    }
+  }
+}

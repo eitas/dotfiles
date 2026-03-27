@@ -41,8 +41,8 @@ echo "------" | tee -a $LOGFILE
 echo "symlinking init.lua" | tee -a $LOGFILE
 NVIM_DIR="$HOME/.config/nvim"
 mkdir -p $NVIM_DIR
-# ln -sf "$PWD/nvim/init.vim" "$NVIM_DIR/init.vim" | tee -a $LOGFFILE
-ln -sf "$PWD/nvim/init.lua" "$NVIM_DIR/init.lua" | tee -a $LOGFFILE
+# ln -sf "$PWD/nvim/init.vim" "$NVIM_DIR/init.vim" | tee -a $LOGFILE
+ln -sf "$PWD/nvim/init.lua" "$NVIM_DIR/init.lua" | tee -a $LOGFILE
 
 # --------------------------------------------------------------------------------
 # configure python environment to support Neovim plugins
@@ -54,7 +54,7 @@ fi
 
 # activate venv and install pynvim
 source "$NVIM_VENV/bin/activate"
-pip install --upgrade pip pynvim
+pip install --upgrade pip pynvim 2>&1 | tee -a $LOGFILE
 deactivate
 
 # Now configure Neovim to use this venv
@@ -63,8 +63,8 @@ if ! grep -q "python3_host_prog" "$NVIM_INIT"; then
   echo "vim.g.python3_host_prog='$NVIM_VENV/bin/python'" >> "$NVIM_INIT"
 fi
 
-# update remove plugins
-nvim --headless +UpdateRemotePlugins +qa
+# update remote plugins
+nvim --headless +UpdateRemotePlugins +qa 2>&1 | tee -a $LOGFILE
 
 echo "Neovim Python provider set up at $NVIM_VENV"
 
@@ -79,7 +79,7 @@ LUA_FILES="$PWD/nvim/lua/*.lua"
 for file_and_path in $LUA_FILES; do
   FILE=$(basename $file_and_path)
   echo "Symlinking $FILE for neovim"
-  ln -sf $file_and_path "$LUA_DIR/$FILE" | tee -a $LOGFFILE
+  ln -sf $file_and_path "$LUA_DIR/$FILE" | tee -a $LOGFILE
 done
 
 # --------------------------------------------------------------------------------
@@ -88,11 +88,15 @@ done
 # --------------------------------------------------------------------------------
 LOCAL_PLUGIN_CONFIGURATION_DIR="$HOME/.config/nvim/plugin"
 mkdir -p $LOCAL_PLUGIN_CONFIGURATION_DIR
-LOCAL_PLUGINS="$PWD/../*nvim"
-for plugin in $LOCAL_PLUGINS; do
-  echo "Copying $plugin to $LOCAL_PLUGIN_CONFIGURATION_DIR"
-  rsync -a $plugin "$LOCAL_PLUGIN_CONFIGURATION_DIR" --exclude .git --exclude .gitignore | tee -a $LOGFFILE
-done
+LOCAL_PLUGINS=($PWD/../*nvim)
+if [ -e "${LOCAL_PLUGINS[0]}" ]; then
+  for plugin in "${LOCAL_PLUGINS[@]}"; do
+    echo "Copying $plugin to $LOCAL_PLUGIN_CONFIGURATION_DIR" | tee -a $LOGFILE
+    rsync -a "$plugin" "$LOCAL_PLUGIN_CONFIGURATION_DIR" --exclude .git --exclude .gitignore 2>&1 | tee -a $LOGFILE
+  done
+else
+  echo "No local *nvim plugin directories found in $PWD/.. — skipping" | tee -a $LOGFILE
+fi
 
 # --------------------------------------------------------------------------------
 # Once we have our plugins we want to also have specific conf files which
@@ -104,7 +108,7 @@ LUA_PLUGIN_CONFIGURATION_FILES="$PWD/nvim/lua/conf/*.lua"
 for file_and_path in $LUA_PLUGIN_CONFIGURATION_FILES; do
   FILE=$(basename $file_and_path)
   echo "Symlinking $FILE for neovim"
-  ln -sf $file_and_path "$LUA_PLUGIN_CONFIGURATION_DIR/$FILE" | tee -a $LOGFFILE
+  ln -sf $file_and_path "$LUA_PLUGIN_CONFIGURATION_DIR/$FILE" | tee -a $LOGFILE
 done
 # Now symlink to lua modules - once you have written some!
 
@@ -126,5 +130,28 @@ INDENT_DIR="$HOME/.config/nvim/indent"
 mkdir -p $INDENT_DIR
 
 
+
+# --------------------------------------------------------------------------------
+# VSCode Neovim integration
+# --------------------------------------------------------------------------------
+echo "Setting up VSCode Neovim integration" | tee -a $LOGFILE
+VSCODE_SETTINGS_DIR="$HOME/.config/Code/User"
+mkdir -p "$VSCODE_SETTINGS_DIR"
+if [ -f "$VSCODE_SETTINGS_DIR/settings.json" ]; then
+  echo "VSCode settings.json already exists — merging neovim settings" | tee -a $LOGFILE
+  # Use a temp file to merge; only add keys that don't already exist
+  python3 -c "
+import json, sys
+target = '$VSCODE_SETTINGS_DIR/settings.json'
+source = '$PWD/vscode/settings.json'
+with open(target) as f: t = json.load(f)
+with open(source) as f: s = json.load(f)
+for k,v in s.items():
+    t.setdefault(k, v)
+with open(target, 'w') as f: json.dump(t, f, indent=2)
+" 2>&1 | tee -a $LOGFILE
+else
+  cp "$PWD/vscode/settings.json" "$VSCODE_SETTINGS_DIR/settings.json"
+fi
 
 echo "Completed neovim bootstrap" | tee -a $LOGFILE
