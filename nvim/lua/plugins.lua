@@ -1,69 +1,80 @@
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
+-- lazy.nvim plugin specs
+-- Migrated from vim-plug. Run :Lazy to manage plugins.
+return {
 
--- Language Server Protocol
--- Mason is pretty good for complementing lspconfig (if I can get it to work properly!)
---Plug 'williamboman/mason.nvim'
---Plug 'williamboman/mason-lspconfig.nvim'
---Plug 'neovim/nvim-lspconfig'
-Plug 'folke/neodev.nvim'
+  -- LSP management via Mason (replaces global npm installs)
+  { 'neovim/nvim-lspconfig' },
+  { 'williamboman/mason.nvim' },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'neovim/nvim-lspconfig',
+      'hrsh7th/cmp-nvim-lsp',
+    },
+    config = function() require('conf.mason') end,
+  },
 
--- Completion
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
+  -- Lua dev tooling (replaces deprecated neodev.nvim)
+  { 'folke/lazydev.nvim', ft = 'lua', opts = {} },
 
--- Treesitter - getting more language support
-Plug ('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
-Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+  -- Completion
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-cmdline' },
+  { 'L3MON4D3/LuaSnip' },
+  { 'saadparwaiz1/cmp_luasnip' },
+  {
+    'hrsh7th/nvim-cmp',
+    config = function() require('conf.nvim-cmp') end,
+  },
 
--- Telescope
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-vim.cmd("Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }")
--- Adding snippet capability
--- Plug 'SirVer/ultisnips'
--- Linting
--- GETTING SEGMENTATION FAULTS FROM ALE.
--- Plug 'dense-analysis/ale'
+  -- Treesitter
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function() require('conf.treesitter') end,
+  },
+  { 'JoosepAlviste/nvim-ts-context-commentstring' },
 
--- Nerdtree - File viewer / manager
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
--- Git support
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'airblade/vim-gitgutter'
--- Comments
-Plug 'tpope/vim-commentary'
--- Surround
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
--- Status line
-Plug 'vim-airline/vim-airline'
--- Code browsing
---Plug 'vim-scripts/taglist.vim'
--- Python Black see https://black.readthedocs.io/en/stable/integrations/editors.html#vim
--- 2021-10-21 Getting an issue with no attribute 'find_pyproject_toml'
--- So still not working on the stable branch
-Plug('psf/black', { ['branch'] = 'stable' })
--- Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
+  -- Telescope
+  { 'nvim-lua/plenary.nvim' },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function() require('conf.telescope') end,
+  },
 
--- Terraform, allows for terraform fmt to format terraform
-Plug 'hashivim/vim-terraform'
+  -- File tree (replaces NerdTree + vim-devicons + vim-nerdtree-syntax-highlight)
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function() require('conf.nerdtree') end,
+  },
 
--- Other plugins to consider
--- SimpylFold
--- coc.nvim - though I think Telescope will cover this
--- fzf - again I think telescope will cover this
--- typescript-vim but I wonder if there is a LSP for this now
+  -- Git
+  { 'tpope/vim-fugitive' },
+  { 'tpope/vim-rhubarb' },
+  { 'lewis6991/gitsigns.nvim', opts = {} },   -- replaces vim-gitgutter
 
-vim.call('plug#end')
+  -- Editing utilities
+  { 'tpope/vim-commentary' },
+  { 'tpope/vim-surround' },
+  { 'tpope/vim-repeat' },
 
+  -- Status line (replaces vim-airline)
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = { options = { theme = 'gruvbox' } },
+  },
 
+  -- Python formatting
+  { 'psf/black', branch = 'stable' },
+
+  -- Terraform
+  { 'hashivim/vim-terraform' },
+
+}

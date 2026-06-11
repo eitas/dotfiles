@@ -35,6 +35,5 @@ if not vim.g.vscode then
   vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
   vim.opt.completeopt = {'menu','menuone','noselect'}
 
-  vim.g['airline_powerline_fonts'] = 1
   vim.g['terraform_fmt_on_save'] = 1
 end

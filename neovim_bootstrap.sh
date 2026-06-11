@@ -57,12 +57,6 @@ source "$NVIM_VENV/bin/activate"
 pip install --upgrade pip pynvim 2>&1 | tee -a $LOGFILE
 deactivate
 
-# Now configure Neovim to use this venv
-NVIM_INIT="$HOME/.config/nvim/init.lua"
-if ! grep -q "python3_host_prog" "$NVIM_INIT"; then
-  echo "vim.g.python3_host_prog='$NVIM_VENV/bin/python'" >> "$NVIM_INIT"
-fi
-
 # update remote plugins
 nvim --headless +UpdateRemotePlugins +qa 2>&1 | tee -a $LOGFILE
 
@@ -114,13 +108,6 @@ done
 
 # echo "Copying over vim snippets" | tee -a $LOGFILE
 # cp -r "$PWD/vimsnippets" "$HOME/.vim/"
-
-# --------------------------------------------------------------------------------
-# LSP Language Servers
-# --------------------------------------------------------------------------------
-echo "Setting up Langage servers for LSP" | tee -a $LOGFILE
-sudo npm i -g pyright | tee -a $LOGFILE
-sudo npm i -g bash-language-server | tee -a $LOGFILE
 
 # --------------------------------------------------------------------------------
 # Indent

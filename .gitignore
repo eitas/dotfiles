@@ -1,5 +1,5 @@
 # don't version log files
-/log/*
+logs/
 *.log
 # don't version vim swap files
 *.swp

@@ -16,7 +16,7 @@ export PATH=$HOME/.fonts:$PATH
 # Add terraform env (https://github.com/tfutils/tfenv)
 export PATH=$HOME/.tfenv/bin:$PATH
 # setup vim as the default editor in my terminals
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 export GTK_IM_MODULE="ibus"
