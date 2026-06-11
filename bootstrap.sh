@@ -323,6 +323,24 @@ terraform_install() {
     # terraform-ls is now managed by Mason inside Neovim (:Mason)
 }
 
+plantuml_install() {
+    echo "-------------------------" | tee -a $LOGFILE
+    echo "installing PlantUML (local)" | tee -a $LOGFILE
+    echo "-------------------------" | tee -a $LOGFILE
+    mkdir -p $HOME/tools
+    if [ ! -f "$HOME/tools/plantuml.jar" ]; then
+      curl -sSL -o "$HOME/tools/plantuml.jar" https://github.com/plantuml/plantuml/releases/download/v1.2025.2/plantuml-1.2025.2.jar
+      echo "PlantUML jar downloaded" | tee -a $LOGFILE
+    else
+      echo "PlantUML jar already exists — skipping" | tee -a $LOGFILE
+    fi
+    if [ ! -d "$HOME/tools/C4-PlantUML" ]; then
+      git clone --depth 1 https://github.com/plantuml-stdlib/C4-PlantUML.git "$HOME/tools/C4-PlantUML" 2>&1 | tee -a $LOGFILE
+    else
+      echo "C4-PlantUML already exists — skipping" | tee -a $LOGFILE
+    fi
+}
+
 vscode_install() {
     echo "-------------------" | tee -a "$LOGFILE"
     echo "installing VS Code" | tee -a "$LOGFILE"
@@ -405,6 +423,7 @@ set_sudo_default_editor
 terraform_install
 remmina_install
 vscode_install
+plantuml_install
 home_folder_permissions
 final_checklist
 #bootstrap_crontab
